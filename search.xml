@@ -4,13 +4,21 @@
   
     
     <entry>
-      <title>Hello World</title>
-      <link href="/2024/02/11/hello-world/"/>
-      <url>/2024/02/11/hello-world/</url>
+      <title>Hexo-Butterfly部署与使用</title>
+      <link href="/2024/02/13/Hexo-Butterfly%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+      <url>/2024/02/13/Hexo-Butterfly%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p>相信大家都想建造自己的博客网站，基于<code>github</code> <code>Hexo</code>去部署一个自己的博客网站是一个不错的选择</p><blockquote><p>适用与了解<code>github</code>和部分前端的同学，这里只是简单部署，主要讲究如何去写博客。后期会详细讲述搭建步骤，并且网上资源比较对个人推荐Hexo-butterfly主题</p></blockquote><h3 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h3><ol><li><p>注册一个<code>github</code>账户，新建一个仓库，仓库名为<code>GitHub用户名.github.io</code><br><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213155307.png" alt="githubzhuce"></p></li><li><p>然后本地环境需要有<code>git</code> <code>node.js</code> <code>hexo</code> 环境</p><ul><li><a href="https://nodejs.org/en">node.js下载链接</a></li><li><a href="https://git-scm.com/downloads">gitx下载链接</a></li><li><a href="https://hexo.io/zh-cn/index.html">hexo下载地址</a></li></ul></li></ol><blockquote><p>官网的文档都非常详细可以自行去下载安装，注意电脑的环境变量</p></blockquote><ol><li>github仓库配置</li><li><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213160914.png"><br>如图，将<code>github</code> 仓库如图所示进行配置</li><li>一键部署<br>然后再博客更目录进行配置，运行部署</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment">#生成静态文件</span></span><br><span class="line">hexo s <span class="comment">#在本地运行查看效果</span></span><br><span class="line">hexo d <span class="comment">#上传至github仓库</span></span><br></pre></td></tr></table></figure><h3 id="博客编写"><a href="#博客编写" class="headerlink" title="博客编写"></a>博客编写</h3><p>环境搭建完成后就可以在根目录运行终端执行命令创建博客</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;题目&quot;</span></span><br></pre></td></tr></table></figure><p>之后会在根目录下的<code>source\_posts\</code>，目录下生成新的md文件，就可以去编写属于自己的博客了</p><p><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213162015.png" alt="文章"></p><p>可以在这里改相关属性，如博客页面的图片，简单内容标签分类，等相关属性配置<br>使用<code>Markdown</code>文件格式去编写博客文件<br>之后就可以<code>Hexo</code>命令三件套去编译部署了</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> Blog </tag>
+            
+            <tag> Study </tag>
+            
+        </tags>
       
     </entry>
     
