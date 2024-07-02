@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>BurpSuitePro的优雅的食用教程</title>
+      <link href="/2024/07/01/BurpSuitePro%E7%9A%84%E4%BC%98%E9%9B%85%E7%9A%84%E9%A3%9F%E7%94%A8%E6%95%99%E7%A8%8B/"/>
+      <url>/2024/07/01/BurpSuitePro%E7%9A%84%E4%BC%98%E9%9B%85%E7%9A%84%E9%A3%9F%E7%94%A8%E6%95%99%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前沿"><a href="#前沿" class="headerlink" title="前沿"></a>前沿</h2><p>BurpSuitePro是正式版的抓包工具，方便好用<br>这里是<a href="https://portswigger.net/burp/releases/professional-community-2022-11-4">burpsuite_pro_windows-x64_v2022_11_4</a>版本</p><p>这里使用的是注册机的形式进行破解，注册机<br><a href="https://github.com/Tcilay-xi/backup/blob/main/BurpLoaderKeygen/BurpLoaderKeygen.jar">BurpLoaderKeygen</a></p><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ol><li>正常安装<a href="https://portswigger.net/burp/releases/professional-community-2022-11-4">burpsuite_pro_windows-x64_v2022_11_4</a></li><li>将<a href="https://github.com/Tcilay-xi/backup/blob/main/BurpLoaderKeygen/BurpLoaderKeygen.jar">BurpLoaderKeygen</a>放在同一目录下</li><li>使用cmd执行命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar BurpLoaderKeygen.jar</span><br></pre></td></tr></table></figure></li><li><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery@main/myBlog/20240702145748.png"></li><li>点击<code>Run</code>后将<code>License</code>中的内容放在bp中，之后选择手动激活。</li><li>之后就是重中之中，如何优雅使用burp<br>在安装目录中的<code>BurpSuitePro.vmoptions</code>插入 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">--add-opens=java.base/java.lang=ALL-UNNAMED</span><br><span class="line">--add-opens=java.base/java.lang=ALL-UNNAMED</span><br><span class="line">--add-opens=java.base/jdk.internal.org.objectweb.asm=ALL-UNNAMED</span><br><span class="line">--add-opens=java.base/jdk.internal.org.objectweb.asm.tree=ALL-UNNAMED</span><br><span class="line">--add-opens=java.base/jdk.internal.org.objectweb.asm.Opcodes=ALL-UNNAMED</span><br><span class="line">-javaagent:BurpLoaderKeygen.jar</span><br><span class="line">-noverify</span><br></pre></td></tr></table></figure></li></ol><p>之后就可以优雅的使用bp了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Blog </category>
+          
+          <category> Study </category>
+          
+          <category> tool </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Blog </tag>
+            
+            <tag> Study </tag>
+            
+            <tag> tool </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CTF Study——重生之我在CTF中当斩神</title>
+      <link href="/2024/06/09/CTF-Study%E2%80%94%E2%80%94%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E5%9C%A8CTF%E4%B8%AD%E5%BD%93%E6%96%A9%E7%A5%9E/"/>
+      <url>/2024/06/09/CTF-Study%E2%80%94%E2%80%94%E9%87%8D%E7%94%9F%E4%B9%8B%E6%88%91%E5%9C%A8CTF%E4%B8%AD%E5%BD%93%E6%96%A9%E7%A5%9E/</url>
+      
+        <content type="html"><![CDATA[<p>这是作者自己的CTF学习之路</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CTF </category>
+          
+          <category> Study </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Study </tag>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue-particles的简单使用</title>
       <link href="/2024/03/04/vue-particles%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
       <url>/2024/03/04/vue-particles%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</url>
@@ -66,7 +128,7 @@
       <link href="/2024/02/13/Hexo-Butterfly%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
       <url>/2024/02/13/Hexo-Butterfly%E9%83%A8%E7%BD%B2%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[<p>相信大家都想建造自己的博客网站，基于<code>github</code> <code>Hexo</code>去部署一个自己的博客网站是一个不错的选择</p><blockquote><p>适用与了解<code>github</code>和部分前端的同学，这里只是简单部署，主要讲究如何去写博客。后期会详细讲述搭建步骤，并且网上资源比较对个人推荐Hexo-butterfly主题</p></blockquote><h3 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h3><ol><li><p>注册一个<code>github</code>账户，新建一个仓库，仓库名为<code>GitHub用户名.github.io</code><br><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213155307.png" alt="githubzhuce"></p></li><li><p>然后本地环境需要有<code>git</code> <code>node.js</code> <code>hexo</code> 环境</p><ul><li><a href="https://nodejs.org/en">node.js下载链接</a></li><li><a href="https://git-scm.com/downloads">gitx下载链接</a></li><li><a href="https://hexo.io/zh-cn/index.html">hexo下载地址</a></li></ul></li></ol><blockquote><p>官网的文档都非常详细可以自行去下载安装，注意电脑的环境变量</p></blockquote><ol><li>github仓库配置</li><li><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213160914.png"><br>如图，将<code>github</code> 仓库如图所示进行配置</li><li>一键部署<br>然后再博客更目录进行配置，运行部署</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment">#生成静态文件</span></span><br><span class="line">hexo s <span class="comment">#在本地运行查看效果</span></span><br><span class="line">hexo d <span class="comment">#上传至github仓库</span></span><br></pre></td></tr></table></figure><h3 id="博客编写"><a href="#博客编写" class="headerlink" title="博客编写"></a>博客编写</h3><p>环境搭建完成后就可以在根目录运行终端执行命令创建博客</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;题目&quot;</span></span><br></pre></td></tr></table></figure><p>之后会在根目录下的<code>source\_posts\</code>，目录下生成新的md文件，就可以去编写属于自己的博客了</p><p><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213162015.png" alt="文章"></p><p>可以在这里改相关属性，如博客页面的图片，简单内容标签分类，等相关属性配置<br>使用<code>Markdown</code>文件格式去编写博客文件<br>之后就可以<code>Hexo</code>命令三件套去编译部署了</p>]]></content>
+        <content type="html"><![CDATA[<p>相信大家都想建造自己的博客网站，基于<code>github</code> <code>Hexo</code>去部署一个自己的博客网站是一个不错的选择</p><blockquote><p>适用与了解<code>github</code>和部分前端的同学，这里只是简单部署，主要讲究如何去写博客。后期会详细讲述搭建步骤，并且网上资源比较对个人推荐Hexo-butterfly主题</p></blockquote><h3 id="部署步骤"><a href="#部署步骤" class="headerlink" title="部署步骤"></a>部署步骤</h3><ol><li><p>注册一个<code>github</code>账户，新建一个仓库，仓库名为<code>GitHub用户名.github.io</code><br><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213155307.png" alt="githubzhuce"></p></li><li><p>然后本地环境需要有<code>git</code> <code>node.js</code> <code>hexo</code> 环境</p><ul><li><a href="https://nodejs.org/en">node.js下载链接</a></li><li><a href="https://git-scm.com/downloads">gitx下载链接</a></li><li><a href="https://hexo.io/zh-cn/index.html">hexo下载地址</a></li></ul></li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br><span class="line"></span><br><span class="line">npm install hexo-renderer-pug hexo-renderer-stylus --save</span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure><blockquote><p>官网的文档都非常详细可以自行去下载安装，注意电脑的环境变量</p></blockquote><ol><li>github仓库配置</li><li><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213160914.png"><br>如图，将<code>github</code> 仓库如图所示进行配置</li><li>一键部署<br>然后再博客更目录进行配置，运行部署</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo g <span class="comment">#生成静态文件</span></span><br><span class="line">hexo s <span class="comment">#在本地运行查看效果</span></span><br><span class="line">hexo d <span class="comment">#上传至github仓库</span></span><br></pre></td></tr></table></figure><h3 id="博客编写"><a href="#博客编写" class="headerlink" title="博客编写"></a>博客编写</h3><p>环境搭建完成后就可以在根目录运行终端执行命令创建博客</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;题目&quot;</span></span><br></pre></td></tr></table></figure><p>之后会在根目录下的<code>source\_posts\</code>，目录下生成新的md文件，就可以去编写属于自己的博客了</p><p><img src="https://cdn.jsdelivr.net/gh/Tangriweili/Gallery/myBlog/20240213162015.png" alt="文章"></p><p>可以在这里改相关属性，如博客页面的图片，简单内容标签分类，等相关属性配置<br>使用<code>Markdown</code>文件格式去编写博客文件<br>之后就可以<code>Hexo</code>命令三件套去编译部署了</p>]]></content>
       
       
       <categories>
