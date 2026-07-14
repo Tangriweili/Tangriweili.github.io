@@ -1,0 +1,352 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="学习"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="第09章_文件操作 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="第09章_文件操作 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/第09章_文件操作/"/><meta name="description" content="第09章_文件操作讲师：尚硅谷-宋红康（江湖人称：康师傅） 官网：http:&#x2F;&#x2F;www.atguigu.com  本章专题脉络  1、文件和流的介绍文件，对我们并不陌生，文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件，avi文件…都是文件。文件最主要的作用就是保存数据，它既可以保存一张图片，也可以保持视频，声音… C程序中，对于文件中数据的输...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第09章_文件操作 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="第09章_文件操作讲师：尚硅谷-宋红康（江湖人称：康师傅） 官网：http:&#x2F;&#x2F;www.atguigu.com  本章专题脉络  1、文件和流的介绍文件，对我们并不陌生，文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件，avi文件…都是文件。文件最主要的作用就是保存数据，它既可以保存一张图片，也可以保持视频，声音… C程序中，对于文件中数据的输...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.055Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>第09章_文件操作 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">第09章_文件操作</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="第09章-文件操作"><a href="#第09章-文件操作" class="headerlink" title="第09章_文件操作"></a>第09章_文件操作</h1><p>讲师：尚硅谷-宋红康（江湖人称：康师傅）</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://www.atguigu.com/">http://www.atguigu.com</a></p>
+<hr>
+<h2 id="本章专题脉络"><a href="#本章专题脉络" class="headerlink" title="本章专题脉络"></a>本章专题脉络</h2><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/第9章_文件操作.png"  alt="第9章_文件操作" style="zoom:50%;" >
+
+<h2 id="1、文件和流的介绍"><a href="#1、文件和流的介绍" class="headerlink" title="1、文件和流的介绍"></a>1、文件和流的介绍</h2><p>文件，对我们并不陌生，文件是数据源（保存数据的地方）的一种，比如大家经常使用的word文档，txt文件，excel文件，avi文件…都是文件。文件最主要的作用就是<code>保存数据</code>，它既可以保存一张图片，也可以保持视频，声音…</p>
+<p>C程序中，对于文件中数据的输入&#x2F;输出操作以“<code>流(stream)</code>” 的方式进行，可以看做是一种数据的流动。</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/image-20220503123117300.png"  alt="image-20220503123117300" style="zoom: 80%;" >
+
+<p><strong>输入流</strong>：数据从数据源(比如:文件)到程序(或内存)的流动过程。</p>
+<p><strong>输出流</strong>：数据从程序(或内存)到数据源(比如:文件)的流动过程。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230822120902244.png"  alt="image-20230822120902244"></p>
+<h2 id="2、C-输入-输出"><a href="#2、C-输入-输出" class="headerlink" title="2、C 输入 &amp; 输出"></a>2、C 输入 &amp; 输出</h2><ul>
+<li><p>当我们提到输入时，这意味着要向程序(或内存)中写入一些数据。输入的数据来源可以是从<code>键盘</code>中、从<code>文件</code>中或从<code>网络</code>中。C 语言提供了一系列<code>内置的函数</code>来读取给定的输入，并根据需要写入到程序中。</p>
+</li>
+<li><p>当我们提到输出时，这意味着要在<code>屏幕</code>上、<code>打印机</code>上或<code>任意文件中</code>显示(或保存)一些数据。同样，C 语言提供了一系列<code>内置的函数</code>来输出数据到指定的载体上。</p>
+</li>
+</ul>
+<h3 id="2-1-标准文件I-O"><a href="#2-1-标准文件I-O" class="headerlink" title="2.1 标准文件I&#x2F;O"></a>2.1 标准文件I&#x2F;O</h3><p>C 语言把所有的设备都当作文件。所以设备（比如显示器）被处理的方式与文件相同。以下三个文件会在程序执行时自动打开，以便访问键盘和屏幕。</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th><strong>标准文件</strong></th>
+<th><strong>文件指针</strong></th>
+<th><strong>设备</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>标准输入</strong></td>
+<td>stdin</td>
+<td>键盘</td>
+</tr>
+<tr>
+<td><strong>标准输出</strong></td>
+<td>stdout</td>
+<td>屏幕</td>
+</tr>
+<tr>
+<td><strong>标准错误</strong></td>
+<td>stderr</td>
+<td>屏幕</td>
+</tr>
+</tbody></table></div>
+<p>文件指针是访问文件的方式，我们会讲解如何从屏幕读取值以及如何把结果输出到屏幕上。</p>
+<h3 id="2-2-scanf-和printf-函数"><a href="#2-2-scanf-和printf-函数" class="headerlink" title="2.2 scanf()和printf()函数"></a>2.2 scanf()和printf()函数</h3><p>C 语言中的 I&#x2F;O （输入&#x2F;输出）通常使用<code>printf()</code> 和<code>scanf()</code> 两个函数。</p>
+<ul>
+<li><code>int scanf(const char *format, ...)</code> 函数从标准输入流 stdin 读取输入，并根据提供的 format 来浏览输入。</li>
+<li><code>int printf(const char *format, ...)</code> 函数把输出写入到标准输出流 stdout ，并根据提供的格式产生输出。</li>
+</ul>
+<p>其中，format 可以是一个简单的常量字符串，但是您可以分别指定 %s、%d、%c、%f 等来输出或读取字符串、整数、字符或浮点数。如需了解完整的细节，可以查看这些函数的参考手册。</p>
+<p>举例1：将内容输出到屏幕</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span>	<span class="comment">// 执行printf() 函数需要该库</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello&quot;</span>); <span class="comment">//显示引号中的内容</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>举例2：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">( )</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="type">char</span> str[<span class="number">100</span>];</span><br><span class="line">  <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>( <span class="string">&quot;Enter a value :&quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s %d&quot;</span>, str, &amp;i);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">printf</span>( <span class="string">&quot;\nYou entered: %s %d &quot;</span>, str, i);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+
+
+<h3 id="2-3-getchar-和putchar-函数"><a href="#2-3-getchar-和putchar-函数" class="headerlink" title="2.3 getchar()和putchar() 函数"></a>2.3 getchar()和putchar() 函数</h3><ul>
+<li><p><code>int getchar(void)</code> 函数从屏幕读取下一个可用的字符，并把它返回为一个整数。这个函数在同一个时间内只会读取一个单一的字符。您可以在循环内使用这个方法，以便从屏幕上读取多个字符。</p>
+</li>
+<li><p><code>int putchar(int c)</code>函数把字符输出到屏幕上，并返回相同的字符。这个函数在同一个时间内只会输出一个单一的字符。您可以在循环内使用这个方法，以便在屏幕上输出多个字符。</p>
+</li>
+</ul>
+<p>举例：程序会读取一个单一的字符</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">( )</span>&#123;</span><br><span class="line">    <span class="type">int</span> c;</span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;Enter a value :&quot;</span>); </span><br><span class="line">    c = getchar();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;\nYou entered: &quot;</span>);</span><br><span class="line">    <span class="built_in">putchar</span>(c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<h3 id="2-4-gets-和puts-函数"><a href="#2-4-gets-和puts-函数" class="headerlink" title="2.4 gets()和puts() 函数"></a>2.4 gets()和puts() 函数</h3><ul>
+<li><p><code>char *gets(char *s)</code> 函数从stdin读取一行到 s 所指向的缓冲区，直到一个终止符或EOF。</p>
+</li>
+<li><p><code>int puts(const char *s)</code> 函数把字符串s 和一个尾随的换行符写入到stdout。</p>
+</li>
+</ul>
+<p>举例：程序读取一整行直到该行结束。</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">( )</span>&#123;</span><br><span class="line">    <span class="type">char</span> str[<span class="number">100</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;Enter a value :&quot;</span>); </span><br><span class="line">    gets(str);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>( <span class="string">&quot;\nYou entered: &quot;</span>); </span><br><span class="line">	<span class="built_in">puts</span>( str );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+
+
+<h2 id="3、C-文件的读写"><a href="#3、C-文件的读写" class="headerlink" title="3、C 文件的读写"></a>3、C 文件的读写</h2><p>一个文件，无论它是文本文件还是二进制文件，都是代表了一系列的字节。C 语言不仅提供了访问顶层的函数，也提供了底层调用来处理存储设备上的文件。</p>
+<h3 id="3-1-创建-打开文件"><a href="#3-1-创建-打开文件" class="headerlink" title="3.1 创建&#x2F;打开文件"></a>3.1 创建&#x2F;打开文件</h3><p>使用 fopen( ) 函数来创建一个新的文件或者打开一个已有的文件，这个调用会初始化类型 FILE 的一个对象，类型 FILE 包含了所有用来控制流的必要的信息。</p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FILE *<span class="title function_">fopen</span><span class="params">( <span class="type">const</span> <span class="type">char</span> * filename e, <span class="type">const</span> <span class="type">char</span> * mode )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：在这里，filename是字符串，用来命名文件；访问模式mode的值可以是下列值中的一个。</p>
+<p>第1波：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>模 式</th>
+<th>描 述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>r</strong></td>
+<td><code>只读</code>。打开一个已有的文本文件，只允许读取。</td>
+</tr>
+<tr>
+<td><strong>w</strong></td>
+<td><code>只写</code>。打开一个文本文件，只允许写入文件。如果文件不存在，则会创建一个新文件，<br/>并从文件的开头写入内容。如果文件存在，则截断文件为零长度，从开始写入！</td>
+</tr>
+<tr>
+<td><strong>a</strong></td>
+<td><code>追加</code>。打开一个文本文件，用于写入。如果文件不存在，则创建一个新文件。<br/>如果文件已存在，则将写入的数据追加到文件末尾。</td>
+</tr>
+<tr>
+<td><strong>rb</strong></td>
+<td><code>只读（二进制）</code>。打开一个二进制文件，只允许读取。</td>
+</tr>
+<tr>
+<td><strong>wb</strong></td>
+<td><code>只写（二进制）</code>。打开一个二进制文件，只允许写入。如果文件不存在，则创建一个<br/>新文件。如果文件已存在，则截断文件为零长度，从开始写入！</td>
+</tr>
+<tr>
+<td><strong>ab</strong></td>
+<td><code>追加（二进制）</code>。打开一个二进制文件，用于写入。如果文件不存在，则创建一个<br/>新文件。如果文件已存在，则将写入的数据追加到文件末尾。</td>
+</tr>
+</tbody></table></div>
+<p>第2波：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>模 式</th>
+<th>描 述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>r+</strong></td>
+<td><code>读写</code>。打开一个文本文件，允许读取和写入。</td>
+</tr>
+<tr>
+<td><strong>w+</strong></td>
+<td><code>读写</code>。打开一个文本文件，允许读取和写入。如果文件不存在，则创建一个新文件。<br/>如果文件已存在，则截断文件为零长度，从开始写入！</td>
+</tr>
+<tr>
+<td><strong>a+</strong></td>
+<td><code>读写</code>。打开一个文本文件，允许读取和写入。如果文件不存在，则创建一个新文件。<br/>如果文件已存在，则将写入的数据追加到文件末尾。</td>
+</tr>
+<tr>
+<td><strong>r+b</strong></td>
+<td>或 <strong>“rb+”</strong>：<code>读写（二进制）</code>。打开一个二进制文件，允许读取和写入。</td>
+</tr>
+<tr>
+<td><strong>w+b</strong></td>
+<td>或 <strong>“wb+”</strong>：<code>读写（二进制）</code>。打开一个二进制文件，允许读取和写入。如果文件<br/>不存在，则创建一个新文件。如果文件已存在，则截断文件为零长度。</td>
+</tr>
+<tr>
+<td><strong>a+b</strong></td>
+<td>或 <strong>“ab+”</strong>：<code>读写（二进制）</code>。打开一个二进制文件，允许读取和写入。如果文件<br/>不存在，则创建一个新文件。如果文件已存在，则将写入的数据追加到文件末尾。</td>
+</tr>
+</tbody></table></div>
+<p>技巧：这些访问模式字符串可以根据需要进行组合使用。例如，”r+” 表示读写，”r+b” 表示读写(二进制)。</p>
+<p>注意：如果处理的是二进制文件（图片，视频..），则需使用下面的访问模式： “rb”, “wb”, “ab”, “rb+”, “r+b”, “wb+”, “w+b”, “ab+”, “a+b” 。</p>
+<h3 id="3-2-关闭文件"><a href="#3-2-关闭文件" class="headerlink" title="3.2 关闭文件"></a>3.2 关闭文件</h3><p>使用完文件后（读，写），一定要将该文件关闭。</p>
+<p>关闭文件，使用fclose( ) 函数。</p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fclose</span><span class="params">( FILE *fp )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>如果成功关闭文件，fclose( ) 函数返回零。此时，会<code>清空缓冲区中的数据</code>，关闭文件，并释放用于该文件的所有内存。</li>
+<li>如果关闭文件时发生错误，函数返回 EOF。EOF 是一个定义在头文件 <code>stdio.h</code> 中的常量。</li>
+</ul>
+<h3 id="3-3-写入文件"><a href="#3-3-写入文件" class="headerlink" title="3.3 写入文件"></a>3.3 写入文件</h3><p>C 标准库提供了各种函数来按字符或者以固定长度字符串的形式读&#x2F;写文件。</p>
+<p><strong>1）fputc 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fputc</span><span class="params">( <span class="type">int</span> c, FILE *fp )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：</p>
+<p>函数 fputc() 把参数c 的<code>字符值</code>写入到fp 所指向的输出流中。如果写入成功， 它会返回写入的字符，如果发生错误，则会返回 EOF。</p>
+<p><strong>2）fputs 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fputs</span><span class="params">( <span class="type">const</span> <span class="type">char</span> *s, FILE *fp )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：</p>
+<p>函数fputs() 把<code>字符串 s</code> 写入到 fp 所指向的输出流中。如果写入成功，它会返回一个非负值，如果发生错误，则会返回 EOF。</p>
+<p><strong>3）fprintf 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fprintf</span><span class="params">(FILE *fp,cons t <span class="type">char</span> *format, ...)</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>功能与fputs()类似，将一个<code>字符串</code>写入到文件中。</p>
+<p>举例：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个文件指针</span></span><br><span class="line">    FILE *fp = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开该文件</span></span><br><span class="line">    fp = fopen(<span class="string">&quot;d:/hello.txt&quot;</span>, <span class="string">&quot;w+&quot;</span>); <span class="comment">//w+模式是:如果文件已存在，则截断文件为零长度。</span></span><br><span class="line">    <span class="comment">//fp = fopen(&quot;d:/hello.txt&quot;, &quot;a+&quot;); //a+模式是:如果文件已存在，则将写入的数据追加到文件末尾。</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//将内容写入到文件中</span></span><br><span class="line">    <span class="built_in">fputs</span>(<span class="string">&quot;你好，北京！！\n&quot;</span>, fp);</span><br><span class="line">    <span class="built_in">fprintf</span>(fp, <span class="string">&quot;你好，世界！！\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//关闭文件！如果不关闭 ，我们的内容没有保存到文件中!</span></span><br><span class="line">    fclose(fp);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;创建，写入信息完成&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<h3 id="3-4-读取文件"><a href="#3-4-读取文件" class="headerlink" title="3.4 读取文件"></a>3.4 读取文件</h3><p><strong>1）fgetc 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fgetc</span><span class="params">( FILE * fp )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：</p>
+<p>fgetc() 函数从fp 所指向的输入文件中<code>读取一个字符</code>。返回值是读取的字符， 如果发生错误则返回 EOF。</p>
+<p><strong>2）fscanf 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fscanf</span><span class="params">(FILE *fp, <span class="type">const</span> <span class="type">char</span> *format, ...)</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：</p>
+<p>使用 fscanf() 函数从文件中读取格式化的数据，比如<code>整数、浮点数等各种类型的数据</code>。<code>format</code> 参数指定了数据的格式，后面的参数是用于存储读取数据的变量。</p>
+<p>如果使用 fscanf() 函数从文件中<code>读取字符串</code>，会在遇到第一个空白字符（空格、制表符、换行符等）时，停止读取，之后的内容会被忽略。</p>
+<p> 如果函数成功读取了一些数据并按照指定格式存储到相应的变量中，它会返回成功读取的参数个数。或者在读取失败或文件结束时返回 EOF。</p>
+<p><strong>3）fgets 函数</strong></p>
+<p>函数原型：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> *<span class="title function_">fgets</span><span class="params">( <span class="type">char</span> *buf, <span class="type">int</span> n, FILE *fp )</span>;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>说明：</p>
+<p>此函数按行读取数据，它从文件中<code>读取一行数据</code>（包括换行符 ‘\n’），并将这一行的内容存储到指定的缓冲区中。参数中 buf 是用于存储读取的文本的缓冲区，n 是缓冲区的大小，fp 是文件指针。</p>
+<p> 如果成功读取，返回参数 buf，即读取到的字符串的首地址。如果到达文件末尾或者读取失败，返回NULL。</p>
+<p>举例：</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个文件指针</span></span><br><span class="line">    FILE *fp = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="comment">//定义一个缓冲区</span></span><br><span class="line">    <span class="type">char</span> buff[<span class="number">1024</span>];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//打开文件</span></span><br><span class="line">    fp = fopen(<span class="string">&quot;d:/hell.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="comment">//方法1</span></span><br><span class="line">    <span class="comment">//fscanf(fp, &quot;%s&quot;, buff);</span></span><br><span class="line">    <span class="comment">////输出</span></span><br><span class="line">    <span class="comment">//printf(&quot;%s\n&quot;, buff);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//方法2 读取整个文件</span></span><br><span class="line">    <span class="comment">//说明，循环读取fp指向的文件内容，如果读到NULL,就结束</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (fgets(buff, <span class="number">1024</span>, fp) != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>, buff);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//关闭文件</span></span><br><span class="line">    fclose(fp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">第09章_文件操作</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/%E7%AC%AC08%E7%AB%A0_C%E8%AF%AD%E8%A8%80%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/" title="第08章_C语言常用函数">上一篇<span>第08章_C语言常用函数</span></a><a class="post-nav-next" href="/2026/06/22/%E7%AC%AC06%E7%AB%A0_%E5%87%BD%E6%95%B0/" title="第06章_函数">下一篇<span>第06章_函数</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%E7%AC%AC09%E7%AB%A0-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-list-text">第09章_文件操作</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E6%9C%AC%E7%AB%A0%E4%B8%93%E9%A2%98%E8%84%89%E7%BB%9C"><span class="toc-list-text">本章专题脉络</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#1%E3%80%81%E6%96%87%E4%BB%B6%E5%92%8C%E6%B5%81%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-list-text">1、文件和流的介绍</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#2%E3%80%81C-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA"><span class="toc-list-text">2、C 输入 &amp; 输出</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-1-%E6%A0%87%E5%87%86%E6%96%87%E4%BB%B6I-O"><span class="toc-list-text">2.1 标准文件I&#x2F;O</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-2-scanf-%E5%92%8Cprintf-%E5%87%BD%E6%95%B0"><span class="toc-list-text">2.2 scanf()和printf()函数</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-3-getchar-%E5%92%8Cputchar-%E5%87%BD%E6%95%B0"><span class="toc-list-text">2.3 getchar()和putchar() 函数</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-4-gets-%E5%92%8Cputs-%E5%87%BD%E6%95%B0"><span class="toc-list-text">2.4 gets()和puts() 函数</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#3%E3%80%81C-%E6%96%87%E4%BB%B6%E7%9A%84%E8%AF%BB%E5%86%99"><span class="toc-list-text">3、C 文件的读写</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-1-%E5%88%9B%E5%BB%BA-%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6"><span class="toc-list-text">3.1 创建&#x2F;打开文件</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-2-%E5%85%B3%E9%97%AD%E6%96%87%E4%BB%B6"><span class="toc-list-text">3.2 关闭文件</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-3-%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-list-text">3.3 写入文件</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-4-%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="toc-list-text">3.4 读取文件</span></a></li></ol></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/%E7%AC%AC09%E7%AB%A0_%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="学习,技巧,碎碎念"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="技战法 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="技战法 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/技战法/"/><meta name="description" content="基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）一、技战法背景在电力系统数字化、自动化、互联化不断加深的今天，发电厂已经不再只是一个以物理设备为核心的能量转换场，而成为一个高度依赖信息网络、依赖监控系统、依赖实时调度数据的复杂“电力网络生命体”。随着外网访问频率的提升、运维人员远程作业的普及、各类第三方设备接入的常态化，发电厂的网络安全防护体系已经从过去“守住边界即可”的单一...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="技战法 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）一、技战法背景在电力系统数字化、自动化、互联化不断加深的今天，发电厂已经不再只是一个以物理设备为核心的能量转换场，而成为一个高度依赖信息网络、依赖监控系统、依赖实时调度数据的复杂“电力网络生命体”。随着外网访问频率的提升、运维人员远程作业的普及、各类第三方设备接入的常态化，发电厂的网络安全防护体系已经从过去“守住边界即可”的单一...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.105Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="技巧">
+<meta property="article:tag" content="碎碎念">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>技战法 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">技战法</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tags-link" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag">碎碎念</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）"><a href="#基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）" class="headerlink" title="基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）"></a><strong>基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）</strong></h1><h2 id="一、技战法背景"><a href="#一、技战法背景" class="headerlink" title="一、技战法背景"></a><strong>一、技战法背景</strong></h2><p>在电力系统数字化、自动化、互联化不断加深的今天，发电厂已经不再只是一个以物理设备为核心的能量转换场，而成为一个高度依赖信息网络、依赖监控系统、依赖实时调度数据的复杂“电力网络生命体”。随着外网访问频率的提升、运维人员远程作业的普及、各类第三方设备接入的常态化，发电厂的网络安全防护体系已经从过去“守住边界即可”的单一方式，转向了必须兼顾纵深、兼顾动态、兼顾威胁智能、兼顾未知攻击场景的综合安全防护能力。而在这种剧烈变化的安全态势下，基于威胁情报驱动的外网攻击面收缩技战法之所以变得迫切，是因为传统的“被动式安全”已经无法抵御当前攻击者的进化方式。我们看到，在越来越多的能源行业攻击事件中，攻击者已从最初的扫描式攻击、弱口令暴力破解，发展到基于供应链脆弱点触发的入侵、基于暗网泄露资产策划的精准打击、利用复杂多阶段攻击链隐藏入口行为的持续渗透，这些敌手往往在目标网络外侧潜伏数周甚至数月，通过情报收集、行为建模、自动化工具不断探索目标暴露点，直到某个看似“不重要的外网资产”最终成为突破口。</p>
+<p>发电厂作为国家关键基础设施的重要组成部分，其安全不仅关乎企业运营，更关系到电网稳定与社会运行安全，因此任何外部暴露点都不能被简单视为低风险。在实际案例中，一个忘记关闭的调试端口、一个历史遗留的 Web 管理界面、一个弱口令存储的 VPN 账号、一个泄露在外的内部员工邮箱都可能成为攻击者实现“初始突破”的桥梁。而威胁情报的价值就在于，它让防守不再依赖被动告警和偶然发现，而是通过持续关联外部攻击活动线索、检测资产暴露、识别泄露数据、追踪攻击源行为，从而在攻击发生之前就让潜在风险浮到台前，因此，基于威胁情报驱动的攻击面收缩不仅是一种技术策略，更是一种主动安全思维的转变。</p>
+<p>在本次技战法的设定中，发电厂已经按照国家三级等保要求进行了网络安全体系部署，并采用了双机备份架构，这意味着基础安全设施已经具备，但要实现真正意义上的“攻击前识别、攻击中阻断、攻击后可追溯”，仍需要威胁情报驱动的前置策略。从外网侧对资产暴露进行持续测绘，从主动情报源捕获泄露信息，从攻击链视角进行多阶段监控，从异常行为去反推可能的威胁活动，从外部黑产行为与内部设备脆弱点之间构建关联关系，通过这些手段收紧本不应暴露的入口、强化必须暴露的业务、补足传统安全手段难以覆盖的“灰色地带”，最终构建一个让攻击者难以下手、难以渗透、难以横移的纵深安全体系。</p>
+<p>在这种背景下，本技战法的提出不仅是为了满足合规要求、提升安全工程质量，更重要的是通过威胁情报构建一种可以持续演进、可主动应对未知威胁、能够在攻击企图初现时便及时阻断的防御方式。面对不断演化的攻防对抗环境，每一个收缩的外网接口、每一次提前识别的泄露情报、每一个在风险发生前的安全处置，都可能是保障发电厂稳定运行的关键，因此，本技战法不仅是一套技术路径，更是一种发电厂网络安全管理者应当具备的敏锐安全意识和防御行动哲学。</p>
+<hr>
+<h2 id="二、总体目标"><a href="#二、总体目标" class="headerlink" title="二、总体目标"></a><strong>二、总体目标</strong></h2><p>本技战法以“威胁情报驱动的攻击面收缩”为核心，以“外网资产可视、风险可识、威胁可查、攻击可阻、全链可溯”为目标，旨在帮助发电厂构建一个可全面覆盖暴露资产、泄露信息、潜在风险源、攻击活动线索和异常行为的主动式安全体系。其目标不是单纯收敛攻击面，而是让攻击者即使掌握了部分外部信息，也无法轻易找到突破点；让每一个暴露点都有可监控、可加固、可追踪的能力；让情报不是堆积在系统中，而能真正指导安全运营人员做出精准判断。本技战法的最终目标，是通过威胁情报将发电厂外网暴露面压缩到最小，通过强化纵深结构降低攻击成功率，通过攻击链策略提升检测能力，通过情报关联提升预警速度，通过行为分析提升识别未知威胁的能力，从而构建一个“攻击来得越早，防守越从容”的主动防御体系。</p>
+<p>下面给出本技战法的结构流程示意图（Mermaid）：</p>
+<div class="code-container" code-lang="Plaintext"><div class="codebox"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[外网资产测绘与暴露面识别] --&gt; B[威胁情报收集与泄露信息检测]</span><br><span class="line">    B --&gt; C[暴露点风险评估与紧急处置]</span><br><span class="line">    C --&gt; D[关键资产加固与纵深安全策略应用]</span><br><span class="line">    D --&gt; E[全生命周期攻击链监测与联动处置]</span><br><span class="line">    E --&gt; F[持续情报复盘与攻击面动态收缩]</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<h2 id="三、技战法技术体系与总体策略设计"><a href="#三、技战法技术体系与总体策略设计" class="headerlink" title="三、技战法技术体系与总体策略设计"></a><strong>三、技战法技术体系与总体策略设计</strong></h2><p>在构建基于威胁情报驱动的外网攻击面收缩与纵深安全体系时，技术体系的设计必须遵循“统一视图、统一链路、统一事件、统一情报”的四统一原则，即所有外网资产要具备统一视图、所有攻击阶段要具备统一链路、所有安全告警要具备统一事件入口、所有威胁情报必须具备统一支撑能力，从而构成一个完整而紧密的防守闭环。由于发电厂本身采用三级等保架构，并且关键系统采用双机备份方式，所以在基础架构层面已经具备一定的防御深度，本技战法的核心不是推翻已有体系，而是通过威胁情报拉通这些安全设备之间的联动与逻辑，使得它们不再各自为战，而成为统一的攻击链防御系统。威胁情报在其中扮演的角色并非“附属情报源”，而是整个攻面收缩活动的驱动引擎，它所提供的外部风险线索、暗网泄露数据、黑客活动轨迹、攻击工具更新趋势、漏洞利用事件、开放端口暴露情况都将直接指导后续每一个防守动作，从资产清点到漏洞预警，从端口加固到行为检测，从阻断策略到事后追溯，整个系统围绕情报驱动进行环环相扣的协同。</p>
+<p>在技术体系的构成上，首先是“外网资产测绘与暴露面感知能力”，这部分主要负责对外部暴露的 IP、域名、系统指纹、端口服务、证书信息进行全景式识别，并基于威胁情报对这些资产进行风险标注，比如是否出现在攻击者扫描列表中、是否被收录在黑灰产资产库中、是否有对应漏洞利用工具流传、是否在暗网论坛有相关泄露数据等，从而将“静态资产列表”转变为“风险资产可视图”。其次是“情报关联与泄露信息识别能力”，其核心在于利用内部威胁情报平台联动外部情报源，通过关键字检索、邮箱反查、密码哈希比对、暗网数据提取、黑产渠道监测等手段识别企业泄露的敏感数据，如管理员邮箱、员工账号、密码、老旧系统截图、VPN 账户等，并通过情报加工流程将这些风险信息转化为可执行事件。第三是“暴露点处置与快速收敛能力”，一旦识别到暴露端口、暴露服务、异常证书、泄露账号、弱口令接口等，就需要立即推动整改，包括关停端口、升级加密、加固策略、账号重置、访问控制调整、灰度阻断等，并在处置过程中记录攻击使用的路径、资产价值、潜在攻击链条，为后续防御提供支撑。第四是“纵深安全策略集成能力”，包括但不限于安全网关、IDS&#x2F;IPS、WAF、安全审计、堡垒机、VPN 接入控制、主机防护、数据库审计等，这些安全设备在传统模式下通常各自发挥作用，但在情报驱动体系中，它们将根据威胁情报动态更新策略，例如将外部扫描源列入封禁名单、对高危资产施加更严格的流量检测、对来源于泄露邮箱的行为增加审计力度等，使纵深架构具备“自适应防御能力”。第五是“全生命周期攻击链监测能力”，攻击链通常包括侦察、武器化、投送、利用、安装、横移、控制、目标达成等阶段，而情报驱动的作用，就是让防守者能够在攻击链最初阶段——侦察阶段就发现攻击者活动，例如扫描源 IP 异常增长、针对某端口的探针异常、针对某域名的被动 DNS 异常等，从而提前介入防守，使得攻击无法顺利进入投送和利用阶段。最后是“持续复盘与攻面动态收敛能力”，发电厂网络运行的时间越长，新增系统越多，新增业务接口越多，外网暴露面也会随之动态变化，因此必须定期利用情报平台自动进行攻面测绘、监视漏洞曝光、检查配置变化、核查泄露信息、复盘历史事件，以实现持续收敛和不断强化。</p>
+<p>在这样的体系结构里，威胁情报不是单纯的外部数据输入，而是整个攻防体系的“大脑”，它既负责发现风险、识别风险，也负责指导行动、评估行动，通过情报推动处置、通过处置反哺情报，使得发电厂在攻防对抗中保持主动。换句话说，情报构成了整个技战法的“动力系统”，而外网攻面收缩与纵深安全则是“执行系统”，两者之间通过资产、事件、攻击链、策略等要素连接，形成统一的安全运行生态，从而实现真正意义上的“从外到内收敛，从内到外联动”的闭环式防御。</p>
+<hr>
+<h2 id="四、外网攻击面收敛机制设计与发电厂场景落地"><a href="#四、外网攻击面收敛机制设计与发电厂场景落地" class="headerlink" title="四、外网攻击面收敛机制设计与发电厂场景落地"></a><strong>四、外网攻击面收敛机制设计与发电厂场景落地</strong></h2><p>基于威胁情报的外网攻击面收敛机制，是本技战法的核心内容之一，它决定了防守者能否在攻击者行动之前识别潜在突破口，能否在最短时间内进行处置，能否让攻击者的侦察行为变得无效，也决定了整个安全体系能否从“被动告警响应”转变为“主动风险消除”。外网攻面收敛的关键不在于简单地减少端口数量，而在于让所有暴露行为可控、可测、可监控、可溯源，使攻击者在任何尝试突破的前置阶段都面临巨大的阻力。在发电厂场景中，由于原有三级等保架构已经明确划分了控制区、管理区、生产区、办公区等多个网络域，并通过网络隔离、访问控制、双机备份、主备冗余等手段构建了基础安全体系，因此外网攻面收敛更多集中在办公区外侧、管理系统的远程入口、供应商维护接口、测试设备暴露接口以及历史遗留资产等方向。</p>
+<p>首先，外网攻击面收敛的前提是“资产必须可见”。很多发电厂在多年的运作与维护过程中，会积累大量未记录、未下线、未管理、无人认领的“僵尸资产”，包括废弃的业务系统、旧的测试服务器、未关闭的调试端口、二级供应商部署的服务端点、临时启用的 VPN 账号、早期建设留下的 Web 控制页面等，而这些资产往往成为攻击者最青睐的突破入口。情报驱动的攻面识别机制通过对 FOFA、Shodan、Hunter、ZoomEye 等多源网络空间测绘平台进行数据调用，能够自动化提取发电厂相关资产的指纹信息、端口开放情况、系统版本特征、证书链路、站点标题等，并将其与厂内资产台账进行比对，从而迅速识别“不应暴露的资产”。通过威胁情报平台的关联分析，这些资产还会被标注是否出现在攻击者的扫描记录中，是否存在外泄版本、是否具备通用漏洞、是否被黑产监控过，最终形成一份按风险度排序的“外网暴露风险清单”，为安全运维人员提供处置依据。</p>
+<p>其次，攻面收敛的核心是“暴露点必须减少”。根据暴露风险清单，安全团队会逐项确认资产用途、必要性、实际业务关系，对无需开放的端口实施关停，对不应暴露的接口实施访问限制，对历史遗留资产实施下线，对弱口令接口实施整改，对加密不合规的证书进行替换，对多余的测试环境实施删除，通过一轮又一轮的收敛，将原本分散在互联网可见的资产逐步缩减到最小范围。在这种过程中，威胁情报起到的关键作用在于“指引优先级”，例如那些被黑客论坛讨论过、被扫描频率异常的资产必须优先处理，而那些近期出现漏洞利用工具的产品设备应立即进行补丁修复或隔离，从而在有限的人力与时间内实现最大化的风险降低。</p>
+<p>此外，攻面收敛的深层目标是“暴露行为必须可控”。对于确实需要暴露在外的资产，例如远程办公入口、供应商维护通道、发电厂门户网站、对上级调度中心开放的接口等，则需通过 WAF 加固、访问控制列表优化、多因素认证、异常行为检测、日志审计强化等手段提升其安全性。威胁情报在此阶段会提供相关威胁源 IP 列表、黑产行为情报、近期扫描趋势、攻击手法变化等信息，使防守者能够更好地调整门禁策略，例如将恶意 IP 加入黑名单、对特定地域来源加强验证、对使用异常 User-Agent 的请求直接阻断等，从而降低攻击成功的概率。</p>
+<p>最后，攻面收敛的终极意义在于“攻击行为必须可监控”。即便所有资产都已收敛、所有接口都已加固，仍不能保证零暴露，因此必须建立对暴露资产的持续监控机制，包括端口变化监测、证书变化监测、指纹变化监测、扫描行为检测、异常访问分析等，而这些监控行为也必须由威胁情报驱动，才能避免盲目扩大监控范围。例如，情报平台检测到某攻击组织近期针对能源行业发起特定端口的扫描行为，则发电厂可立即对这些端口实施重点监控，一旦有访问行为即触发告警，并结合纵深安全体系中的 IDS、WAF、日志审计进行联合验证，形成一个多级预警结构，使所有潜在攻击在早期就被发现。</p>
+<h2 id="五、攻击链纵深安全体系的防护模型与情报驱动联动机制"><a href="#五、攻击链纵深安全体系的防护模型与情报驱动联动机制" class="headerlink" title="五、攻击链纵深安全体系的防护模型与情报驱动联动机制"></a><strong>五、攻击链纵深安全体系的防护模型与情报驱动联动机制</strong></h2><p>在威胁情报驱动的网络安全体系中，攻击链并不是一个抽象的分析模型，而是整个防御体系的“战场地图”。任何攻击行为，从侦察到达成目标，都必然在攻击链上留下痕迹。发电厂作为关键基础设施单位，其安全防护必须遵循攻击链全生命周期策略，通过明确侦察、利用、横移、持久化、控制等阶段的行为特征，让每一环节都能对攻击者形成威慑、阻断、干扰、溯源的效应。传统安全体系往往是在攻击发生中后期才触发告警，例如主机被入侵后 EDR 才报警、数据库被访问后审计系统才报错、管理员权限被试图提升后日志才记录，而威胁情报驱动的体系则要求从攻击链最早阶段，即侦察阶段开始就截杀风险，让攻击者在最外围就遭遇重重阻力，甚至无法确定目标是否真实存在。</p>
+<p>攻击链的侦察阶段最依赖情报驱动。侦察阶段往往表现为端口扫描、Banner 探针、Web 指纹获取、路径探测、证书查询、DNS 枚举、邮箱收集等行为，而在传统体系中，这类行为往往被视为“正常互联网背景流量”，但在情报驱动的体系中，安全团队通过情报平台会实时观察到发电厂相关资产是否正在被外部攻击组织或扫描器关注，例如 FOFA、Shodan 的数据变化、被动 DNS 解析量激增、与黑产扫描源的流量增多等，这些指标不再是孤立的网络噪声，而是攻击链的早期资料。一旦外部扫描趋势超过阈值，通过 SIEM、SOC、态势感知平台将立即触发预警并联动安全设备，从而在进攻尚未到达利用阶段时提前进入防御模式。</p>
+<p>在攻击链的投送阶段，攻击者往往尝试利用邮件钓鱼、供应商 VPN 弱口令、远程桌面弱密码、Web 漏洞探测等手段突破外围边界，而基于情报驱动的防御体系能够提前发现这些投送手段的影子。例如，当威胁情报平台发现近期黑产正在交易某发电厂相关邮箱账号、或正在传播包含发电厂域名的钓鱼页面样本、或某种已知针对 SCADA&#x2F;工业系统的恶意文件正在活跃，就会自动向安全设备施加更严格的策略，例如要求所有远程系统全部启用 MFA、对外部访问端口启用 CAPTCHA、对钓鱼邮件实施关键词拦截、对访问恶意域名的请求直接阻断等，从而消解攻击者发起投送行为的能力。</p>
+<p>进入利用阶段后，攻击者会对特定漏洞实施利用，如弱口令、未授权访问、老旧系统漏洞、供应链组件漏洞等。在传统体系中，这类漏洞往往依赖漏洞扫描的周期性发现，而情报驱动体系则依靠情报实时了解漏洞是否已出现利用工具、是否在地下论坛出现交易、是否已被某攻击组织纳入攻击武器库，从而判断漏洞是否需要紧急修补。例如，当情报显示某款用于变电站系统的工业网关出现 POC 流传迹象，安全团队即使未在内部网络中发现相关漏洞，也必须立刻进行排查与封堵，从而在攻击工具真正大规模扩散前完成加固。</p>
+<p>横移阶段是入侵后攻击者的关键行动阶段，他们会尝试通过横向扫描、凭据获取、内网指纹探测等行为扩大权限。而情报驱动体系在此阶段并不是依赖情报发现攻击，而是依托前期的情报模型对攻击行为进行动态推断。例如，当外部情报发现某黑客组织经常利用 Kerberoasting 技术实现横移，那么内部安全系统应重点监控服务账号异常请求、SPN 行为异常、域控流量异常等特征。换言之，情报在这一阶段发挥的是“预测攻击者动作”的作用，使防守者提前知道哪些行为值得监控。</p>
+<p>最终的目标达成阶段，攻击者可能尝试破坏业务、窃取工业控制数据、劫持控制系统、植入后门或对系统造成瘫痪。而情报驱动体系能够通过对攻击者 TTP 的分析，提前在 ICS&#x2F;SCADA 系统的关键环节部署多层保护，例如指令白名单机制、行为异常检测、控制指令校验、远程会话双验证等，使得攻击者即使突破外围，也无法轻易控制核心业务流程。这种防御模式不是依靠单一工具，而是基于情报驱动，利用多层纵深措施形成重叠式防御屏障。</p>
+<p>综上，威胁情报贯穿攻击链全程的意义在于：侦察阶段提前发现、投送阶段提前阻断、利用阶段提前修补、横移阶段提前监控、目标阶段提前防护，使攻击者在每一个阶段都处于被动地位，无法持续推进攻击链。</p>
+<p>以下为攻击链情报驱动模型的 Mermaid 图示（整体结构图，不拆段）：</p>
+<div class="code-container" code-lang="Plaintext"><div class="codebox"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[侦察阶段&lt;br/&gt;外部扫描、资产探测、情报监测] --&gt; B[投送阶段&lt;br/&gt;钓鱼邮件、弱口令攻击、VPN尝试]</span><br><span class="line">    B --&gt; C[利用阶段&lt;br/&gt;漏洞利用、未授权访问]</span><br><span class="line">    C --&gt; D[横移阶段&lt;br/&gt;凭据获取、内网扫描]</span><br><span class="line">    D --&gt; E[目标达成&lt;br/&gt;破坏、窃取、控制系统]</span><br><span class="line">    A -. 情报关联 .-&gt; C</span><br><span class="line">    A -. 情报监测 .-&gt; D</span><br><span class="line">    B -. 投送战法情报 .-&gt; D</span><br><span class="line">    C -. 利用情报 .-&gt; E</span><br><span class="line">    A -. 攻面收敛反馈 .-&gt; Z[持续收敛机制]</span><br><span class="line">    E --&gt; Z</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<hr>
+<h2 id="六、基于发电厂真实场景的技战法应用案例（模拟）"><a href="#六、基于发电厂真实场景的技战法应用案例（模拟）" class="headerlink" title="六、基于发电厂真实场景的技战法应用案例（模拟）"></a><strong>六、基于发电厂真实场景的技战法应用案例（模拟）</strong></h2><p>为了让技战法的逻辑更加具体、更加贴合发电厂场景，本节将以一个模拟但高度真实的案例进行描述，展示威胁情报如何推动一次完整的外网攻面收敛行动，并在攻击链纵深体系中发挥关键作用。</p>
+<p>某沿海地区发电厂的安全团队在一次例行的外网攻面检测活动中，通过威胁情报平台发现发电厂某个未在资产台账中的二级业务域名突然出现在 FOFA 高风险资产列表中，其特征为开放 8848 端口，系统指纹显示是一套 2017 年的文件管理系统，且版本显示存在未授权访问漏洞。同时，情报平台提示该端口在过去 48 小时内出现了来自多个境外扫描源的大量探测行为，其中部分扫描源已被列入攻击组织监控名单。更严重的是，通过关联分析，情报平台发现该资产证书中绑定的邮箱在三个月前已经在暗网某数据库泄露帖中被公开出售，这意味着攻击者与黑产可能已经掌握了部分相关资料。</p>
+<p>安全团队立即根据技战法流程进入“快速情报验证”阶段，通过内部被动 DNS 数据确认该域名确实属于发电厂历史系统，由曾经的外包团队搭建并长期无人维护，且其物理服务器位于办公区非核心位置。在确认该系统已无业务价值后，按照攻面收敛机制立即推动实施关停。然而在关停之前，安全团队发现该系统日志中已记录到数次异常访问尝试，包括访问 &#x2F;admin、&#x2F;upload、&#x2F;backup 等目录的行为，这表明攻击者可能已经开始尝试利用漏洞突破。</p>
+<p>在关停流程完成的同时，安全团队依照情报驱动逻辑分析此事件属于“利用阶段预兆”，从而推测攻击者下一步可能是尝试横移。因此团队立即在相关网段启用高强度流量监控模式，并使用 IDS 进行扫描行为检测，同时对办公区到管理区的跨域流量启用增强审计，以防止攻击可能借此横移至关键系统。在此期间，情报平台进一步提示某境外攻击源正在传播一个针对相同版本系统的 POC 工具，这说明攻击行为会持续扩大。于是安全团队立即进行更广范围的排查，包括扫描所有疑似采用该版本系统的服务器，检查旧供应商留下的其他系统、核查所有相关域名的解析情况、监控是否有新的扫描行为出现。</p>
+<p>两天后，安全团队收到 SIEM 跨系统告警：某来自境外 IP 的流量访问了办公区另一个旧 Web 系统的登录界面，并尝试爆破账号密码，该 IP 在情报平台中被标注为某知名攻击组织常用的代理出口节点。通过关联分析，团队确认这是此前攻击事件的延续，攻击者仍在尝试通过旧系统突破外围。安全团队立即启用动态阻断策略将该 IP 加入黑名单，并通过 WAF 对所有暴露系统开启严格模式，同时实施内部用户密码重置、VPN 通道日志审查，并发布全员安全提醒以防钓鱼邮件入侵。</p>
+<p>最终，此次攻击事件未造成任何实际影响，而整个事件的成功处置正是源于威胁情报在侦察阶段的提前预警，在利用阶段的持续提示，在横移阶段的预测分析，以及在攻面收敛过程中的优先级指导。如果没有这些情报驱动机制，攻击者可能已经成功突破外围，而旧系统的脆弱性将成为潜在的重大风险。</p>
+<hr>
+<h2 id="七、技战法总结与未来展望"><a href="#七、技战法总结与未来展望" class="headerlink" title="七、技战法总结与未来展望"></a><strong>七、技战法总结与未来展望</strong></h2><p>基于威胁情报驱动的外网攻击面收缩与纵深安全防护体系，实际上是为发电厂这种关键基础设施建立一种具备“主动性、前视性、自适应性”的安全体系，使其从传统的被动告警响应模式转向以情报为核心的主动预测式防御。通过整合资产测绘、情报关联、暴露面管理、漏洞情报、攻击链模型、纵深控制能力、持续复盘等多个模块，本技战法实现了从外部侦察到内部纵深的全链路覆盖，使攻击者在攻击链的每一阶段都无法顺利推进，从而实现“以情报换时间、以时间换主动、以主动保安全”的最终目标。</p>
+<p>未来随着人工智能、自动化攻击、工业互联网、OT&#x2F;IT 融合的加速推进，威胁情报的价值将进一步提升，其结构化程度、实时性、可信度、行业针对性都将不断增强。而技战法也将从当前的“情报辅助安全”转向“情报主导安全”，即安全体系不再依赖人工判断，而是由情报驱动策略动态生成，由情报模型预测攻击趋势，由情报引导纵深响应，形成真正意义上的智能化安全体系。</p>
+<p>发电厂作为国家基础能源设施，其网络安全永远不允许失败，本技战法的目标是让防守者永远比攻击者更快一步、看得更远一步、行动更主动一步，永远让攻击者处于不确定、不稳定、不敢贸然行动的进攻环境之中，使安全成为一种战略能力——而不是一种技术配置。</p>
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/">技战法</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tail-tags-link" href="/tags/%E7%A2%8E%E7%A2%8E%E5%BF%B5/" rel="tag">碎碎念</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/" title="授课计划大纲">上一篇<span>授课计划大纲</span></a><a class="post-nav-next" href="/2026/06/22/%E6%95%B0%E6%8D%AE%E5%8C%85%E7%9A%84%E5%88%86%E6%9E%90/" title="数据包的分析">下一篇<span>数据包的分析</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%E5%9F%BA%E4%BA%8E%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E9%A9%B1%E5%8A%A8%E7%9A%84%E5%A4%96%E7%BD%91%E6%94%BB%E5%87%BB%E9%9D%A2%E6%94%B6%E7%BC%A9%E4%B8%8E%E7%BA%B5%E6%B7%B1%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E6%8A%80%E6%88%98%E6%B3%95%EF%BC%88%E5%8F%91%E7%94%B5%E5%8E%82%E7%89%88%EF%BC%89"><span class="toc-list-text">基于威胁情报驱动的外网攻击面收缩与纵深安全防护技战法（发电厂版）</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%B8%80%E3%80%81%E6%8A%80%E6%88%98%E6%B3%95%E8%83%8C%E6%99%AF"><span class="toc-list-text">一、技战法背景</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%BA%8C%E3%80%81%E6%80%BB%E4%BD%93%E7%9B%AE%E6%A0%87"><span class="toc-list-text">二、总体目标</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%B8%89%E3%80%81%E6%8A%80%E6%88%98%E6%B3%95%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB%E4%B8%8E%E6%80%BB%E4%BD%93%E7%AD%96%E7%95%A5%E8%AE%BE%E8%AE%A1"><span class="toc-list-text">三、技战法技术体系与总体策略设计</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E5%9B%9B%E3%80%81%E5%A4%96%E7%BD%91%E6%94%BB%E5%87%BB%E9%9D%A2%E6%94%B6%E6%95%9B%E6%9C%BA%E5%88%B6%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%8F%91%E7%94%B5%E5%8E%82%E5%9C%BA%E6%99%AF%E8%90%BD%E5%9C%B0"><span class="toc-list-text">四、外网攻击面收敛机制设计与发电厂场景落地</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%BA%94%E3%80%81%E6%94%BB%E5%87%BB%E9%93%BE%E7%BA%B5%E6%B7%B1%E5%AE%89%E5%85%A8%E4%BD%93%E7%B3%BB%E7%9A%84%E9%98%B2%E6%8A%A4%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%83%85%E6%8A%A5%E9%A9%B1%E5%8A%A8%E8%81%94%E5%8A%A8%E6%9C%BA%E5%88%B6"><span class="toc-list-text">五、攻击链纵深安全体系的防护模型与情报驱动联动机制</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E5%85%AD%E3%80%81%E5%9F%BA%E4%BA%8E%E5%8F%91%E7%94%B5%E5%8E%82%E7%9C%9F%E5%AE%9E%E5%9C%BA%E6%99%AF%E7%9A%84%E6%8A%80%E6%88%98%E6%B3%95%E5%BA%94%E7%94%A8%E6%A1%88%E4%BE%8B%EF%BC%88%E6%A8%A1%E6%8B%9F%EF%BC%89"><span class="toc-list-text">六、基于发电厂真实场景的技战法应用案例（模拟）</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%B8%83%E3%80%81%E6%8A%80%E6%88%98%E6%B3%95%E6%80%BB%E7%BB%93%E4%B8%8E%E6%9C%AA%E6%9D%A5%E5%B1%95%E6%9C%9B"><span class="toc-list-text">七、技战法总结与未来展望</span></a></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

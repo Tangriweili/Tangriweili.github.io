@@ -1,0 +1,289 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="技巧,靶场"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="dc-1 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="dc-1 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/dc-1/"/><meta name="description" content="DC-1目录   环境搭建    渗透测试       -   1. 信息收集     -   2. 漏洞利用     -   3. 提权 DC ~ VulnHub VulnHub provides materials allowing anyone to gain practical hands-on experience with digital security, computer a...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dc-1 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/dc-1/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="DC-1目录   环境搭建    渗透测试       -   1. 信息收集     -   2. 漏洞利用     -   3. 提权 DC ~ VulnHub VulnHub provides materials allowing anyone to gain practical hands-on experience with digital security, computer a...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/dc-1/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.202Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="技巧">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/dc-1/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>dc-1 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">dc-1</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="DC-1"><a href="#DC-1" class="headerlink" title="DC-1"></a>DC-1</h1><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li><p>  <a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">环境搭建</a></p>
+</li>
+<li><p>  <a href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95">渗透测试</a></p>
+</li>
+</ul>
+<p>    -   <a href="#1-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86">1. 信息收集</a></p>
+<p>    -   <a href="#2-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8">2. 漏洞利用</a></p>
+<p>    -   <a href="#3-%E6%8F%90%E6%9D%83">3. 提权</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.vulnhub.com/series/dc,199/" title=" DC ~ VulnHub VulnHub provides materials allowing anyone to gain practical hands-on experience with digital security, computer applications and network administration tasks. https:&#x2F;&#x2F;www.vulnhub.com&#x2F;series&#x2F;dc,199&#x2F;">DC ~ VulnHub VulnHub provides materials allowing anyone to gain practical hands-on experience with digital security, computer applications and network administration tasks. https://www.vulnhub.com/series/dc,199/</a></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><ol>
+<li><p> 靶机镜像下载地址：<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-1,292/" title="https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-1,292&#x2F;">https://www.vulnhub.com/entry/dc-1,292/</a>；</p>
+</li>
+<li><p> 需要将靶机和 kali 攻击机放在同一个局域网里；</p>
+</li>
+<li><p> 本实验kali 的 IP 地址：192.168.10.146。</p>
+</li>
+</ol>
+<h1 id="渗透测试"><a href="#渗透测试" class="headerlink" title="渗透测试"></a>渗透测试</h1><h3 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1. 信息收集"></a>1. 信息收集</h3><p>使用 nmap 扫描 192.168.10.0&#x2F;24 网段存活主机</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root💀kali)-[~/桌面]</span><br><span class="line"></span><br><span class="line">└─# nmap -sP <span class="number">192.168</span><span class="number">.10</span><span class="number">.0</span>/<span class="number">24</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>分析可知，靶机 ip 为 192.168.10.147</p>
+<p>对靶机进行端口扫描</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root💀kali)-[~/桌面]</span><br><span class="line"></span><br><span class="line">└─# nmap -sS <span class="number">192.168</span><span class="number">.10</span><span class="number">.147</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184456937-1970939218.png" ></p>
+<p>由结果可知，靶机开放了ssh、http和<a target="_blank" rel="noopener" href="http://linux.51yip.com/search/rpcbind" title="rpcbind">rpcbind</a>服务。</p>
+<p>探测对应服务的版本信息</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root💀kali)-[~/桌面]</span><br><span class="line"></span><br><span class="line">└─# nmap -sV -p22,<span class="number">80</span>,<span class="number">111</span> <span class="number">192.168</span><span class="number">.10</span><span class="number">.147</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184457576-1284004631.png" ></p>
+<p>web 指纹识别</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root💀kali)-[~/桌面]</span><br><span class="line"></span><br><span class="line">└─# whatweb <span class="attr">http</span>:<span class="comment">//192.168.10.147</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184458069-962065570.png" ></p>
+<p>发现该网站是 drupal<a href="#fn1">[1]</a>，属于 cms 系统之一。</p>
+<p>访问网站看一看…</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184458494-1546044355.png" ></p>
+<p>也可以使用wapp插件查看网站基本信息。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184458869-1544786649.png" ></p>
+<p>很明显，我们看到网站的 cms，可以直接在网上搜索这个 cms 的漏洞利用方式</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184459304-584575272.png" ></p>
+<h3 id="2-漏洞利用"><a href="#2-漏洞利用" class="headerlink" title="2. 漏洞利用"></a>2. 漏洞利用</h3><p>使用 metasploit 对漏洞进行利用。</p>
+<p>启动 metasploit，搜索 drupal 模块。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184459800-2097255668.png" ></p>
+<p>经测试可以采用<code>exploit/unix/webapp/drupal_drupalgeddon2</code>，即：</p>
+<p>配置参数（payload、rhosts、lhost），开始攻击，成功建立会话。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184500308-550117545.png" ></p>
+<p>查看网站目录结构，发现 flag1：</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184500899-1650550941.png" ></p>
+<p>查看 flag1.txt内容，有一个提示信息：需要一个 config file</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184501304-739472464.png" ></p>
+<p>进入系统的 shell，并使用<code>python -c &quot;import pty; pty.spawn(&#39;/bin/bash&#39;);&quot;</code>获得一个交互shell。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184501701-2036352325.png" ></p>
+<p>根据上面flag1.txt的提示，在网站目录中寻找相应的配置文件（当然没有提示，也应该寻找看一下，毕竟是敏感文件）。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184502201-1734496754.png" ></p>
+<p>内容如下：发现flag2、数据库名、用户名、密码</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184502760-174440361.png" ></p>
+<p>flag2提示：“暴力和字典攻击不是获得访问权限的唯一方法(你将需要访问权限)。你能用这些证书做什么?”</p>
+<p>使用获取的数据库用户名和密码登录数据库：</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184503287-248403197.png" ></p>
+<p>发现该用户只能管理drupaldb数据库。进入数据库，查看库中的表</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184503708-1412886879.png" ></p>
+<p>发现有个users表</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184504080-875574506.png" ></p>
+<p>查看 users 表中的内容：由于列数比较多，查看内容比较乱，可以使用<code>select * from users\G;</code>查看</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184504584-443101945.png" ></p>
+<p>或者：先看看表结构</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184505130-304122069.png" ></p>
+<p>查看name和pass列</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184505608-2115837693.png" ></p>
+<p>该密码不是普通的加密，有可能是网站自己的加密方式。尝试搜索一下相关文件~</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184506054-3081191.png" ></p>
+<p>搜索到了一个<code>./scripts/password-hash.sh</code>看似与密码有关。查看文件内容，得知为php脚本，作用是生成一个hash密码。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184506449-179923459.png" ></p>
+<p>使用该脚本生成一个简单的密码，比如123456。将数据库中的密码覆盖掉~</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">www-data@<span class="variable constant_">DC</span>-<span class="number">1</span>:<span class="regexp">/var/</span>www$ php  ./scripts/password-hash.<span class="property">sh</span>  <span class="number">123456</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184506856-114951236.png" ></p>
+<p>覆盖 admin 的密码：</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql&gt; update users set pass=<span class="string">&quot;$S$D3JWVJTOOlXIz0t1Nf.8eg5MrBOqhCVsn.z7m/P4wf4H.OoLYlAf&quot;</span> where name=<span class="string">&quot;admin&quot;</span>;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184507260-730848141.png" ></p>
+<p>登录网站：</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184507712-28914959.png" ></p>
+<p>登录成功。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184508200-833144716.png" ></p>
+<p>在 Dashboard 中发现 flag3 给的提示：</p>
+<p>Special PERMS will help FIND the passwd - but you’ll need to -exec that command to work out how to get what’s in the shadow.</p>
+<p>特殊的PERMS将有助于找到passwd-但您需要执行该命令以确定如何获取shadow中的内容。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184508671-817045896.png" ></p>
+<p>查看 &#x2F;etc&#x2F;passwd 文件。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184509210-450326505.png" ></p>
+<p>发现 flag4，flag4是一个普通用户。</p>
+<p>尝试查看flag4用户的家目录，确实存在flag4.txt文件，</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184509759-2066029954.png" ></p>
+<p>提示信息为：在root里？</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title class_">Can</span> you use <span class="variable language_">this</span> same method to find or access the flag <span class="keyword">in</span> root?</span><br><span class="line"></span><br><span class="line"><span class="title class_">Probably</span>. <span class="title class_">But</span> perhaps it<span class="string">&#x27;s not that easy.  Or maybe it is?</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>当然如果没有权限访问<code>/home/flag4/flag4.txt</code>，则需要登录flag4用户。由于该服务器也开放了 22 端口，我们可以使用hydra工具爆破flag4用户的密码：</p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root💀kali)-[~/桌面]</span><br><span class="line"></span><br><span class="line">└─# hydra -l flag4 -P /usr/share/john/password.<span class="property">lst</span> <span class="number">192.168</span><span class="number">.10</span><span class="number">.147</span> ssh</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184510233-651906080.png" ></p>
+<p>爆破结果：密码为orange。</p>
+<p>使用 ssh 连接，发现最后一个 flag 的提示信息：in root。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184510820-2108782206.png" ></p>
+<p>进入 root 目录，发现权限不够，需要提权</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184511182-1602612098.png" ></p>
+<h3 id="3-提权"><a href="#3-提权" class="headerlink" title="3. 提权"></a>3. 提权</h3><p>首先想到使用 suid 提权找到一个属于 root 的有 s 权限的文件。</p>
+<ul>
+<li>  SUID(Set User ID)，SUID 可以让调用者以文件拥有者的身份运行该文件，所以我们利用 SUID 提权的思路就是运行 root 用户所拥有的 SUID 的文件，那么我们运行该文件的时候就得获得 root 用户的身份了。</li>
+</ul>
+<p>常见的可用于 SUID 提权的文件有：</p>
+<div class="code-container" code-lang="Text"><div class="codebox"><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">find、bash、nmap、vim、more、less、nano、cp</span><br><span class="line"></span><br><span class="line">//当没有s权限时可以使用：chmod u+s 命令路径，增加权限</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>查找哪些命令具备 SUID 标识</p>
+<p>相关命令：</p>
+<div class="code-container" code-lang="Powershell"><div class="codebox"><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">find / <span class="literal">-perm</span> <span class="literal">-4000</span> <span class="number">2</span>&gt;/dev/null</span><br><span class="line"></span><br><span class="line">find / <span class="literal">-perm</span> <span class="literal">-u</span>=s <span class="literal">-type</span> f <span class="number">2</span>&gt;/dev/null</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184511619-476281086.png" ></p>
+<p>使用find命令进行提权：</p>
+<p>利用 find 命令随便查找一个正确的文件（夹）路径，后面加上 <code>-exec shell 命令 \;</code></p>
+<p>提权 <code>/bin/bash</code> 或者 <code>/bin/sh</code></p>
+<div class="code-container" code-lang="Javascript"><div class="codebox"><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">www-data@<span class="variable constant_">DC</span>-<span class="number">1</span>:<span class="regexp">/var/</span>www$ find cron.<span class="property">php</span> -exec <span class="string">&quot;/bin/bash&quot;</span> \;</span><br><span class="line"></span><br><span class="line">find cron.<span class="property">php</span> -exec <span class="string">&quot;/bin/bash&quot;</span> \;</span><br><span class="line"></span><br><span class="line">bash-<span class="number">4.2</span>$ find cron.<span class="property">php</span> -exec <span class="string">&quot;/bin/sh&quot;</span> \;  </span><br><span class="line"></span><br><span class="line">find cron.<span class="property">php</span> -exec <span class="string">&quot;/bin/sh&quot;</span> \;</span><br><span class="line"></span><br><span class="line"># whoami</span><br><span class="line"></span><br><span class="line">whoami</span><br><span class="line"></span><br><span class="line">root</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184512118-1516429060.png" ></p>
+<p>成功提权！拿到最后一个 falg！</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img2023.cnblogs.com/blog/2988288/202407/2988288-20240713184512556-1461508791.png" ></p>
+<blockquote>
+<p>🔗Reference：DC-1</p>
+</blockquote>
+<blockquote>
+</blockquote>
+<blockquote>
+<ul>
+<li>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45677119/article/details/111770003" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;weixin_45677119&#x2F;article&#x2F;details&#x2F;111770003">https://blog.csdn.net/weixin_45677119&#x2F;article&#x2F;details&#x2F;111770003</a></li>
+</ul>
+</blockquote>
+<hr>
+<ol>
+<li> Drupal是使用PHP语言编写的开源内容管理框架（CMF），它由内容管理系统（CMS）和PHP开发框架（Framework）共同构成，在GPL2.0及更新协议下发布。 <a href="#fnref1">↩︎</a></li>
+</ol>
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/dc-1/">dc-1</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/dc-1/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tail-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/ctf%E9%A2%98%E8%A7%A3%E4%B8%89/" title="ctf题解三">上一篇<span>ctf题解三</span></a><a class="post-nav-next" href="/2026/06/22/gzctf%E9%83%A8%E7%BD%B2(k3s)/" title="gzctf部署(k3s)">下一篇<span>gzctf部署(k3s)</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#DC-1"><span class="toc-list-text">DC-1</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-list-text">目录</span></a></li></ol></li><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-list-text">环境搭建</span></a></li><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95"><span class="toc-list-text">渗透测试</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1-%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-list-text">1. 信息收集</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-list-text">2. 漏洞利用</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-%E6%8F%90%E6%9D%83"><span class="toc-list-text">3. 提权</span></a></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/dc-1/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

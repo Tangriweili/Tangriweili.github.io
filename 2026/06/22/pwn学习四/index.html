@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="CTF,学习,技巧"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="pwn学习四 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="pwn学习四 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/pwn学习四/"/><meta name="description" content="811                     参考文章：Linux下GDB简明教程（包括GUI模式）_whahu1989的专栏-CSDN博客  目录  一、gdb与pwndbg  二、调试  1.编译某一程序：gcc &nbsp;  2.gdb test  3.反汇编:disass main  4.常用的调试命令  &nbsp;&nbsp;&nbsp; 1.b xx  &nbsp;&amp;nbs...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pwn学习四 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="811                     参考文章：Linux下GDB简明教程（包括GUI模式）_whahu1989的专栏-CSDN博客  目录  一、gdb与pwndbg  二、调试  1.编译某一程序：gcc &nbsp;  2.gdb test  3.反汇编:disass main  4.常用的调试命令  &nbsp;&nbsp;&nbsp; 1.b xx  &nbsp;&amp;nbs...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.278Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>pwn学习四 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">pwn学习四</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="811"><a href="#811" class="headerlink" title="811"></a>811</h1><div id="content_views" class="htmledit_views">
+                    <p>参考文章：<a class="link-info" target="_blank" rel="noopener" href="https://blog.csdn.net/whahu1989/article/details/85205905" title="Linux下GDB简明教程（包括GUI模式）_whahu1989的专栏-CSDN博客">Linux下GDB简明教程（包括GUI模式）_whahu1989的专栏-CSDN博客</a></p> 
+<p id="main-toc"><strong>目录</strong></p> 
+<p id="" style="margin: 0px 0px 2px; padding-left: 24px;"><a href="#t0" target="_self">一、gdb与pwndbg</a></p> 
+<p id="" style="margin: 0px 0px 2px; padding-left: 24px;"><a href="#t1" target="_self">二、调试</a></p> 
+<p id="" style="margin: 0px 0px 2px 48px; padding-left: 24px;"><a href="#t2" target="_self">1.编译某一程序：gcc &nbsp;</a></p> 
+<p id="" style="margin: 0px 0px 2px 48px; padding-left: 24px;"><a href="#t3" target="_self">2.gdb test</a></p> 
+<p id="" style="margin: 0px 0px 2px 48px; padding-left: 24px;"><a href="#t4" target="_self">3.反汇编:disass main</a></p> 
+<p id="" style="margin: 0px 0px 2px 48px; padding-left: 24px;"><a href="#t5" target="_self">4.常用的调试命令</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t6" target="_self">&nbsp;&nbsp;&nbsp; 1.b xx</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t7" target="_self">&nbsp;&nbsp;&nbsp; 2.r</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t8" target="_self">&nbsp;&nbsp;&nbsp; 3.c</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t9" target="_self">&nbsp;&nbsp;&nbsp; 4.n</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t10" target="_self">&nbsp;&nbsp;&nbsp; 5.s</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t11" target="_self">&nbsp;&nbsp;&nbsp; 6.info xx</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t12" target="_self">&nbsp;&nbsp;&nbsp; 7.p xx</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t13" target="_self">&nbsp;&nbsp;&nbsp; 8.set xx&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t14" target="_self">&nbsp;&nbsp;&nbsp; 9.x</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t15" target="_self">&nbsp;&nbsp;&nbsp; 10.bt</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t16" target="_self">&nbsp;&nbsp;&nbsp; 11.q</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t17" target="_self">&nbsp;&nbsp;&nbsp;&nbsp; 12.&nbsp;删除断点</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#t18" target="_self">13.finish&nbsp;</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#14.%28gdb%29%C2%A0jump%C2%A05%C2%A0" target="_self">14.(gdb)&nbsp;jump&nbsp;5&nbsp;</a></p> 
+<p id="" style="margin: 0px 0px 2px 96px; padding-left: 24px;"><a href="#15.%28gdb%29%C2%A0return%C2%A0" target="_self">15.(gdb)&nbsp;return&nbsp;</a></p> 
+<hr id="hr-toc"> 
+<p></p> 
+<p></p> 
+<h1 id="%E4%B8%80%E3%80%81gdb%E4%B8%8Epwndbg"><a name="t0"></a><strong>一、gdb与pwndbg</strong></h1> 
+<p>GDB——The <a href="https://so.csdn.net/so/search?q=GNU&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=GNU&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;GNU\&quot;}&quot;}" data-tit="GNU" data-pretit="gnu">GNU</a> Project Debugger.是Linux下面的一款强大的基于命令行的软件调试器。</p> 
+<p>GDB的所有操作都基于命令行进行，有别于windows上的各种调试器。</p> 
+<p>GDB的调试目标主要是带源代码的软件，即进行开发调试。若想要进行逆向工程调试，则需要GDB插件来提供额外的功能。pwndbg专门针对pwn题调试添加了额外的功能。</p> 
+<h1 id="%E4%BA%8C%E3%80%81%E8%B0%83%E8%AF%95"><a name="t1"></a><strong>二、调试</strong></h1> 
+<h2 id="1.%E7%BC%96%E8%AF%91%E6%9F%90%E4%B8%80%E7%A8%8B%E5%BA%8F%EF%BC%9A%C2%A0%C2%A0%C2%A0"><a name="t2"></a>1.编译某一程序：gcc &nbsp;</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gcc&nbsp;-m32 -o test test.c</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 或gcc test.c -o test</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 或gcc -Wall -g -o test test.c</p> 
+<p>-Wall 代表编译器在编译过程中会输出警告信息（Warning），比如有些变量你并没有使用，指针指向的类型有误，main 函数没有返回整数值等。</p> 
+<p>-g 代表编译器会收集调试（debug）信息，这样如果你的程序运行出错，就可以通过 gdb 或者 lldb 等工具进行逐行调试，方便找出错误原因。</p> 
+<p>-o 代表编译器会将编译完成后的可执行文件以你指定的名称输出到你指定的文件夹下。-o 的空格后的名称就是输出的文件的名称。如果不加这个参数，每次编译后生成的可执行文件都会放在根目录下，名字叫做 a.out。每次编译成功后都会把上一次的 a.out 文件覆盖。</p> 
+<p>-m32：编译32位程序</p> 
+<h2 id="2.gdb%20test"><a name="t3"></a>2.gdb test</h2> 
+<h2 id="3.%E5%8F%8D%E6%B1%87%E7%BC%96%3Adisass%20main%E7%AD%89"><a name="t4"></a>3.<a href="https://so.csdn.net/so/search?q=%E5%8F%8D%E6%B1%87%E7%BC%96&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E5%8F%8D%E6%B1%87%E7%BC%96&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;反汇编\&quot;}&quot;}" data-tit="反汇编" data-pretit="反汇编">反汇编</a>:disass main</h2> 
+<h2 id="4.%E5%B8%B8%E7%94%A8%E7%9A%84%E8%B0%83%E8%AF%95%E5%91%BD%E4%BB%A4"><a name="t5"></a>4.常用的调试命令</h2> 
+<h3 id="%C2%A0%C2%A0%C2%A0%201.b%20xx"><a name="t6"></a>&nbsp;&nbsp;&nbsp; 1.b xx</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置<a href="https://so.csdn.net/so/search?q=%E6%96%AD%E7%82%B9&amp;spm=1001.2101.3001.7020" target="_blank" class="hl hl-1" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7020&quot;,&quot;dest&quot;:&quot;https://so.csdn.net/so/search?q=%E6%96%AD%E7%82%B9&amp;spm=1001.2101.3001.7020&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;断点\&quot;}&quot;}" data-tit="断点" data-pretit="断点">断点</a>（b是breakpoint的缩写）</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b 函数名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //在指定函数的起始处设置断点</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b 行号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //在指定代码行设置断点</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b 文件名:函数名</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b 文件名:行号</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b +偏移量</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b -偏移量</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b *地址&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //不建议使用</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%202.r"><a name="t7"></a>&nbsp;&nbsp;&nbsp; 2.r</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行的意思（r是run的缩写），一般用来代码开始运行，或者重新运行（如果调试到一半又想从头开始运行）&nbsp;&nbsp;&nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; n（不会进入函数内部）</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s（会执行到函数内部）</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; start(无断点时)</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%203.c"><a name="t8"></a><br> &nbsp;&nbsp;&nbsp; 3.c</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;继续执行（c是continue的缩写），当执行r运行到某个断点后，后面想继续执行到下一个断点或者把剩下代码执行完毕，就可以使用c</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%204.n"><a name="t9"></a><br> &nbsp;&nbsp;&nbsp; 4.n</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;next的意思，执行当前行代码</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%205.s"><a name="t10"></a><br> &nbsp;&nbsp;&nbsp; 5.s</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;step的意思，当一行代码里有函数调用，那么执行s会跳入函数里执行，如果没有函数调用，那么效果和n相同</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%206.info%20xx"><a name="t11"></a><br> &nbsp;&nbsp;&nbsp; 6.info xx</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看一些信息，如断点或者局部变量，分别是info b和info locals</p> 
+<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; i r,查看寄存器</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 查看断点信息:info br,简写：i b</p> 
+<p><code>info </code><code>register</code>&nbsp;<code>$ebp&nbsp;查看寄存器ebp中的内容&nbsp;(简写为&nbsp;i r ebp)</code></p> 
+<p><code>i&nbsp;r&nbsp;eflags&nbsp;查看状态寄存器</code></p> 
+<p><code>i&nbsp;r&nbsp;ss&nbsp;查看段寄存器</code></p> 
+<p><code>i&nbsp;functions&nbsp;查看所有的函数</code></p> 
+<p></p> 
+<p><code>disas&nbsp;addr&nbsp;查看addr处前后的反汇编代码</code></p> 
+<p><code>stack&nbsp;20&nbsp;查看栈内20个值</code></p> 
+<p><code>show&nbsp;args&nbsp;查看参数</code></p> 
+<p><code>vmmap&nbsp;查看映射状况&nbsp;peda带有</code></p> 
+<p><code>readelf&nbsp;查看elf文件中各个段的起始地址&nbsp;peda带有</code></p> 
+<p><code>parseheap&nbsp;显示堆状况&nbsp;peda带有</code></p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%207.p%20xx"><a name="t12"></a><br> &nbsp;&nbsp;&nbsp; 7.p xx</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p是print的缩写，打印某个变量的值。</p> 
+<p><code>p&nbsp;</code><code>system</code><code>/main&nbsp;显示某个函数地址</code></p> 
+<p><code>p&nbsp;$esp&nbsp;显示寄存器</code></p> 
+<p><code>p/x&nbsp;p/a&nbsp;p/b&nbsp;p/s。。。</code></p> 
+<p><code>p&nbsp;0xff&nbsp;-&nbsp;0xea&nbsp;计算器</code></p> 
+<p><code>print&nbsp;&amp;VarName&nbsp;查看变量地址</code></p> 
+<p><code>p&nbsp;*&nbsp;0xffffebac&nbsp;查看某个地址处的值</code></p> 
+<p style="text-align:center;"><code><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/6f813fb370b549dda0609f31a9f2be84.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA6I-c6bifcWw=,size_20,color_FFFFFF,t_70,g_se,x_16" ></code></p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%208.set%20xx%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0%C2%A0"><a name="t13"></a><br> &nbsp;&nbsp;&nbsp; 8.set xx<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置某个变量的值</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%209.x"><a name="t14"></a>&nbsp;&nbsp;&nbsp; 9.x</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;指定大小 起始内存地址，即查看起始内存地址上指定大小的内存里的值。如x /3b 0x11223344，就是查看以0x11223344开始的3个字节的值，也可以是x /3w 0x11223344，就是查看以0x11223344开始的3个word的值</p> 
+<p><code>命令格式：x/&lt;n/f/u&gt;&nbsp;&lt;addr&gt;</code></p> 
+<p><code>n是一个正整数，表示需要显示的内存单元的个数</code></p> 
+<p><code>f&nbsp;表示显示的格式(可取如下值:&nbsp;x&nbsp;按十六进制格式显示变量。d&nbsp;按十进制格式显示变量。u&nbsp;按十进制格式显示无符号整型。o&nbsp;按八进制格式显示变量。t&nbsp;按二进制格式显示变量。a&nbsp;按十六进制格式显示变量。i&nbsp;指令地址格式c&nbsp;按字符格式显示变量。f&nbsp;按浮点数格式显示变量。)</code></p> 
+<p><code>u&nbsp;表示从当前地址往后请求的字节数&nbsp;默认4byte,u参数可以用下面的字符来代替，b表示单字节，h表示双字节，w表示四字节，g表示八字节</code></p> 
+<p><code>&lt;addr&gt;表示一个内存地址</code></p> 
+<p><code>x/xw&nbsp;addr&nbsp;显示某个地址处开始的16进制内容，如果有符号表会加载符号表</code></p> 
+<p><code>x/x&nbsp;$esp&nbsp;查看esp寄存器中的值</code></p> 
+<p><code>如<strong>x $ebp-0x2c</strong></code></p> 
+<p><code>x/s&nbsp;addr&nbsp;查看addr处的字符串</code></p> 
+<p><code>x/b&nbsp;addr&nbsp;查看addr处的字符</code></p> 
+<p><code>x/i&nbsp;addr&nbsp;查看addr处的反汇编结果</code></p> 
+<p style="text-align:center;"><code><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/bc553c8a816a4f9c8367bdb8ad059bf1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA6I-c6bifcWw=,size_20,color_FFFFFF,t_70,g_se,x_16" ></code></p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/628da6de66ff4a7f8a0692a57806ed4b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBA6I-c6bifcWw=,size_20,color_FFFFFF,t_70,g_se,x_16" ></p> 
+<p>共16组，分别以四字节/单字节显示</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%2010.bt"><a name="t15"></a><br> &nbsp;&nbsp;&nbsp; 10.bt</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;backtrace的缩写，回溯，当使用s进入某个函数后，输入bt可以打印该函数的栈帧<br> &nbsp;&nbsp;&nbsp; list，在命令行下显示源码，可以是list或者list 行号，后者是以指定行号为基准，显示该行号前后的代码</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%2011.q"><a name="t16"></a><br> &nbsp;&nbsp;&nbsp; 11.q</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quit的意思，即退出gdb调试</p> 
+<h3 id="%C2%A0%C2%A0%C2%A0%C2%A0%2012.%C2%A0%E5%88%A0%E9%99%A4%E6%96%AD%E7%82%B9"><a name="t17"></a>&nbsp;&nbsp;&nbsp;&nbsp; 12.&nbsp;删除断点</h3> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete &lt;断点id&gt;：删除指定断点&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //也可简写delete为d</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete：删除所有断点</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear 函数名</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear 行号</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear 文件名：行号</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear 文件名：函数名</p> 
+<h3 id="13.finish%C2%A0"><a name="t18"></a><code>13.finish&nbsp;</code></h3> 
+<p><code>&nbsp;&nbsp; 执行完当前函数返回到调用它的函数。运行程序，直到当前函数运行完毕返回再停止。例如进入的单步执行如果已经进入了某函数，而想退出该函数返回到它的调用函数中，可使用命令finish.&nbsp;&nbsp;</code></p> 
+<h3 id="14.(gdb)%C2%A0jump%C2%A05%C2%A0"><a name="t19"></a><code>14.(gdb)&nbsp;jump&nbsp;5&nbsp;</code></h3> 
+<p><code>&nbsp;&nbsp; 跳转执行程序到第5行：这里，可以简写为"j&nbsp;5"</code><code>需要注意的是，跳转到第5行执行完毕之后，如果后面没有断点则继续执行，而并不是停在那里了。</code><code>另外，跳转不会改变当前的堆栈内容，所以跳到别的函数中就会有奇怪的现象，因此最好跳转在一个函数内部进行。跳转的参数也可以是程序代码行的地址,函数名等等。</code></p> 
+<p></p> 
+<h3 id="15.(gdb)%C2%A0return%C2%A0"><a name="t20"></a><code>15.(gdb)&nbsp;</code><code>return</code>&nbsp;</h3> 
+<p><code>&nbsp;&nbsp;&nbsp; 强制返回当前函数:&nbsp;这样，将会忽略当前函数还没有执行完毕的语句，强制返回。return</code><code>后面可以接一个表达式，表达式的返回值就是函数的返回值。</code></p> 
+<p></p> 
+<p><strong>函数的逆向存储：</strong></p> 
+<p><strong>如函数add(int a,int b){<!-- --></strong><strong>xxx<br> }</strong></p> 
+<p>在调用add（）前，a,b两个参数先入栈</p> 
+<p></p> 
+<p><strong>例</strong>：</p> 
+<p>最简单的内存破坏就是数组溢出。因为数组内存是连续的，数组溢出之后，数据会覆盖数据后面的内存。</p> 
+<p>#include &lt;stdio.h&gt;<br> #include &lt;stdlib.h&gt;<br> #include &lt;string.h&gt;</p> 
+<p><br> int main(void){<br> &nbsp;&nbsp; &nbsp;char name[10];<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;int flag = 0;<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;puts("What's you name?");<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;fgets(name,50,stdin);<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;if(flag){<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;puts("You are here!");<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;}<br> &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;return 0;<br> }</p> 
+<p><strong>由于Linux下的gcc编译器不支持gets函数，程序编译过后会出现一个警告，即：“warning: the `gets' function is dangerous and should not be used.”</strong></p> 
+<p><strong>&nbsp; 此时，可以用fgets函数代替，函数在头文件stdio.h中，函数原型：char *fgets(char *buf, int bufsize, FILE *stream),即从文件结构体指针stream（键盘输入stdin）中读取数据，每次读一行，读取的数据保存在buf指向的字符数组中，每次最多读bufsize-1个字符（第bufsize个字符赋'\0'）.</strong></p> 
+<p><strong>&nbsp; ps：fgets函数会读取'\n'（gets不会），因此有时要将最后的回车符换成\0，否则会有差错。</strong></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 在以上这一段代码中，</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(flag){</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; puts("You are here!");</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br> &nbsp;</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这一段代码似乎是永远不可能运行的，称为死代码。但我们可以利用fgets函数的漏洞，实现这一代码的执行；</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>下面以如上代码为例，介绍一下常用操作命令：</strong></p> 
+<blockquote> 
+ <p><strong>&nbsp;&nbsp;&nbsp;&nbsp; </strong><code>gcc -g test.cpp</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 对程序进行编译，并开启-g选项生成调试信息，这样gdb才可以调试程序</p> 
+<blockquote> 
+ <p>&nbsp;&nbsp;&nbsp; gdb ./a.out</p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 编译成功后生成a.out。我们开始调试</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 打印如下</p> 
+<p><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/86e44f915add4be3b5bfab6f6b1798bb.PNG?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6I-c6bifcWw=,size_20,color_FFFFFF,t_70,g_se,x_16" >此时处于命令模式，我们可以输入相关命令来进行调试。</p> 
+<p><strong>起始</strong></p> 
+<p>输入b main并回车，意思是在main函数起始处打断点，然后输入<code>r</code>并回车，开始执行程序，程序会在main开始处停下来，因为这边设置了断点。<br><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/dc0ec8ca781e4c2b87ce01c3bd1cacc6.PNG" ></p> 
+<p>&nbsp;这套操作是调试的基础，因为程序运行都从main函数开始执行，所以我们都会从main开始调试。</p> 
+<p><strong>执行代码</strong></p> 
+<p>此时输入<code>n</code>并回车，程序就会执行一行代码。每输入一个n并回车，都会执行一行代码。如果这一行代码有函数调用，那么再输入<code>s</code>就会进入函数体内并执行函数的第一行代码，如果输入<code>n</code>则直接把被调函数执行完。</p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/aeb3a2e675d84afd8ed0d1f6323f7eff.PNG" ></p> 
+<p></p> 
+<p><strong>查看变量</strong></p> 
+<p>代码里有个结构体变量flag，我们来查看下它的信息，输入<code>p flag</code></p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/a276e2a46ecc459180e4820fe634e481.PNG" ></p> 
+<p>查看结构体里的成员则是<code>p xxx.xxx</code></p> 
+<p>查看地址：p &amp;xxx</p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p &amp;xxx.xxx</p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/1df53d6aa71d4d22bb230bc917c71262.PNG" ></p> 
+<p>当然，也可以用x查看</p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/e06fa1fe3b004363beb554c3e4ed49fc.PNG" ></p> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 用&amp;取地址也行得通</p> 
+<p style="text-align:center;"><img  alt=""  lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="https://img-blog.csdnimg.cn/f2ad289aacee44619b0b2e72f330da46.PNG" ></p> 
+<p></p> 
+<p><strong>修改变量</strong></p> 
+<p>修改obj里成员变量的值，使用<code>set flag=1</code></p> 
+<p>&nbsp;这个命令就是直接修改内存里的值，这样如果后续代码没有对这个变量重新赋值，那么后面这个变量的值就是我们手动设置的值了。</p> 
+<p></p> 
+<p>ps</p> 
+<p>查看栈：stack 0xxxx</p> 
+<p></p> 
+<p></p>
+                </div></div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/">pwn学习四</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E4%BA%94/" title="pwn学习五">上一篇<span>pwn学习五</span></a><a class="post-nav-next" href="/2026/06/22/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" title="python沙盒逃逸">下一篇<span>python沙盒逃逸</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#811"><span class="toc-list-text">811</span></a></li><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%25E4%25B8%2580%25E3%2580%2581gdb%25E4%25B8%258Epwndbg"><span class="toc-list-text">一、gdb与pwndbg</span></a></li><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#%25E4%25BA%258C%25E3%2580%2581%25E8%25B0%2583%25E8%25AF%2595"><span class="toc-list-text">二、调试</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#1.%25E7%25BC%2596%25E8%25AF%2591%25E6%259F%2590%25E4%25B8%2580%25E7%25A8%258B%25E5%25BA%258F%25EF%25BC%259A%25C2%25A0%25C2%25A0%25C2%25A0"><span class="toc-list-text">1.编译某一程序：gcc  </span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#2.gdb%2520test"><span class="toc-list-text">2.gdb test</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#3.%25E5%258F%258D%25E6%25B1%2587%25E7%25BC%2596%253Adisass%2520main%25E7%25AD%2589"><span class="toc-list-text">3.反汇编:disass main</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#4.%25E5%25B8%25B8%25E7%2594%25A8%25E7%259A%2584%25E8%25B0%2583%25E8%25AF%2595%25E5%2591%25BD%25E4%25BB%25A4"><span class="toc-list-text">4.常用的调试命令</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25201.b%2520xx"><span class="toc-list-text">    1.b xx</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25202.r"><span class="toc-list-text">    2.r</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25203.c"><span class="toc-list-text">     3.c</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25204.n"><span class="toc-list-text">     4.n</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25205.s"><span class="toc-list-text">     5.s</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25206.info%2520xx"><span class="toc-list-text">     6.info xx</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25207.p%2520xx"><span class="toc-list-text">     7.p xx</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25208.set%2520xx%25C2%25A0%25C2%25A0%25C2%25A0%25C2%25A0%25C2%25A0%25C2%25A0%25C2%25A0"><span class="toc-list-text">     8.set xx        </span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25209.x"><span class="toc-list-text">    9.x</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%252010.bt"><span class="toc-list-text">     10.bt</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%252011.q"><span class="toc-list-text">     11.q</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%25C2%25A0%25C2%25A0%25C2%25A0%25C2%25A0%252012.%25C2%25A0%25E5%2588%25A0%25E9%2599%25A4%25E6%2596%25AD%25E7%2582%25B9"><span class="toc-list-text">     12. 删除断点</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#13.finish%25C2%25A0"><span class="toc-list-text">13.finish </span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#14.(gdb)%25C2%25A0jump%25C2%25A05%25C2%25A0"><span class="toc-list-text">14.(gdb) jump 5 </span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#15.(gdb)%25C2%25A0return%25C2%25A0"><span class="toc-list-text">15.(gdb) return </span></a></li></ol></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/pwn%E5%AD%A6%E4%B9%A0%E5%9B%9B/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

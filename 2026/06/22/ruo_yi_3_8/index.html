@@ -1,0 +1,495 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="CTF,技巧"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="ruo_yi_3_8 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="ruo_yi_3_8 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/ruo_yi_3_8/"/><meta name="description" content="RuoYi 3.8.2（前后端分离）渗透测试报告 说明：本文档以项目测试与分析为目的，聚焦前端交互与与前后端分离后暴露的接口风险。文中留有截图占位，便于后续插图与证据补充。语言力求专业、通俗、结构清晰，减少逻辑性衔接词，便于直接作为测试交付物使用。   1 报告信息 报告标题：RuoYi 3.8.2 前后端分离 渗透测试报告 目标系统：若依（RuoYi-Vue）前端 + 后端 API 版本：...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ruo_yi_3_8 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/ruo_yi_3_8/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="RuoYi 3.8.2（前后端分离）渗透测试报告 说明：本文档以项目测试与分析为目的，聚焦前端交互与与前后端分离后暴露的接口风险。文中留有截图占位，便于后续插图与证据补充。语言力求专业、通俗、结构清晰，减少逻辑性衔接词，便于直接作为测试交付物使用。   1 报告信息 报告标题：RuoYi 3.8.2 前后端分离 渗透测试报告 目标系统：若依（RuoYi-Vue）前端 + 后端 API 版本：...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/ruo_yi_3_8/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.290Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/ruo_yi_3_8/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>ruo_yi_3_8 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">ruo_yi_3_8</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="RuoYi-3-8-2（前后端分离）渗透测试报告"><a href="#RuoYi-3-8-2（前后端分离）渗透测试报告" class="headerlink" title="RuoYi 3.8.2（前后端分离）渗透测试报告"></a>RuoYi 3.8.2（前后端分离）渗透测试报告</h1><blockquote>
+<p>说明：本文档以项目测试与分析为目的，聚焦前端交互与与前后端分离后暴露的接口风险。文中留有截图占位，便于后续插图与证据补充。语言力求专业、通俗、结构清晰，减少逻辑性衔接词，便于直接作为测试交付物使用。</p>
+</blockquote>
+<hr>
+<h2 id="1-报告信息"><a href="#1-报告信息" class="headerlink" title="1 报告信息"></a>1 报告信息</h2><ul>
+<li>报告标题：RuoYi 3.8.2 前后端分离 渗透测试报告</li>
+<li>目标系统：若依（RuoYi-Vue）前端 + 后端 API</li>
+<li>版本：RuoYi-Vue 3.8.2</li>
+<li>数据库：<code>ruoyi</code></li>
+<li>测试范围：主要聚焦前台（用户面）交互、前端逻辑、与后端 API 的授权&#x2F;认证、输入校验与敏感信息暴露</li>
+<li>报告作者：测试团队</li>
+<li>测试时间：YYYY-MM-DD（请填写实际测试日期）</li>
+</ul>
+<hr>
+<h2 id="2-执行摘要（简洁）"><a href="#2-执行摘要（简洁）" class="headerlink" title="2 执行摘要（简洁）"></a>2 执行摘要（简洁）</h2><ul>
+<li>目标系统存在多类前端相关风险。部分风险可通过前端逻辑与不安全的 API 配合实现数据泄露或权限越界。部分漏洞为已知组件&#x2F;版本问题，应优先修复。</li>
+<li>建议按风险等级优先处理：高 -&gt; 中 -&gt; 低。高危项应在修复前采取临时缓解措施（如关闭相关接口、增强网关校验）。</li>
+</ul>
+<hr>
+<h2 id="3-范围与限制"><a href="#3-范围与限制" class="headerlink" title="3 范围与限制"></a>3 范围与限制</h2><ul>
+<li>范围仅限前台交互与前后端接口（<code>/api/**</code>、常见 public 路径）。</li>
+<li>未包含对后端物理主机、内网横向移动或底层操作系统级别的渗透。</li>
+<li>渗透过程中仅执行被授权测试动作。若需复现高危利用，请在隔离环境完成。</li>
+</ul>
+<hr>
+<h2 id="4-测试环境"><a href="#4-测试环境" class="headerlink" title="4 测试环境"></a>4 测试环境</h2><ul>
+<li>前端：RuoYi-Vue 3.8.2（构建产物或本地 dev）</li>
+<li>后端：Spring Boot API（默认上下游端点）</li>
+<li>数据库：MySQL，库名 <code>ruoyi</code></li>
+<li>工具列表：Burp Suite、OWASP ZAP、curl、httpie、sqlmap（按需）、nmap、jq、浏览器控制台、F12 网络面板</li>
+</ul>
+<hr>
+<h2 id="5-测试方法与步骤概述"><a href="#5-测试方法与步骤概述" class="headerlink" title="5 测试方法与步骤概述"></a>5 测试方法与步骤概述</h2><ol>
+<li>识别前端路由与静态资源，记录关键页面（登录、注册、找回密码、个人中心、文件下载上传、富文本编辑区）。</li>
+<li>通过浏览器代理抓包，枚举前端发出的 API 请求，映射接口与参数。</li>
+<li>对接口进行未授权访问、水平&#x2F;垂直越权测试、参数篡改测试、IDOR 测试。</li>
+<li>对可能存在的输入点进行 XSS、CSRF 与上传相关测试。</li>
+<li>对文件类接口测试任意文件下载&#x2F;读取、任意文件上传与后续文件访问。</li>
+<li>分析前端使用的第三方库（如 jsencrypt）与本地存储策略，检查敏感信息是否保存在 cookie&#x2F;localStorage 中。</li>
+</ol>
+<hr>
+<h2 id="6-关键发现（按风险等级分组）"><a href="#6-关键发现（按风险等级分组）" class="headerlink" title="6 关键发现（按风险等级分组）"></a>6 关键发现（按风险等级分组）</h2><h3 id="高危（需立即处理）"><a href="#高危（需立即处理）" class="headerlink" title="高危（需立即处理）"></a>高危（需立即处理）</h3><h4 id="A-敏感信息以明文或可逆方式保存在-Cookie（已知组件风险）"><a href="#A-敏感信息以明文或可逆方式保存在-Cookie（已知组件风险）" class="headerlink" title="A. 敏感信息以明文或可逆方式保存在 Cookie（已知组件风险）"></a>A. 敏感信息以明文或可逆方式保存在 Cookie（已知组件风险）</h4><ul>
+<li><strong>描述</strong>：若依前端在密码处理&#x2F;登录流程中，使用了 <code>jsencrypt.js</code> 或自定义加密组件。部分版本存在将敏感信息以可恢复或明文方式写入 cookie 的问题。攻击者可通过 XSS 或同域脚本读取 cookie，从而窃取凭证或会话信息。</li>
+<li><strong>影响</strong>：账户被劫持、数据泄露、横向越权。影响版本：RuoYi-Vue &lt;&#x3D; 3.8.9（3.8.2 属于受影响范围）。</li>
+<li><strong>复现步骤（示例）</strong>：<ol>
+<li>在登录时观察 cookie 内容（浏览器开发者工具 -&gt; Application -&gt; Cookies）。</li>
+<li>使用代理抓包，确认登录请求&#x2F;响应中是否包含可识别的敏感字段。</li>
+<li>模拟 XSS（或借助浏览器控制台）读取 <code>document.cookie</code>，确认是否能获取敏感条目。</li>
+</ol>
+</li>
+<li><strong>证据&#x2F;截图占位</strong>：<ul>
+<li>截图1：登录后 cookie 列表（包含敏感字段位置）。</li>
+<li>截图2：抓包显示 login 请求&#x2F;response。</li>
+</ul>
+</li>
+<li><strong>建议修复</strong>：<ul>
+<li>不在 cookie 中存储明文敏感信息。仅存储 HttpOnly, Secure 的 session id 或短期令牌。</li>
+<li>使用服务端完成敏感信息加密与验证，前端仅负责展示。</li>
+<li>若使用加密库，确保密钥不在前端暴露。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>（截图占位——请在此处插入登录后 cookie 列表截图）</p>
+</blockquote>
+<h4 id="B-任意文件下载-任意文件读取（历史高危类型，需核实）"><a href="#B-任意文件下载-任意文件读取（历史高危类型，需核实）" class="headerlink" title="B. 任意文件下载 &#x2F; 任意文件读取（历史高危类型，需核实）"></a>B. 任意文件下载 &#x2F; 任意文件读取（历史高危类型，需核实）</h4><ul>
+<li><strong>描述</strong>：若依早期某些接口（如 <code>/common/download/resource</code>）对输入路径未做严格限制，可能导致任意文件下载或读取。前后端分离后若保留类似通用下载接口，仍可能被滥用。</li>
+<li><strong>影响</strong>：配置文件、数据库备份、敏感凭据泄露。可能导致进一步 RCE。</li>
+<li><strong>复现步骤（示例）</strong>：<ol>
+<li>访问疑似下载接口：<code>GET /common/download/resource?name=/etc/passwd</code> 或 <code>?name=../../../../application.yml</code>。</li>
+<li>检查响应是否返回服务器文件内容。</li>
+</ol>
+</li>
+<li><strong>证据&#x2F;截图占位</strong>：<ul>
+<li>截图3：任意文件读取成功响应示例。</li>
+</ul>
+</li>
+<li><strong>建议修复</strong>：<ul>
+<li>限制下载路径白名单。</li>
+<li>对路径参数做严格规范化与校验，禁止 <code>..</code> 等相对路径。</li>
+<li>将文件存储操作限制在不可直接遍历的存储目录，使用映射 ID 而非原始文件路径。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>（截图占位——请在此处插入文件读取响应截图）</p>
+</blockquote>
+<h3 id="中危（优先处理）"><a href="#中危（优先处理）" class="headerlink" title="中危（优先处理）"></a>中危（优先处理）</h3><h4 id="C-前端可触发的反射型-存储型-XSS"><a href="#C-前端可触发的反射型-存储型-XSS" class="headerlink" title="C. 前端可触发的反射型&#x2F;存储型 XSS"></a>C. 前端可触发的反射型&#x2F;存储型 XSS</h4><ul>
+<li><strong>描述</strong>：输入点（如用户资料、富文本编辑、留言）若未对输入或输出做严格过滤与转义，可能被注入脚本。前端富文本处理时若信任 HTML，将扩大发现风险。</li>
+<li><strong>影响</strong>：会话窃取、钓鱼、凭证泄露。对使用 cookie 存储敏感信息的系统影响更大。</li>
+<li><strong>复现步骤（示例）</strong>：<ol>
+<li>在可编辑输入区域提交 <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> 或 payload。</li>
+<li>刷新或在其他用户页面观察是否触发。</li>
+</ol>
+</li>
+<li><strong>证据&#x2F;截图占位</strong>：<ul>
+<li>截图4：注入点与触发弹窗的页面。</li>
+</ul>
+</li>
+<li><strong>建议修复</strong>：<ul>
+<li>使用服务端与前端双重输出编码。</li>
+<li>对富文本输入采用安全白名单（允许的标签与属性）并使用库（如 DOMPurify）进行清洗。</li>
+</ul>
+</li>
+</ul>
+<h4 id="D-CSRF-风险与不安全的-CORS-配置"><a href="#D-CSRF-风险与不安全的-CORS-配置" class="headerlink" title="D. CSRF 风险与不安全的 CORS 配置"></a>D. CSRF 风险与不安全的 CORS 配置</h4><ul>
+<li><strong>描述</strong>：若后端对跨域请求未做限制，或 CORS 允许 <code>*</code> 或任意来源，攻击者可在用户登录状态下发起跨站请求。部分 API 若只依赖 cookie 认证，将受到 CSRF 影响。</li>
+<li><strong>影响</strong>：在已登录用户上下文下执行未授权操作。</li>
+<li><strong>复现步骤（示例）</strong>：<ol>
+<li>构造跨站请求页面，自动提交对目标站点的 POST 请求。</li>
+<li>若后端接受并执行，则存在 CSRF。</li>
+</ol>
+</li>
+<li><strong>证据&#x2F;截图占位</strong>：<ul>
+<li>截图5：响应头 <code>Access-Control-Allow-Origin</code> 与示例请求&#x2F;响应。</li>
+</ul>
+</li>
+<li><strong>建议修复</strong>：<ul>
+<li>对重要写操作开启 CSRF Token 校验。</li>
+<li>CORS 仅允许可信来源。</li>
+<li>对敏感修改接口额外校验来源与用户权限。</li>
+</ul>
+</li>
+</ul>
+<h3 id="低危（记录、长期改进）"><a href="#低危（记录、长期改进）" class="headerlink" title="低危（记录、长期改进）"></a>低危（记录、长期改进）</h3><h4 id="E-IDOR（水平-垂直越权）在前端-API-参数层面"><a href="#E-IDOR（水平-垂直越权）在前端-API-参数层面" class="headerlink" title="E. IDOR（水平&#x2F;垂直越权）在前端 API 参数层面"></a>E. IDOR（水平&#x2F;垂直越权）在前端 API 参数层面</h4><ul>
+<li><strong>描述</strong>：部分资源通过可控 ID 暴露，若后端未做完整授权校验，攻击者可请求他人资源。例如：<code>GET /user/profile/{id}</code> 参数改为其他用户 id。</li>
+<li><strong>影响</strong>：隐私泄露、数据不一致。</li>
+<li><strong>复现步骤</strong>：<ol>
+<li>登录用户 A，访问 <code>/api/user/123/profile</code>。</li>
+<li>将 123 替换为其他用户 id，观察是否返回数据。</li>
+</ol>
+</li>
+<li><strong>建议修复</strong>：<ul>
+<li>服务端在接口侧强制校验用户权限，基于登录主体判断资源访问权限，禁止仅依赖前端判断。</li>
+</ul>
+</li>
+</ul>
+<h4 id="F-前端依赖库老旧导致组件级漏洞"><a href="#F-前端依赖库老旧导致组件级漏洞" class="headerlink" title="F. 前端依赖库老旧导致组件级漏洞"></a>F. 前端依赖库老旧导致组件级漏洞</h4><ul>
+<li><strong>描述</strong>：若前端使用过期第三方库（富文本、文件处理、加密库等），可能含已知漏洞。</li>
+<li><strong>影响</strong>：被利用导致 XSS、敏感数据泄露或加密机制失效。</li>
+<li><strong>建议修复</strong>：<ul>
+<li>进行依赖清单扫描，升级到无已知漏洞的版本。</li>
+<li>对外部脚本来源增加完整性校验（SRI），或本地化依赖并纳入版本管理。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="7-详细复现命令与示例请求（供技术复验）"><a href="#7-详细复现命令与示例请求（供技术复验）" class="headerlink" title="7 详细复现命令与示例请求（供技术复验）"></a>7 详细复现命令与示例请求（供技术复验）</h2><blockquote>
+<p>注：以下示例仅供授权测试使用，均指向本地测试地址 <code>http://127.0.0.1:8080</code>（如后端监听不同端口，请据实替换）。复制到渗透测试环境验证。</p>
+</blockquote>
+<h3 id="7-1-检查-cookie-与登录请求（本地化-curl-与脚本示例）"><a href="#7-1-检查-cookie-与登录请求（本地化-curl-与脚本示例）" class="headerlink" title="7.1 检查 cookie 与登录请求（本地化 curl 与脚本示例）"></a>7.1 检查 cookie 与登录请求（本地化 curl 与脚本示例）</h3><ul>
+<li>使用 curl 模拟登录（表单方式）：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 表单登录示例（若后端使用 form 提交）</span></span><br><span class="line">curl -i -s -k <span class="string">&#x27;http://127.0.0.1:8080/login&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Content-Type: application/x-www-form-urlencoded&#x27;</span> \</span><br><span class="line">  --data <span class="string">&#x27;username=admin&amp;password=admin123&#x27;</span> \</span><br><span class="line">  -c cookies.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 登录后查看 cookies.txt 中的会话信息</span></span><br><span class="line"><span class="built_in">cat</span> cookies.txt</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>使用 curl 模拟 JSON 登录（部分前后端分离项目使用 JSON 体）：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -i -s -k <span class="string">&#x27;http://127.0.0.1:8080/api/login&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> \</span><br><span class="line">  -d <span class="string">&#x27;&#123;&quot;username&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;admin123&quot;&#125;&#x27;</span> \</span><br><span class="line">  -c cookies.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应头与 Set-Cookie</span></span><br><span class="line"><span class="built_in">cat</span> cookies.txt</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>使用 Python requests（便于后续脚本化验证）：</li>
+</ul>
+<div class="code-container" code-lang="Python"><div class="codebox"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># save as login_check.py</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s = requests.Session()</span><br><span class="line">url = <span class="string">&#x27;http://127.0.0.1:8080/api/login&#x27;</span></span><br><span class="line">payload = &#123;<span class="string">&#x27;username&#x27;</span>:<span class="string">&#x27;admin&#x27;</span>,<span class="string">&#x27;password&#x27;</span>:<span class="string">&#x27;admin123&#x27;</span>&#125;</span><br><span class="line">r = s.post(url, json=payload)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;status&#x27;</span>, r.status_code)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;response&#x27;</span>, r.text[:<span class="number">800</span>])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;cookies:&#x27;</span>, s.cookies.get_dict())</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<blockquote>
+<p>证据占位：请在此处插入登录响应抓包和浏览器 Application -&gt; Cookies 截图（登录后 cookies.txt 或浏览器 cookie 列表）。</p>
+</blockquote>
+<h3 id="7-2-任意文件读取-下载-测试（本地化）"><a href="#7-2-任意文件读取-下载-测试（本地化）" class="headerlink" title="7.2 任意文件读取 &#x2F; 下载 测试（本地化）"></a>7.2 任意文件读取 &#x2F; 下载 测试（本地化）</h3><ul>
+<li>用 curl 测试常见下载接口路径遍历：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 尝试读取后端配置文件（示例）</span></span><br><span class="line">curl -s -k <span class="string">&quot;http://127.0.0.1:8080/common/download/resource?name=../../../../application.yml&quot;</span> -b cookies.txt -o resp.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看返回内容的前 200 行（若成功，将包含配置/数据库连接信息）</span></span><br><span class="line"><span class="built_in">head</span> -n 200 resp.txt</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>若接口以 ID 或路径 token 方式访问，可尝试常见 payload 列表：</li>
+</ul>
+<div class="code-container" code-lang="Plaintext"><div class="codebox"><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/name=../../../../application.yml</span><br><span class="line">/name=../application-dev.yml</span><br><span class="line">/name=/etc/passwd</span><br><span class="line">/name=..%2F..%2F..%2F..%2Fapplication.yml</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<blockquote>
+<p>证据占位：在此处插入成功返回敏感文件的响应截图或 resp.txt 的关键片段。</p>
+</blockquote>
+<h3 id="7-3-XSS-注入验证（本地化-POST-示例）"><a href="#7-3-XSS-注入验证（本地化-POST-示例）" class="headerlink" title="7.3 XSS 注入验证（本地化 POST 示例）"></a>7.3 XSS 注入验证（本地化 POST 示例）</h3><ul>
+<li>简单 JSON POST 提交到消息创建&#x2F;评论接口：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -s -k <span class="string">&#x27;http://127.0.0.1:8080/api/message/create&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Content-Type: application/json&#x27;</span> \</span><br><span class="line">  -b cookies.txt \</span><br><span class="line">  -d <span class="string">&#x27;&#123;&quot;title&quot;:&quot;test&quot;,&quot;content&quot;:&quot;&lt;script&gt;alert(\&quot;XSS\&quot;)&lt;/script&gt;&quot;&#125;&#x27;</span> -v</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>若接口为表单上传，则使用如下：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -s -k <span class="string">&#x27;http://127.0.0.1:8080/message/save&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Content-Type: application/x-www-form-urlencoded&#x27;</span> \</span><br><span class="line">  -b cookies.txt \</span><br><span class="line">  --data <span class="string">&#x27;title=test&amp;content=&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;&#x27;</span> -v</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>结合浏览器观察：提交后在受影响页面刷新，查看脚本是否被执行（浏览器控制台或截图）。</li>
+</ul>
+<blockquote>
+<p>证据占位：插入注入表单位置截图与触发弹窗的页面截图。</p>
+</blockquote>
+<h3 id="7-4-CORS-与-CSRF-检查（本地化）"><a href="#7-4-CORS-与-CSRF-检查（本地化）" class="headerlink" title="7.4 CORS 与 CSRF 检查（本地化）"></a>7.4 CORS 与 CSRF 检查（本地化）</h3><ul>
+<li>检查后端对 OPTIONS 的响应头（模拟来自恶意站点的预检请求）：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -i -s -k -X OPTIONS <span class="string">&#x27;http://127.0.0.1:8080/api/some&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Origin: https://attacker.example&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Access-Control-Request-Method: POST&#x27;</span> \</span><br><span class="line">  -H <span class="string">&#x27;Access-Control-Request-Headers: content-type&#x27;</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<ul>
+<li>简单 CSRF PoC（在攻击页面自动 POST）——仅用于本地测试验证：</li>
+</ul>
+<div class="code-container" code-lang="Html"><div class="codebox"><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- save as csrf_poc.html 并在本地浏览器打开（需在已登录 target 的浏览器会话中） --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">&quot;f&quot;</span> <span class="attr">action</span>=<span class="string">&quot;http://127.0.0.1:8080/api/user/changePwd&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;newPwd&quot;</span> <span class="attr">value</span>=<span class="string">&quot;pwned123&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;f&#x27;</span>).<span class="title function_">submit</span>();</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<blockquote>
+<p>证据占位：插入 OPTIONS 响应头截图与 CSRF PoC 执行后的接口日志&#x2F;响应截图。</p>
+</blockquote>
+<h3 id="7-5-IDOR-验证示例（本地）"><a href="#7-5-IDOR-验证示例（本地）" class="headerlink" title="7.5 IDOR 验证示例（本地）"></a>7.5 IDOR 验证示例（本地）</h3><ul>
+<li>修改用户 id 请求参数测试水平越权：</li>
+</ul>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设当前登录用户 id=100</span></span><br><span class="line">curl -s -k <span class="string">&#x27;http://127.0.0.1:8080/api/user/profile/100&#x27;</span> -b cookies.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换为其他用户 id</span></span><br><span class="line">curl -s -k <span class="string">&#x27;http://127.0.0.1:8080/api/user/profile/101&#x27;</span> -b cookies.txt</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<blockquote>
+<p>证据占位：插入两个请求的响应对比截图（若返回不同用户数据，标注敏感字段）。</p>
+</blockquote>
+<hr>
+<h2 id="8-风险评级说明"><a href="#8-风险评级说明" class="headerlink" title="8 风险评级说明"></a>8 风险评级说明</h2><ul>
+<li><strong>高危</strong>：容易被远程利用，可能导致重要资产泄露或系统接管。优先在 7 天内修复或采取临时缓解。</li>
+<li><strong>中危</strong>：利用成本或可访问条件较高，但仍能造成严重影响。优先在 30 天内修复。</li>
+<li><strong>低危</strong>：对业务影响有限，长期改进项。</li>
+</ul>
+<hr>
+<h2 id="第9节-—-修复建议（详细，可落地）"><a href="#第9节-—-修复建议（详细，可落地）" class="headerlink" title="第9节 — 修复建议（详细，可落地）"></a>第9节 — 修复建议（详细，可落地）</h2><p>下面给出更为详细、可直接落地的修复建议，包含代码片段与实现要点，便于开发直接在项目中应用并回归验证。</p>
+<h3 id="9-1-不在前端或-Cookie-中保存明文敏感信息（会话与凭证处理）"><a href="#9-1-不在前端或-Cookie-中保存明文敏感信息（会话与凭证处理）" class="headerlink" title="9.1 不在前端或 Cookie 中保存明文敏感信息（会话与凭证处理）"></a>9.1 不在前端或 Cookie 中保存明文敏感信息（会话与凭证处理）</h3><p><strong>要点</strong>：仅在服务器端生成短期会话凭证；前端仅保存非敏感标识（或把凭证保存为 HttpOnly, Secure cookie）。</p>
+<p><strong>Spring Boot（使用 Spring Security）示例</strong>：</p>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在成功认证后设置 cookie（示例）</span></span><br><span class="line"><span class="type">HttpServletResponse</span> <span class="variable">response</span> <span class="operator">=</span> ...;</span><br><span class="line"><span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> jwtService.createToken(authentication);</span><br><span class="line"><span class="type">Cookie</span> <span class="variable">cookie</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Cookie</span>(<span class="string">&quot;RUOYI-TOKEN&quot;</span>, token);</span><br><span class="line">cookie.setHttpOnly(<span class="literal">true</span>);</span><br><span class="line">cookie.setSecure(<span class="literal">true</span>); <span class="comment">// 在 HTTPS 环境启用</span></span><br><span class="line">cookie.setPath(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">cookie.setMaxAge(<span class="number">60</span> * <span class="number">60</span>); <span class="comment">// 1 小时过期</span></span><br><span class="line">cookie.setDomain(<span class="string">&quot;example.com&quot;</span>);</span><br><span class="line">response.addCookie(cookie);</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>不在 cookie&#x2F;localStorage 中存储明文密码或密钥。</li>
+<li>使用 HttpOnly + Secure + SameSite 限制 cookie 访问。</li>
+<li>若使用 JWT，后端使用对称&#x2F;非对称密钥签名，前端仅保存 token，不保存私钥。</li>
+<li>token 采用短期过期 + 刷新机制，刷新接口需做额外校验（设备、IP、频率）。</li>
+</ul>
+<hr>
+<h3 id="9-2-文件下载路径校验与白名单（防止路径遍历、任意文件读取）"><a href="#9-2-文件下载路径校验与白名单（防止路径遍历、任意文件读取）" class="headerlink" title="9.2 文件下载路径校验与白名单（防止路径遍历、任意文件读取）"></a>9.2 文件下载路径校验与白名单（防止路径遍历、任意文件读取）</h3><p><strong>要点</strong>：使用映射 ID（或数据库记录）而非直接传递文件系统路径；在处理路径时做正规化与基目录校验。</p>
+<p><strong>安全实现示例（Java）</strong>：</p>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/common/download/resource&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;Resource&gt; <span class="title function_">download</span><span class="params">(<span class="meta">@RequestParam</span> String name)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">    <span class="type">Path</span> <span class="variable">baseDir</span> <span class="operator">=</span> Paths.get(<span class="string">&quot;/opt/ruoyi/uploads&quot;</span>).toRealPath();</span><br><span class="line">    <span class="type">Path</span> <span class="variable">requested</span> <span class="operator">=</span> baseDir.resolve(name).normalize();</span><br><span class="line">    <span class="keyword">if</span> (!requested.startsWith(baseDir)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!Files.exists(requested) || Files.isDirectory(requested)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.notFound().build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Resource</span> <span class="variable">resource</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UrlResource</span>(requested.toUri());</span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok()</span><br><span class="line">            .header(HttpHeaders.CONTENT_DISPOSITION, <span class="string">&quot;attachment; filename=\&quot;&quot;</span> + requested.getFileName().toString() + <span class="string">&quot;\&quot;&quot;</span>)</span><br><span class="line">            .body(resource);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>上传文件写入数据库记录（fileId, originalName, storagePath, ownerId），对外仅使用 fileId 访问。</li>
+<li>对 name 参数做严格校验，拒绝包含 <code>..</code> 或 URL 编码后的遍历序列。</li>
+<li>对关键目录设置只读、不可执行权限，避免 webserver 直接解析上传目录中的脚本文件。</li>
+</ul>
+<hr>
+<h3 id="9-3-XSS-防护（输入白名单-输出编码）"><a href="#9-3-XSS-防护（输入白名单-输出编码）" class="headerlink" title="9.3 XSS 防护（输入白名单 + 输出编码）"></a>9.3 XSS 防护（输入白名单 + 输出编码）</h3><p><strong>要点</strong>：前端与后端双重防护。前端对富文本使用可信清洗库（如 DOMPurify）。后端对所有用户可显示字段进行输出编码。</p>
+<p><strong>前端建议</strong>：</p>
+<ul>
+<li>在提交富文本前使用 DOMPurify 清洗：<code>DOMPurify.sanitize(html, {ALLOWED_TAGS: [...]})</code>。</li>
+<li>对 img 的 src 做域名白名单或代理转储为受控路径。</li>
+</ul>
+<p><strong>后端（Java）输出编码示例</strong>：</p>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.text.StringEscapeUtils;</span><br><span class="line"><span class="type">String</span> <span class="variable">safe</span> <span class="operator">=</span> StringEscapeUtils.escapeHtml4(userInput);</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>富文本仅允许必要标签（a、p、img、strong、em 等），禁止 script、iframe 等。</li>
+<li>对所有在 HTML 上直接渲染的字段做 escape 转义。</li>
+</ul>
+<hr>
+<h3 id="9-4-CSRF-与-CORS（防止跨站请求与跨域滥用）"><a href="#9-4-CSRF-与-CORS（防止跨站请求与跨域滥用）" class="headerlink" title="9.4 CSRF 与 CORS（防止跨站请求与跨域滥用）"></a>9.4 CSRF 与 CORS（防止跨站请求与跨域滥用）</h3><p><strong>CSRF 建议（Spring Security）</strong>：</p>
+<ul>
+<li>对表单提交启用 CSRF Token。</li>
+<li>对 REST API，可使用双重提交 Cookie（Cookie + 自定义 header）或在 Authorization header 中传递 token 并校验。</li>
+</ul>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http</span><br><span class="line">  .csrf()</span><br><span class="line">    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>CORS 建议</strong>：</p>
+<ul>
+<li>不要使用 <code>Access-Control-Allow-Origin: *</code>。</li>
+<li>在服务端列出允许的前端域名，启用 <code>allowCredentials(true)</code> 时严格匹配源。</li>
+</ul>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">registry.addMapping(<span class="string">&quot;/api/**&quot;</span>)</span><br><span class="line">        .allowedOrigins(<span class="string">&quot;https://frontend.example.com&quot;</span>)</span><br><span class="line">        .allowedMethods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;PUT&quot;</span>,<span class="string">&quot;DELETE&quot;</span>)</span><br><span class="line">        .allowCredentials(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>写操作必须验证 CSRF Token 或 Authorization header。</li>
+<li>检查 preflight 响应，仅在可信 origin 时返回允许跨域头。</li>
+</ul>
+<hr>
+<h3 id="9-5-授权校验（防止-IDOR）"><a href="#9-5-授权校验（防止-IDOR）" class="headerlink" title="9.5 授权校验（防止 IDOR）"></a>9.5 授权校验（防止 IDOR）</h3><p><strong>要点</strong>：服务端基于认证主体校验资源访问权限，前端逻辑仅作用户体验控制。</p>
+<p><strong>示例</strong>：</p>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping(&quot;/api/user/profile/&#123;id&#125;&quot;)</span></span><br><span class="line"><span class="keyword">public</span> ResponseEntity&lt;UserDto&gt; <span class="title function_">getProfile</span><span class="params">(<span class="meta">@PathVariable</span> Long id, Principal principal)</span> &#123;</span><br><span class="line">    <span class="type">Long</span> <span class="variable">loginUserId</span> <span class="operator">=</span> userService.getIdByUsername(principal.getName());</span><br><span class="line">    <span class="keyword">if</span> (!permissionService.canAccessUser(loginUserId, id)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(HttpStatus.FORBIDDEN).build();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">UserDto</span> <span class="variable">dto</span> <span class="operator">=</span> userService.findDtoById(id);</span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok(dto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>在控制层或服务层统一校验权限。</li>
+<li>对外接口返回的资源应掩码敏感字段，按最小权限原则展示数据。</li>
+<li>使用注解（<code>@PreAuthorize</code>）或 AOP 切面集中处理授权逻辑。</li>
+</ul>
+<hr>
+<h3 id="9-6-前端依赖与第三方库管理"><a href="#9-6-前端依赖与第三方库管理" class="headerlink" title="9.6 前端依赖与第三方库管理"></a>9.6 前端依赖与第三方库管理</h3><p><strong>要点</strong>：自动化依赖扫描与周期性升级。</p>
+<p><strong>实践建议</strong>：</p>
+<ul>
+<li>在 CI 中执行 <code>npm audit</code>、<code>npm ci</code>，对高危漏洞阻断发布。</li>
+<li>对后端使用 SCA 工具扫描 Maven&#x2F;Gradle 依赖。</li>
+</ul>
+<hr>
+<h3 id="9-7-文件上传（防止上传-WebShell）"><a href="#9-7-文件上传（防止上传-WebShell）" class="headerlink" title="9.7 文件上传（防止上传 WebShell）"></a>9.7 文件上传（防止上传 WebShell）</h3><p><strong>要点</strong>：文件类型检测、重命名、权限限制、隔离存储。</p>
+<p><strong>实现示例</strong>：</p>
+<div class="code-container" code-lang="Java"><div class="codebox"><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> UUID.randomUUID().toString() + <span class="string">&quot;.&quot;</span> + ext;</span><br><span class="line"><span class="type">Path</span> <span class="variable">saved</span> <span class="operator">=</span> baseDir.resolve(fileName);</span><br><span class="line">Files.copy(inputStream, saved);</span><br><span class="line">Files.setPosixFilePermissions(saved, PosixFilePermissions.fromString(<span class="string">&quot;rw-r--r--&quot;</span>));</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>使用 libmagic 或 Apache Tika 检测真实 MIME 类型。</li>
+<li>阻止危险扩展（.jsp .php .sh 等）。</li>
+<li>上传目录不放在 webroot 下，使用后端接口提供文件内容。</li>
+</ul>
+<hr>
+<h3 id="9-8-审计日志与告警"><a href="#9-8-审计日志与告警" class="headerlink" title="9.8 审计日志与告警"></a>9.8 审计日志与告警</h3><p><strong>要点</strong>：记录关键事件，建立告警规则。</p>
+<p><strong>建议日志字段</strong>：时间、请求者 ID、操作类型、目标资源、来源 IP、User-Agent、结果。</p>
+<p><strong>实现要点</strong>：</p>
+<ul>
+<li>将敏感操作（登录失败超过阈值、文件下载大于指定次数）纳入告警策略。</li>
+<li>审计日志单独存储并保护，不应对外可写。</li>
+</ul>
+<hr>
+<h3 id="9-9-回归验证与自动化测试"><a href="#9-9-回归验证与自动化测试" class="headerlink" title="9.9 回归验证与自动化测试"></a>9.9 回归验证与自动化测试</h3><p><strong>要点</strong>：修复后增加自动化回归用例并纳入 CI。</p>
+<p><strong>实践建议</strong>：</p>
+<ul>
+<li>单元测试覆盖授权与异常分支。</li>
+<li>集成测试模拟路径遍历、IDOR、XSS 用例。</li>
+<li>在 CI 中加入 SAST 与依赖扫描任务，阻断高危问题。</li>
+</ul>
+<hr>
+<h2 id="第10节-—-后续工作建议"><a href="#第10节-—-后续工作建议" class="headerlink" title="第10节 — 后续工作建议"></a>第10节 — 后续工作建议</h2><ul>
+<li>在隔离环境对每一项高危问题进行可重复复现并生成 PoC。</li>
+<li>修复后在 QA 环境进行回归测试并记录结果。</li>
+<li>在 CI&#x2F;CD 中加入静态安全扫描（SAST）、依赖安全扫描（SCA）与自动化回归测试。</li>
+<li>建议定期（季度）进行第三方依赖与镜像的安全评估。</li>
+</ul>
+<hr>
+<h2 id="第11节-—-附件与工具清单"><a href="#第11节-—-附件与工具清单" class="headerlink" title="第11节 — 附件与工具清单"></a>第11节 — 附件与工具清单</h2><ul>
+<li>工具：Burp Suite、OWASP ZAP、curl、httpie、sqlmap、nmap、jq</li>
+<li>脚本样例：见第7节中的 curl、Python 与 PoC HTML</li>
+<li>建议加入的 CI 步骤示例：<code>npm ci &amp;&amp; npm audit --audit-level=high</code>，<code>mvn -DskipTests clean package &amp;&amp; mvn dependency:tree</code></li>
+</ul>
+<hr>
+<h2 id="第12节-—-联系与声明"><a href="#第12节-—-联系与声明" class="headerlink" title="第12节 — 联系与声明"></a>第12节 — 联系与声明</h2><ul>
+<li>本文档为测试交付物，用于安全评估与修复指导。未经授权，切勿在生产环境执行破坏性操作。</li>
+<li>作者：测试团队</li>
+<li>测试时间：YYYY-MM-DD（请替换为实际测试日期）</li>
+</ul>
+<!-- 文档结束 -->
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/ruo_yi_3_8/">ruo_yi_3_8</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/ruo_yi_3_8/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/CTF/" rel="tag">CTF</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/shell%E5%8F%8D%E5%BC%B9/" title="shell反弹">上一篇<span>shell反弹</span></a><a class="post-nav-next" href="/2026/06/22/ssti%E6%A8%A1%E6%9D%BF&amp;vulhub%E6%90%AD%E5%BB%BA/" title="ssti模板&amp;vulhub搭建">下一篇<span>ssti模板&amp;vulhub搭建</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#RuoYi-3-8-2%EF%BC%88%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%EF%BC%89%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A"><span class="toc-list-text">RuoYi 3.8.2（前后端分离）渗透测试报告</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#1-%E6%8A%A5%E5%91%8A%E4%BF%A1%E6%81%AF"><span class="toc-list-text">1 报告信息</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#2-%E6%89%A7%E8%A1%8C%E6%91%98%E8%A6%81%EF%BC%88%E7%AE%80%E6%B4%81%EF%BC%89"><span class="toc-list-text">2 执行摘要（简洁）</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#3-%E8%8C%83%E5%9B%B4%E4%B8%8E%E9%99%90%E5%88%B6"><span class="toc-list-text">3 范围与限制</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#4-%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-list-text">4 测试环境</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#5-%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E4%B8%8E%E6%AD%A5%E9%AA%A4%E6%A6%82%E8%BF%B0"><span class="toc-list-text">5 测试方法与步骤概述</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#6-%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0%EF%BC%88%E6%8C%89%E9%A3%8E%E9%99%A9%E7%AD%89%E7%BA%A7%E5%88%86%E7%BB%84%EF%BC%89"><span class="toc-list-text">6 关键发现（按风险等级分组）</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E9%AB%98%E5%8D%B1%EF%BC%88%E9%9C%80%E7%AB%8B%E5%8D%B3%E5%A4%84%E7%90%86%EF%BC%89"><span class="toc-list-text">高危（需立即处理）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E4%B8%AD%E5%8D%B1%EF%BC%88%E4%BC%98%E5%85%88%E5%A4%84%E7%90%86%EF%BC%89"><span class="toc-list-text">中危（优先处理）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E4%BD%8E%E5%8D%B1%EF%BC%88%E8%AE%B0%E5%BD%95%E3%80%81%E9%95%BF%E6%9C%9F%E6%94%B9%E8%BF%9B%EF%BC%89"><span class="toc-list-text">低危（记录、长期改进）</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#7-%E8%AF%A6%E7%BB%86%E5%A4%8D%E7%8E%B0%E5%91%BD%E4%BB%A4%E4%B8%8E%E7%A4%BA%E4%BE%8B%E8%AF%B7%E6%B1%82%EF%BC%88%E4%BE%9B%E6%8A%80%E6%9C%AF%E5%A4%8D%E9%AA%8C%EF%BC%89"><span class="toc-list-text">7 详细复现命令与示例请求（供技术复验）</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-1-%E6%A3%80%E6%9F%A5-cookie-%E4%B8%8E%E7%99%BB%E5%BD%95%E8%AF%B7%E6%B1%82%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%8C%96-curl-%E4%B8%8E%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B%EF%BC%89"><span class="toc-list-text">7.1 检查 cookie 与登录请求（本地化 curl 与脚本示例）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-2-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-%E4%B8%8B%E8%BD%BD-%E6%B5%8B%E8%AF%95%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%8C%96%EF%BC%89"><span class="toc-list-text">7.2 任意文件读取 &#x2F; 下载 测试（本地化）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-3-XSS-%E6%B3%A8%E5%85%A5%E9%AA%8C%E8%AF%81%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%8C%96-POST-%E7%A4%BA%E4%BE%8B%EF%BC%89"><span class="toc-list-text">7.3 XSS 注入验证（本地化 POST 示例）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-4-CORS-%E4%B8%8E-CSRF-%E6%A3%80%E6%9F%A5%EF%BC%88%E6%9C%AC%E5%9C%B0%E5%8C%96%EF%BC%89"><span class="toc-list-text">7.4 CORS 与 CSRF 检查（本地化）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#7-5-IDOR-%E9%AA%8C%E8%AF%81%E7%A4%BA%E4%BE%8B%EF%BC%88%E6%9C%AC%E5%9C%B0%EF%BC%89"><span class="toc-list-text">7.5 IDOR 验证示例（本地）</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#8-%E9%A3%8E%E9%99%A9%E8%AF%84%E7%BA%A7%E8%AF%B4%E6%98%8E"><span class="toc-list-text">8 风险评级说明</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%AC%AC9%E8%8A%82-%E2%80%94-%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE%EF%BC%88%E8%AF%A6%E7%BB%86%EF%BC%8C%E5%8F%AF%E8%90%BD%E5%9C%B0%EF%BC%89"><span class="toc-list-text">第9节 — 修复建议（详细，可落地）</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-1-%E4%B8%8D%E5%9C%A8%E5%89%8D%E7%AB%AF%E6%88%96-Cookie-%E4%B8%AD%E4%BF%9D%E5%AD%98%E6%98%8E%E6%96%87%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%EF%BC%88%E4%BC%9A%E8%AF%9D%E4%B8%8E%E5%87%AD%E8%AF%81%E5%A4%84%E7%90%86%EF%BC%89"><span class="toc-list-text">9.1 不在前端或 Cookie 中保存明文敏感信息（会话与凭证处理）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-2-%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E8%B7%AF%E5%BE%84%E6%A0%A1%E9%AA%8C%E4%B8%8E%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%88%E9%98%B2%E6%AD%A2%E8%B7%AF%E5%BE%84%E9%81%8D%E5%8E%86%E3%80%81%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96%EF%BC%89"><span class="toc-list-text">9.2 文件下载路径校验与白名单（防止路径遍历、任意文件读取）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-3-XSS-%E9%98%B2%E6%8A%A4%EF%BC%88%E8%BE%93%E5%85%A5%E7%99%BD%E5%90%8D%E5%8D%95-%E8%BE%93%E5%87%BA%E7%BC%96%E7%A0%81%EF%BC%89"><span class="toc-list-text">9.3 XSS 防护（输入白名单 + 输出编码）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-4-CSRF-%E4%B8%8E-CORS%EF%BC%88%E9%98%B2%E6%AD%A2%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%B7%A8%E5%9F%9F%E6%BB%A5%E7%94%A8%EF%BC%89"><span class="toc-list-text">9.4 CSRF 与 CORS（防止跨站请求与跨域滥用）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-5-%E6%8E%88%E6%9D%83%E6%A0%A1%E9%AA%8C%EF%BC%88%E9%98%B2%E6%AD%A2-IDOR%EF%BC%89"><span class="toc-list-text">9.5 授权校验（防止 IDOR）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-6-%E5%89%8D%E7%AB%AF%E4%BE%9D%E8%B5%96%E4%B8%8E%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93%E7%AE%A1%E7%90%86"><span class="toc-list-text">9.6 前端依赖与第三方库管理</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-7-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%EF%BC%88%E9%98%B2%E6%AD%A2%E4%B8%8A%E4%BC%A0-WebShell%EF%BC%89"><span class="toc-list-text">9.7 文件上传（防止上传 WebShell）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-8-%E5%AE%A1%E8%AE%A1%E6%97%A5%E5%BF%97%E4%B8%8E%E5%91%8A%E8%AD%A6"><span class="toc-list-text">9.8 审计日志与告警</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#9-9-%E5%9B%9E%E5%BD%92%E9%AA%8C%E8%AF%81%E4%B8%8E%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95"><span class="toc-list-text">9.9 回归验证与自动化测试</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%AC%AC10%E8%8A%82-%E2%80%94-%E5%90%8E%E7%BB%AD%E5%B7%A5%E4%BD%9C%E5%BB%BA%E8%AE%AE"><span class="toc-list-text">第10节 — 后续工作建议</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%AC%AC11%E8%8A%82-%E2%80%94-%E9%99%84%E4%BB%B6%E4%B8%8E%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95"><span class="toc-list-text">第11节 — 附件与工具清单</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E7%AC%AC12%E8%8A%82-%E2%80%94-%E8%81%94%E7%B3%BB%E4%B8%8E%E5%A3%B0%E6%98%8E"><span class="toc-list-text">第12节 — 联系与声明</span></a></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/ruo_yi_3_8/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

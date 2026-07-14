@@ -1,0 +1,564 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="学习,技巧"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="第01章附录：C开发利器：CLion的使用 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="第01章附录：C开发利器：CLion的使用 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/第01章附录：C开发利器：CLion的使用/"/><meta name="description" content="C开发利器：CLion的使用讲师：尚硅谷-宋红康（江湖人称：康师傅） 官网：http:&#x2F;&#x2F;www.atguigu.com  1. 认识CLion1.1 JetBrains  公司介绍CLion，是 JetBrains (https:&#x2F;&#x2F;www.jetbrains.com&#x2F;)公司的产品，该公司成立于2000年，总部位于捷克的布拉格，致力于为开发者打造最高效智能的开发工具。   公司旗下的各种产...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第01章附录：C开发利器：CLion的使用 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="C开发利器：CLion的使用讲师：尚硅谷-宋红康（江湖人称：康师傅） 官网：http:&#x2F;&#x2F;www.atguigu.com  1. 认识CLion1.1 JetBrains  公司介绍CLion，是 JetBrains (https:&#x2F;&#x2F;www.jetbrains.com&#x2F;)公司的产品，该公司成立于2000年，总部位于捷克的布拉格，致力于为开发者打造最高效智能的开发工具。   公司旗下的各种产...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:41.972Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="技巧">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>第01章附录：C开发利器：CLion的使用 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">第01章附录：C开发利器：CLion的使用</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="C开发利器：CLion的使用"><a href="#C开发利器：CLion的使用" class="headerlink" title="C开发利器：CLion的使用"></a>C开发利器：CLion的使用</h1><p>讲师：尚硅谷-宋红康（江湖人称：康师傅）</p>
+<p>官网：<a target="_blank" rel="noopener" href="http://www.atguigu.com/">http://www.atguigu.com</a></p>
+<hr>
+<h2 id="1-认识CLion"><a href="#1-认识CLion" class="headerlink" title="1. 认识CLion"></a>1. 认识CLion</h2><h3 id="1-1-JetBrains-公司介绍"><a href="#1-1-JetBrains-公司介绍" class="headerlink" title="1.1 JetBrains  公司介绍"></a>1.1 JetBrains  公司介绍</h3><p>CLion，是 JetBrains (<a target="_blank" rel="noopener" href="https://www.jetbrains.com/)%E5%85%AC%E5%8F%B8%E7%9A%84%E4%BA%A7%E5%93%81%EF%BC%8C%E8%AF%A5%E5%85%AC%E5%8F%B8%E6%88%90%E7%AB%8B%E4%BA%8E2000%E5%B9%B4%EF%BC%8C%E6%80%BB%E9%83%A8%E4%BD%8D%E4%BA%8E%E6%8D%B7%E5%85%8B%E7%9A%84%E5%B8%83%E6%8B%89%E6%A0%BC%EF%BC%8C%E8%87%B4%E5%8A%9B%E4%BA%8E%E4%B8%BA%E5%BC%80%E5%8F%91%E8%80%85%E6%89%93%E9%80%A0%E6%9C%80%E9%AB%98%E6%95%88%E6%99%BA%E8%83%BD%E7%9A%84%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E3%80%82">https://www.jetbrains.com/)公司的产品，该公司成立于2000年，总部位于捷克的布拉格，致力于为开发者打造最高效智能的开发工具。</a></p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692692710108.png"  alt="1692692710108" style="zoom:80%;" >
+
+<p>公司旗下的各种产品：</p>
+<ul>
+<li>CLion：用于开发 C&#x2F;C++</li>
+<li>IDEA：用于开发 Java</li>
+<li>PyCharm：用于开发 python</li>
+</ul>
+<ul>
+<li>WebStorm：用于开发 JavaScript、HTML5、CSS3 等前端技术</li>
+<li>PhpStorm：用于开发 PHP</li>
+<li>RubyMine：用于开发 Ruby&#x2F;Rails</li>
+<li>AppCode：用于开发 Objective - C&#x2F;Swift</li>
+<li>DataGrip：用于开发数据库和 SQL</li>
+<li>Rider：用于开发.NET</li>
+<li>GoLand：用于开发 Go</li>
+</ul>
+<h3 id="1-2-CLion-介绍"><a href="#1-2-CLion-介绍" class="headerlink" title="1.2 CLion 介绍"></a>1.2 CLion 介绍</h3><p>Clion是一款专门开发C以及C++所设计的跨平台的集成开发环境(IDE)。它是以IntelliJ为基础设计的，包含了许多智能功能来提高开发人员的生产力。这种强大的IDE帮助开发人员在Linux、OS X和Windows上来开发C&#x2F;C++，同时它还能使用智能编辑器来提高代码质量、自动代码重构并且深度整合Cmake编译系统，从而提高开发人员的工作效率。</p>
+<h3 id="1-3-Clion-的下载"><a href="#1-3-Clion-的下载" class="headerlink" title="1.3 Clion  的下载"></a>1.3 Clion  的下载</h3><ul>
+<li><p>下载网址： <a target="_blank" rel="noopener" href="https://www.jetbrains.com/clion/download/#section=windows">https://www.jetbrains.com/clion/download/#section=windows</a></p>
+</li>
+<li><p>Clion 目前没有 <code>社区版(Community)</code>。</p>
+</li>
+</ul>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692685638894.png"  alt="1692685638894"></p>
+<p>官网提供的详细使用文档：<br><a target="_blank" rel="noopener" href="https://www.jetbrains.com.cn/clion/features/">https://www.jetbrains.com.cn/clion/features/</a></p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><h3 id="2-1-安装前的准备"><a href="#2-1-安装前的准备" class="headerlink" title="2.1 安装前的准备"></a>2.1 安装前的准备</h3><ul>
+<li>64 位 Microsoft Windows 11、10、8</li>
+<li>最低 2 GB 可用 RAM，推荐 8 GB 系统总 RAM</li>
+<li>3.5 GB 硬盘空间，推荐 至少5G的SSD硬盘</li>
+<li>最低屏幕分辨率 1024x768，推荐1920×1080</li>
+</ul>
+<h3 id="2-2-安装过程"><a href="#2-2-安装过程" class="headerlink" title="2.2 安装过程"></a>2.2 安装过程</h3><p>1、下载完安装包，双击直接安装<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692685747275.png"  alt="1692685747275"></p>
+<p>2、欢迎安装</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692685818554.png"  alt="1692685818554"></p>
+<p>4、选择安装目录</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692685875043.png"  alt="1692685875043"></p>
+<p>选择安装目录，目录中要避免中文和空格。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692685853085.png"  alt="1692685853085"></p>
+<p>5、创建桌面快捷图标等</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692686073729.png"  alt="1692686073729"></p>
+<p>确认是否与.c、.h、.cpp格式文件进行关联。这里建议不关联。</p>
+<p>6、在【开始】菜单新建一个文件夹（这里需要确认文件夹的名称），来管理CLion的相关内容。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692686114854.png"  alt="1692686114854"></p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692686134454.png"  alt="1692686134454"></p>
+<p>7、完成安装</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692686267537.png"  alt="1692686267537"></p>
+<p>8、双击打开</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692686314524.png"  alt="1692686314524"></p>
+<p>9、选择“Do not import settings”，点击“OK”按钮</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686365691.png"  alt="1692686365691" style="zoom:80%;" >
+
+<p>10、如图所示，需要激活CLion</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686434862.png"  alt="1692686434862" style="zoom: 80%;" >
+
+<h3 id="2-3-注册"><a href="#2-3-注册" class="headerlink" title="2.3 注册"></a>2.3 注册</h3><ul>
+<li><p>选择1：适用30天。在CLion版本中，需要先登录，才能开启试用。</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686513431.png"  alt="1692686513431" style="zoom:80%;" >
+</li>
+<li><p>选择2：付费购买旗舰版</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686556166.png"  alt="1692686556166" style="zoom:80%;" >
+
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686590056.png"  alt="1692686590056" style="zoom: 67%;" >
+</li>
+<li><p>选择3：（推荐）</p>
+<ul>
+<li>大家参照《<code>02-软件\CLion-2022.1.3安装包\CLion注册文档\CLion注册文档.docx</code>》操作即可。</li>
+<li>由于存在时效性，如果失效，大家可以自行搜索注册方式即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-HelloWorld的实现"><a href="#3-HelloWorld的实现" class="headerlink" title="3. HelloWorld的实现"></a>3. HelloWorld的实现</h2><h3 id="3-1-新建Project"><a href="#3-1-新建Project" class="headerlink" title="3.1 新建Project"></a>3.1 新建Project</h3><p>选择”New Project”：</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692686679397.png"  alt="1692686679397" style="zoom:80%;" >
+
+<p>指定创建C可执行文件、工程目录，图中的“untitled1”需要修改为自己的工程名称。如下所示：</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692687949240.png"  alt="1692687949240" style="zoom:80%;" >
+
+<p>选择C可执行文件，修改工程名称为demo1</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692687854607.png"  alt="1692687854607" style="zoom:80%;" >
+
+<p>点击“Create”进行下一步，如图所示</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692688033686.png"  alt="1692688033686" style="zoom:80%;" >
+
+<p>此处选择编译器，默认MinGW即可，点击“OK”按钮，如图所示，默认创建了main.c文件。</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692688090496.png"  alt="1692688090496" style="zoom:67%;" >
+
+<h3 id="3-2-运行"><a href="#3-2-运行" class="headerlink" title="3.2 运行"></a>3.2 运行</h3><p>点击执行按钮，如下所示</p>
+<img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692688278731.png"  alt="1692688278731" style="zoom: 67%;" >
+
+
+
+<h2 id="4-详细设置"><a href="#4-详细设置" class="headerlink" title="4. 详细设置"></a>4. 详细设置</h2><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823143234863.png"  alt="image-20230823143234863"></p>
+<p>CLion的设置都在 File - Settings 中进行。</p>
+<h3 id="4-1-设置整体主题"><a href="#4-1-设置整体主题" class="headerlink" title="4.1 设置整体主题"></a>4.1 设置整体主题</h3><h4 id="1、选择主题"><a href="#1、选择主题" class="headerlink" title="1、选择主题"></a>1、选择主题</h4><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823143412251.png"  alt="image-20230823143412251"></p>
+<h4 id="2、设置菜单和窗口字体和大小"><a href="#2、设置菜单和窗口字体和大小" class="headerlink" title="2、设置菜单和窗口字体和大小"></a>2、设置菜单和窗口字体和大小</h4><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823143554720.png"  alt="image-20230823143554720"></p>
+<h3 id="4-2-设置编辑器主题样式"><a href="#4-2-设置编辑器主题样式" class="headerlink" title="4.2 设置编辑器主题样式"></a>4.2 设置编辑器主题样式</h3><h4 id="1、字体大小"><a href="#1、字体大小" class="headerlink" title="1、字体大小"></a>1、字体大小</h4><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1655136907073.png"  alt="1655136907073"></p>
+<p>更详细的字体与颜色如下：</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823144141946.png"  alt="image-20230823144141946"></p>
+<blockquote>
+<p>温馨提示：如果选择某个font字体，中文乱码，可以在fallback font（备选字体）中选择一个支持中文的字体。</p>
+</blockquote>
+<h4 id="2、注释的字体颜色"><a href="#2、注释的字体颜色" class="headerlink" title="2、注释的字体颜色"></a>2、注释的字体颜色</h4><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20220616121435182.png"  alt="image-20220616121435182"></p>
+<ul>
+<li>Block comment：修改多行注释的字体颜色</li>
+<li>Doc Comment –&gt; Text：修改文档注释的字体颜色</li>
+<li>Line comment：修改单行注释的字体颜色</li>
+</ul>
+<h3 id="4-3-代码智能提示功能"><a href="#4-3-代码智能提示功能" class="headerlink" title="4.3 代码智能提示功能"></a>4.3 代码智能提示功能</h3><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1655137649491.png"  alt="1655137649491"></p>
+<p>代码提示和补充功能有一个特性：<code>区分大小写</code>。 如果想不区分大小写的话，就把这个对勾去掉。<code>建议去掉勾选</code>。</p>
+<h3 id="4-4-设置项目文件编码（一定要改）"><a href="#4-4-设置项目文件编码（一定要改）" class="headerlink" title="4.4 设置项目文件编码（一定要改）"></a>4.4 设置项目文件编码（一定要改）</h3><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20220615190832482.png"  alt="image-20220615190832482"></p>
+<p>说明： Transparent native-to-ascii conversion主要用于转换ascii，显式原生内容。一般都要勾选。</p>
+<h3 id="4-5-设置控制台的字符编码"><a href="#4-5-设置控制台的字符编码" class="headerlink" title="4.5 设置控制台的字符编码"></a>4.5 设置控制台的字符编码</h3><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823144626692.png"  alt="image-20230823144626692"></p>
+<h2 id="5-插件的使用-重要"><a href="#5-插件的使用-重要" class="headerlink" title="5. 插件的使用(重要)"></a>5. 插件的使用(重要)</h2><p><strong>1、为何安装C&#x2F;C++ Single File Execution插件？</strong></p>
+<p>前面已经创建了一个demo1工程，项目文件夹内存在一个代码文件，名为<code>main.c</code>。如果再创建一个C源文件，内部如果也包含main()函数，则会报错！因为默认C工程下只能有一个main()函数。如何解决此问题呢？</p>
+<p>2、安装并测试</p>
+<p>1）在 File - Settings - Plugins 中搜索 <code>C/C++ Single File Execution</code> 插件并安装</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/image-20230823145107293.png"  alt="image-20230823145107293"></p>
+<p>2）在需要运行的代码中右键，点击 Add executable for single c&#x2F;cpp file</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692774502830.png"  alt="1692774502830"></p>
+<p>3）此时可以在 Cmakelists.text 文件中看到多出的这一行代码，这就是插件帮我们完成的事情</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692774556495.png"  alt="1692774556495"></p>
+<p>4）右键项目文件夹，点击 Reload CMake Project 进行刷新</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692774575597.png"  alt="1692774575597"></p>
+<p>5）此时右上角标签处已经增加了我们的文件选项，选择需要的标签</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692774598633.png"  alt="1692774598633"></p>
+<p>6）点击小三角，或右键代码处点击 Run 选项，即可运行代码。</p>
+<p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/images/1692774678384.png"  alt="1692774678384"></p>
+<p>7）在该工程下创建main2.c文件，文件中的代码如下所示，执行上面相同的步骤。</p>
+<div class="code-container" code-lang="C"><div class="codebox"><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello, World2!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>可以发现一个工程中允许存在多个main方法了，而且可以独立允许。</p>
+<h2 id="6-快捷键的使用"><a href="#6-快捷键的使用" class="headerlink" title="6. 快捷键的使用"></a>6. 快捷键的使用</h2><h3 id="6-1-常用快捷键"><a href="#6-1-常用快捷键" class="headerlink" title="6.1 常用快捷键"></a>6.1 常用快捷键</h3><h4 id="第1组：通用型"><a href="#第1组：通用型" class="headerlink" title="第1组：通用型"></a>第1组：通用型</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>复制代码-copy</td>
+<td>ctrl + c</td>
+</tr>
+<tr>
+<td>粘贴-paste</td>
+<td>ctrl + v</td>
+</tr>
+<tr>
+<td>剪切-cut</td>
+<td>ctrl + x</td>
+</tr>
+<tr>
+<td>撤销-undo</td>
+<td>ctrl + z</td>
+</tr>
+<tr>
+<td>反撤销-redo</td>
+<td>ctrl + shift + z</td>
+</tr>
+<tr>
+<td>保存-save all</td>
+<td>ctrl + s</td>
+</tr>
+<tr>
+<td>全选-select all</td>
+<td>ctrl + a</td>
+</tr>
+</tbody></table></div>
+<h4 id="第2组：提高编写速度（上）"><a href="#第2组：提高编写速度（上）" class="headerlink" title="第2组：提高编写速度（上）"></a>第2组：提高编写速度（上）</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>提示代码模板-insert live template</td>
+<td>ctrl+j</td>
+</tr>
+<tr>
+<td>使用xx块环绕-surround with …</td>
+<td>ctrl+alt+t</td>
+</tr>
+<tr>
+<td>调出生成getter&#x2F;setter&#x2F;构造器等结构-generate …</td>
+<td>alt+insert</td>
+</tr>
+<tr>
+<td>自动生成返回值变量-introduce variable …</td>
+<td>ctrl+alt+v</td>
+</tr>
+<tr>
+<td>复制指定行的代码-duplicate line or selection</td>
+<td>ctrl+d</td>
+</tr>
+<tr>
+<td>删除指定行的代码-delete line</td>
+<td>ctrl+y</td>
+</tr>
+<tr>
+<td>切换到下一行代码空位-start new line</td>
+<td>shift + enter</td>
+</tr>
+<tr>
+<td>切换到上一行代码空位-start new line before current</td>
+<td>ctrl +alt+ enter</td>
+</tr>
+<tr>
+<td>向上移动代码-move statement up</td>
+<td>ctrl+shift+↑</td>
+</tr>
+<tr>
+<td>向下移动代码-move statement down</td>
+<td>ctrl+shift+↓</td>
+</tr>
+<tr>
+<td>向上移动一行-move line up</td>
+<td>alt+shift+↑</td>
+</tr>
+<tr>
+<td>向下移动一行-move line down</td>
+<td>alt+shift+↓</td>
+</tr>
+</tbody></table></div>
+<h4 id="第3组：提高编写速度（下）"><a href="#第3组：提高编写速度（下）" class="headerlink" title="第3组：提高编写速度（下）"></a>第3组：提高编写速度（下）</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>批量修改指定的变量名、方法名、类名等-rename</td>
+<td>shift+f6</td>
+</tr>
+<tr>
+<td>抽取代码重构方法-extract method …</td>
+<td>ctrl+alt+m</td>
+</tr>
+<tr>
+<td>选中的结构的大小写的切换-toggle case</td>
+<td>ctrl+shift+u</td>
+</tr>
+</tbody></table></div>
+<h4 id="第4组：类结构、查找和查看源码"><a href="#第4组：类结构、查找和查看源码" class="headerlink" title="第4组：类结构、查找和查看源码"></a>第4组：类结构、查找和查看源码</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>退回到前一个编辑的页面-back</td>
+<td>ctrl+alt+←</td>
+</tr>
+<tr>
+<td>进入到下一个编辑的页面-forward</td>
+<td>ctrl+alt+→</td>
+</tr>
+<tr>
+<td>打开的类文件之间切换-select previous&#x2F;next tab</td>
+<td>alt+←&#x2F;→</td>
+</tr>
+<tr>
+<td>定位某行-go to line&#x2F;column</td>
+<td>ctrl+g</td>
+</tr>
+<tr>
+<td>回溯变量或方法的来源-go to implementation(s)</td>
+<td>ctrl+alt+b</td>
+</tr>
+<tr>
+<td>折叠方法实现-collapse all</td>
+<td>ctrl+shift+ -</td>
+</tr>
+<tr>
+<td>展开方法实现-expand all</td>
+<td>ctrl+shift+ +</td>
+</tr>
+</tbody></table></div>
+<h4 id="第5组：查找、替换与关闭"><a href="#第5组：查找、替换与关闭" class="headerlink" title="第5组：查找、替换与关闭"></a>第5组：查找、替换与关闭</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查找指定的结构</td>
+<td>ctlr+f</td>
+</tr>
+<tr>
+<td>快速查找：选中的Word快速定位到下一个-find next</td>
+<td>ctrl+l</td>
+</tr>
+<tr>
+<td>查找与替换-replace</td>
+<td>ctrl+r</td>
+</tr>
+<tr>
+<td>直接定位到当前行的首位-move caret to line start</td>
+<td>home</td>
+</tr>
+<tr>
+<td>直接定位到当前行的末位 -move caret to line end</td>
+<td>end</td>
+</tr>
+<tr>
+<td>查询当前元素在当前文件中的引用，然后按 F3 可以选择</td>
+<td>ctrl+f7</td>
+</tr>
+<tr>
+<td>全项目搜索文本-find in path …</td>
+<td>ctrl+shift+f</td>
+</tr>
+<tr>
+<td>关闭当前窗口-close</td>
+<td>ctrl+f4</td>
+</tr>
+</tbody></table></div>
+<h4 id="第6组：调整格式"><a href="#第6组：调整格式" class="headerlink" title="第6组：调整格式"></a>第6组：调整格式</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>格式化代码-reformat code</td>
+<td>ctrl+alt+l</td>
+</tr>
+<tr>
+<td>使用单行注释-comment with line comment</td>
+<td>ctrl + &#x2F;</td>
+</tr>
+<tr>
+<td>使用&#x2F;取消多行注释-comment with block comment</td>
+<td>ctrl + shift + &#x2F;</td>
+</tr>
+<tr>
+<td>选中数行，整体往后移动-tab</td>
+<td>tab</td>
+</tr>
+<tr>
+<td>选中数行，整体往前移动-prev tab</td>
+<td>shift + tab</td>
+</tr>
+</tbody></table></div>
+<h4 id="第7组-Debug快捷键"><a href="#第7组-Debug快捷键" class="headerlink" title="第7组-Debug快捷键"></a>第7组-Debug快捷键</h4><div class="table-container"><table>
+<thead>
+<tr>
+<th>说明</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单步调试（不进入函数内部）- step over</td>
+<td>F8</td>
+</tr>
+<tr>
+<td>单步调试（进入函数内部）- step into</td>
+<td>F7</td>
+</tr>
+<tr>
+<td>强制单步调试（进入函数内部） - force step into</td>
+<td>alt+shift+f7</td>
+</tr>
+<tr>
+<td>选择要进入的函数 - smart step into</td>
+<td>shift + F7</td>
+</tr>
+<tr>
+<td>跳出函数 - step out</td>
+<td>shift + F8</td>
+</tr>
+<tr>
+<td>运行到断点 - run to cursor</td>
+<td>alt + F9</td>
+</tr>
+<tr>
+<td>继续执行，进入下一个断点或执行完程序 - resume program</td>
+<td>F9</td>
+</tr>
+<tr>
+<td>停止 - stop</td>
+<td>Ctrl+F2</td>
+</tr>
+<tr>
+<td>查看断点 - view breakpoints</td>
+<td>Ctrl+Shift+F8</td>
+</tr>
+<tr>
+<td>关闭 - close</td>
+<td>Ctrl+F4</td>
+</tr>
+</tbody></table></div>
+<h3 id="6-2-查看快捷键"><a href="#6-2-查看快捷键" class="headerlink" title="6.2 查看快捷键"></a>6.2 查看快捷键</h3><h4 id="1、已知快捷键操作名，未知快捷键"><a href="#1、已知快捷键操作名，未知快捷键" class="headerlink" title="1、已知快捷键操作名，未知快捷键"></a>1、已知快捷键操作名，未知快捷键</h4><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692752261713.png"  alt="1692752261713" style="zoom:80%;" >
+
+<h4 id="2、已知快捷键，不知道对应的操作名"><a href="#2、已知快捷键，不知道对应的操作名" class="headerlink" title="2、已知快捷键，不知道对应的操作名"></a>2、已知快捷键，不知道对应的操作名</h4><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692752357783.png"  alt="1692752357783" style="zoom: 70%;" >
+
+<h3 id="6-3-自定义快捷键"><a href="#6-3-自定义快捷键" class="headerlink" title="6.3 自定义快捷键"></a>6.3 自定义快捷键</h3><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="images/1692752523743.png"  alt="1692752523743" style="zoom:80%;" >
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/">第01章附录：C开发利器：CLion的使用</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/%E6%B5%8B%E8%AF%95%E9%A2%98%E5%9B%9B_wp/" title="测试题四_wp">上一篇<span>测试题四_wp</span></a><a class="post-nav-next" href="/2026/06/22/%E7%AC%AC01%E7%AB%A0_C%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/" title="第01章_C语言入门">下一篇<span>第01章_C语言入门</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#C%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-list-text">C开发利器：CLion的使用</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#1-%E8%AE%A4%E8%AF%86CLion"><span class="toc-list-text">1. 认识CLion</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1-1-JetBrains-%E5%85%AC%E5%8F%B8%E4%BB%8B%E7%BB%8D"><span class="toc-list-text">1.1 JetBrains  公司介绍</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1-2-CLion-%E4%BB%8B%E7%BB%8D"><span class="toc-list-text">1.2 CLion 介绍</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#1-3-Clion-%E7%9A%84%E4%B8%8B%E8%BD%BD"><span class="toc-list-text">1.3 Clion  的下载</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#2-%E5%AE%89%E8%A3%85"><span class="toc-list-text">2. 安装</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-1-%E5%AE%89%E8%A3%85%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-list-text">2.1 安装前的准备</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-2-%E5%AE%89%E8%A3%85%E8%BF%87%E7%A8%8B"><span class="toc-list-text">2.2 安装过程</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#2-3-%E6%B3%A8%E5%86%8C"><span class="toc-list-text">2.3 注册</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#3-HelloWorld%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-list-text">3. HelloWorld的实现</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-1-%E6%96%B0%E5%BB%BAProject"><span class="toc-list-text">3.1 新建Project</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#3-2-%E8%BF%90%E8%A1%8C"><span class="toc-list-text">3.2 运行</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#4-%E8%AF%A6%E7%BB%86%E8%AE%BE%E7%BD%AE"><span class="toc-list-text">4. 详细设置</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-1-%E8%AE%BE%E7%BD%AE%E6%95%B4%E4%BD%93%E4%B8%BB%E9%A2%98"><span class="toc-list-text">4.1 设置整体主题</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-2-%E8%AE%BE%E7%BD%AE%E7%BC%96%E8%BE%91%E5%99%A8%E4%B8%BB%E9%A2%98%E6%A0%B7%E5%BC%8F"><span class="toc-list-text">4.2 设置编辑器主题样式</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-3-%E4%BB%A3%E7%A0%81%E6%99%BA%E8%83%BD%E6%8F%90%E7%A4%BA%E5%8A%9F%E8%83%BD"><span class="toc-list-text">4.3 代码智能提示功能</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-4-%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%BC%96%E7%A0%81%EF%BC%88%E4%B8%80%E5%AE%9A%E8%A6%81%E6%94%B9%EF%BC%89"><span class="toc-list-text">4.4 设置项目文件编码（一定要改）</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#4-5-%E8%AE%BE%E7%BD%AE%E6%8E%A7%E5%88%B6%E5%8F%B0%E7%9A%84%E5%AD%97%E7%AC%A6%E7%BC%96%E7%A0%81"><span class="toc-list-text">4.5 设置控制台的字符编码</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#5-%E6%8F%92%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8-%E9%87%8D%E8%A6%81"><span class="toc-list-text">5. 插件的使用(重要)</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#6-%E5%BF%AB%E6%8D%B7%E9%94%AE%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-list-text">6. 快捷键的使用</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#6-1-%E5%B8%B8%E7%94%A8%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-list-text">6.1 常用快捷键</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#6-2-%E6%9F%A5%E7%9C%8B%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-list-text">6.2 查看快捷键</span></a></li><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#6-3-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-list-text">6.3 自定义快捷键</span></a></li></ol></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/%E7%AC%AC01%E7%AB%A0%E9%99%84%E5%BD%95%EF%BC%9AC%E5%BC%80%E5%8F%91%E5%88%A9%E5%99%A8%EF%BC%9ACLion%E7%9A%84%E4%BD%BF%E7%94%A8/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>

